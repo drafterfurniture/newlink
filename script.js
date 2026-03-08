@@ -1,76 +1,69 @@
-// PORTFOLIO
+let cart=[]
 
-fetch("data/portfolio.json")
+function updateCart(){
+
+document.getElementById("cart-count").innerText=cart.length
+
+}
+
+function addToCart(product){
+
+cart.push(product)
+
+updateCart()
+
+}
+
+document.getElementById("cart-btn").onclick=()=>{
+
+document.getElementById("cart-modal").style.display="flex"
+
+renderCart()
+
+}
+
+function renderCart(){
+
+let el=document.getElementById("cart-items")
+
+el.innerHTML=""
+
+cart.forEach(p=>{
+
+let div=document.createElement("div")
+
+div.innerText=p.title
+
+el.appendChild(div)
+
+})
+
+}
+
+document.getElementById("checkout").onclick=()=>{
+
+let text="Order:%0A"
+
+cart.forEach(p=>{
+
+text+=p.title+"%0A"
+
+})
+
+window.open("https://wa.me/628000000?text="+text)
+
+}
+
+
+// LOAD PRODUCTS
+
+fetch("data/products/wardrobe.json")
+
 .then(r=>r.json())
-.then(items=>{
 
-const grid=document.getElementById("portfolio-grid")
+.then(p=>{
 
-items.forEach(p=>{
-
-let img=document.createElement("img")
-
-img.src=p.images[0]
-
-img.onclick=()=>openPortfolio(p)
-
-grid.appendChild(img)
-
-})
-
-})
-
-function openPortfolio(p){
-
-document.getElementById("portfolio-modal").style.display="flex"
-
-document.getElementById("portfolio-main").src=p.images[0]
-
-document.getElementById("portfolio-title").innerText=p.title
-document.getElementById("portfolio-category").innerText=p.category
-document.getElementById("portfolio-desc").innerText=p.desc
-
-document.getElementById("portfolio-demo").href=p.demo
-document.getElementById("portfolio-contact").href=p.contact
-
-let thumbs=document.getElementById("portfolio-thumbs")
-
-thumbs.innerHTML=""
-
-p.images.forEach(img=>{
-
-let t=document.createElement("img")
-
-t.src=img
-
-t.onclick=()=>{
-
-document.getElementById("portfolio-main").src=img
-
-}
-
-thumbs.appendChild(t)
-
-})
-
-}
-
-document.getElementById("close-portfolio").onclick=()=>{
-
-document.getElementById("portfolio-modal").style.display="none"
-
-}
-
-
-// PRODUCTS
-
-fetch("data/products.json")
-.then(r=>r.json())
-.then(products=>{
-
-const grid=document.getElementById("product-grid")
-
-products.forEach(p=>{
+let grid=document.getElementById("product-grid")
 
 let card=document.createElement("div")
 
@@ -80,86 +73,35 @@ card.innerHTML=`
 
 <img src="${p.images[0]}">
 
-<div class="product-title">${p.title}</div>
+<h4>${p.title}</h4>
 
-<div class="product-price">${p.price}</div>
+<p>${p.price}</p>
+
+<button class="btn">Add to Cart</button>
 
 `
 
-card.onclick=()=>openProduct(p)
+card.querySelector("button").onclick=()=>addToCart(p)
 
 grid.appendChild(card)
 
 })
 
-})
 
-function openProduct(p){
+// LOAD PORTFOLIO
 
-document.getElementById("product-modal").style.display="flex"
+fetch("data/portfolio/kitchen.json")
 
-document.getElementById("product-main").src=p.images[0]
-
-document.getElementById("product-title").innerText=p.title
-document.getElementById("product-price").innerText=p.price
-document.getElementById("product-desc").innerText=p.desc
-
-document.getElementById("product-demo").href=p.demo
-document.getElementById("product-buy").href=p.buy
-
-let thumbs=document.getElementById("product-thumbs")
-
-thumbs.innerHTML=""
-
-p.images.forEach(img=>{
-
-let t=document.createElement("img")
-
-t.src=img
-
-t.onclick=()=>{
-
-document.getElementById("product-main").src=img
-
-}
-
-thumbs.appendChild(t)
-
-})
-
-}
-
-document.getElementById("close-product").onclick=()=>{
-
-document.getElementById("product-modal").style.display="none"
-
-}
-
-
-// ARTICLES
-
-fetch("data/articles.json")
 .then(r=>r.json())
-.then(articles=>{
 
-const list=document.getElementById("article-list")
+.then(p=>{
 
-articles.forEach(a=>{
+let grid=document.getElementById("portfolio-grid")
 
-let el=document.createElement("div")
+let img=document.createElement("img")
 
-el.className="article"
+img.src=p.images[0]
 
-el.innerHTML=`
-
-<div class="article-title">${a.title}</div>
-
-<div class="article-desc">${a.desc}</div>
-
-`
-
-list.appendChild(el)
-
-})
+grid.appendChild(img)
 
 })
