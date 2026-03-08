@@ -8,41 +8,58 @@
 
 <title>Customin</title>
 
-<meta name="description" content="Portfolio, produk dan artikel custom furniture.">
-
 <link rel="stylesheet" href="style.css">
-
-<script defer src="https://unpkg.com/lucide@latest"></script>
 
 </head>
 
 <body>
 
-<main class="container">
-
-<!-- HEADER -->
-
-<header class="hero">
-
-<div class="hero-card">
-
-<img src="avatar.jpg" class="hero-avatar">
+<header class="topbar">
 
 <h1>Customin</h1>
 
-<p>Custom furniture • Kayu • Aluminium</p>
+<div class="menu">
+
+<a href="blog.html">Blog</a>
+
+<button id="cart-btn">
+Cart (<span id="cart-count">0</span>)
+</button>
 
 </div>
 
 </header>
 
+
+<section class="hero">
+
+<img src="avatar.jpg" class="avatar">
+
+<h2>Custom Furniture</h2>
+
+<p>Kayu • Aluminium • Interior</p>
+
+</section>
+
+
+<!-- LINK BUTTONS -->
+
+<section class="links">
+
+<a class="link-btn" href="#">Website</a>
+<a class="link-btn" href="#">Instagram</a>
+<a class="link-btn" href="#">WhatsApp</a>
+
+</section>
+
+
 <!-- PORTFOLIO -->
 
 <section>
 
-<h2>Portfolio</h2>
+<h3>Portfolio</h3>
 
-<div id="portfolio-grid" class="gallery"></div>
+<div id="portfolio-grid" class="grid3"></div>
 
 </section>
 
@@ -51,87 +68,28 @@
 
 <section>
 
-<h2>Produk</h2>
+<h3>Produk</h3>
 
-<div id="product-grid" class="product-grid"></div>
-
-</section>
-
-
-<!-- ARTICLES -->
-
-<section>
-
-<h2>Artikel</h2>
-
-<div id="article-list"></div>
+<div id="product-grid" class="grid2"></div>
 
 </section>
 
-</main>
 
+<!-- CART MODAL -->
 
-<!-- PORTFOLIO MODAL -->
-
-<div id="portfolio-modal" class="modal">
+<div id="cart-modal" class="modal">
 
 <div class="modal-content">
 
-<span id="close-portfolio">&times;</span>
+<h3>Cart</h3>
 
-<img id="portfolio-main">
+<div id="cart-items"></div>
 
-<div id="portfolio-thumbs"></div>
-
-<h3 id="portfolio-title"></h3>
-
-<p id="portfolio-category"></p>
-
-<p id="portfolio-desc"></p>
-
-<div class="modal-buttons">
-
-<a id="portfolio-demo" class="btn">Demo</a>
-
-<a id="portfolio-contact" class="btn primary">Hubungi</a>
+<button id="checkout">Checkout WhatsApp</button>
 
 </div>
 
 </div>
-
-</div>
-
-
-<!-- PRODUCT MODAL -->
-
-<div id="product-modal" class="modal">
-
-<div class="modal-content">
-
-<span id="close-product">&times;</span>
-
-<img id="product-main">
-
-<div id="product-thumbs"></div>
-
-<h3 id="product-title"></h3>
-
-<p id="product-price"></p>
-
-<p id="product-desc"></p>
-
-<div class="modal-buttons">
-
-<a id="product-demo" class="btn">Demo</a>
-
-<a id="product-buy" class="btn primary">Beli</a>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script src="script.js"></script>
 
