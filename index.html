@@ -8,8 +8,6 @@
 
 <title>Customin</title>
 
-<meta name="description" content="Custom furniture kayu dan aluminium">
-
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -17,24 +15,6 @@
 <body>
 
 <div class="container">
-
-<!-- TOPBAR -->
-
-<header class="topbar">
-
-<h2>Customin</h2>
-
-<div class="menu">
-
-<a href="blog.html">Blog</a>
-
-<button id="cart-btn">
-Cart (<span id="cart-count">0</span>)
-</button>
-
-</div>
-
-</header>
 
 
 <!-- HERO -->
@@ -50,25 +30,21 @@ Cart (<span id="cart-count">0</span>)
 </section>
 
 
-<!-- LINKS -->
+<!-- LINK BUTTONS -->
 
-<section>
+<section class="links">
 
-<div class="links">
-
-<a class="link-btn" href="#">
+<a class="alert-card" href="#">
 Website
 </a>
 
-<a class="link-btn" href="#">
+<a class="alert-card" href="#">
 Instagram
 </a>
 
-<a class="link-btn" href="#">
+<a class="alert-card" href="#">
 WhatsApp
 </a>
-
-</div>
 
 </section>
 
@@ -84,7 +60,7 @@ WhatsApp
 </section>
 
 
-<!-- PRODUCTS -->
+<!-- PRODUK -->
 
 <section>
 
@@ -95,28 +71,174 @@ WhatsApp
 </section>
 
 
+<!-- ARTIKEL TERBARU -->
+
+<section>
+
+<h3>Artikel Terbaru</h3>
+
+<div id="latest-articles"></div>
+
+<a href="blog.html" class="blog-btn">
+Lihat Semua Artikel
+</a>
+
+</section>
+
+
 </div>
 
 
-<!-- PORTFOLIO MODAL -->
+
+<!-- BOTTOM NAVIGATION -->
+
+<div class="bottom-nav">
+
+<button id="nav-affiliate">
+
+Affiliate
+
+</button>
+
+<button id="nav-cv">
+
+CV
+
+</button>
+
+<button id="nav-legal">
+
+Legal
+
+</button>
+
+<button id="nav-cart">
+
+Cart (<span id="cart-count">0</span>)
+
+</button>
+
+</div>
+
+
+
+<!-- AFFILIATE POPUP -->
+
+<div id="affiliate-modal" class="modal">
+
+<div class="modal-content">
+
+<h3>Affiliate</h3>
+
+<div id="affiliate-list"></div>
+
+</div>
+
+</div>
+
+
+
+<!-- CV POPUP -->
+
+<div id="cv-modal" class="modal">
+
+<div class="modal-content">
+
+<h3>CV</h3>
+
+<div id="cv-content">
+
+<p>Isi CV kamu di sini.</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- LEGAL POPUP -->
+
+<div id="legal-modal" class="modal">
+
+<div class="modal-content">
+
+<h3>Legal</h3>
+
+<div class="accordion">
+
+<button class="accordion-btn">
+Kebijakan Privasi
+</button>
+
+<div class="accordion-content">
+
+<p>Isi kebijakan privasi...</p>
+
+</div>
+
+<button class="accordion-btn">
+Disclaimer
+</button>
+
+<div class="accordion-content">
+
+<p>Isi disclaimer...</p>
+
+</div>
+
+<button class="accordion-btn">
+Syarat & Ketentuan
+</button>
+
+<div class="accordion-content">
+
+<p>Isi syarat...</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- CART POPUP -->
+
+<div id="cart-modal" class="modal">
+
+<div class="modal-content">
+
+<h3>Cart</h3>
+
+<div id="cart-items"></div>
+
+<button id="checkout">
+Checkout via WhatsApp
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- PORTFOLIO POPUP -->
 
 <div id="portfolio-modal" class="modal">
 
 <div class="modal-content">
 
-<span id="close-portfolio">✕</span>
-
 <img id="portfolio-main">
-
-<div id="portfolio-thumbs"></div>
 
 <h3 id="portfolio-title"></h3>
 
 <p id="portfolio-category"></p>
 
 <p id="portfolio-desc"></p>
-
-<div class="modal-buttons">
 
 <a id="portfolio-demo" class="btn">
 Demo
@@ -130,28 +252,21 @@ Hubungi
 
 </div>
 
-</div>
 
 
-<!-- PRODUCT MODAL -->
+<!-- PRODUCT POPUP -->
 
 <div id="product-modal" class="modal">
 
 <div class="modal-content">
 
-<span id="close-product">✕</span>
-
 <img id="product-main">
-
-<div id="product-thumbs"></div>
 
 <h3 id="product-title"></h3>
 
 <p id="product-price"></p>
 
 <p id="product-desc"></p>
-
-<div class="modal-buttons">
 
 <button id="add-to-cart" class="btn primary">
 Add to Cart
@@ -165,22 +280,17 @@ Demo
 
 </div>
 
-</div>
 
 
-<!-- CART MODAL -->
+<!-- ARTICLE POPUP -->
 
-<div id="cart-modal" class="modal">
+<div id="article-modal" class="modal">
 
 <div class="modal-content">
 
-<h3>Cart</h3>
+<h3 id="article-title"></h3>
 
-<div id="cart-items"></div>
-
-<button id="checkout" class="btn primary">
-Checkout via WhatsApp
-</button>
+<div id="article-content"></div>
 
 </div>
 
