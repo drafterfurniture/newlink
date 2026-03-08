@@ -1,69 +1,110 @@
-let cart=[]
+const dataPath="data/"
 
-function updateCart(){
+/* CART */
 
-document.getElementById("cart-count").innerText=cart.length
+let cart=JSON.parse(localStorage.getItem("cart")||"[]")
 
-}
+function saveCart(){
 
-function addToCart(product){
-
-cart.push(product)
+localStorage.setItem("cart",JSON.stringify(cart))
 
 updateCart()
 
 }
 
-document.getElementById("cart-btn").onclick=()=>{
+function updateCart(){
 
-document.getElementById("cart-modal").style.display="flex"
+const count=document.getElementById("cart-count")
 
-renderCart()
-
-}
-
-function renderCart(){
-
-let el=document.getElementById("cart-items")
-
-el.innerHTML=""
-
-cart.forEach(p=>{
-
-let div=document.createElement("div")
-
-div.innerText=p.title
-
-el.appendChild(div)
-
-})
+if(count) count.innerText=cart.length
 
 }
 
-document.getElementById("checkout").onclick=()=>{
+updateCart()
 
-let text="Order:%0A"
 
-cart.forEach(p=>{
+function addToCart(product){
 
-text+=p.title+"%0A"
+cart.push(product)
 
-})
+saveCart()
 
-window.open("https://wa.me/628000000?text="+text)
+alert("Ditambahkan ke cart")
 
 }
 
 
-// LOAD PRODUCTS
+/* LOAD JSON FOLDER */
 
-fetch("data/products/wardrobe.json")
+async function loadFolder(folder){
 
-.then(r=>r.json())
+const res=await fetch(folder+"/index.json")
 
-.then(p=>{
+return await res.json()
 
-let grid=document.getElementById("product-grid")
+}
+
+
+/* PORTFOLIO */
+
+async function loadPortfolio(){
+
+const files=await loadFolder("data/portfolio")
+
+const grid=document.getElementById("portfolio-grid")
+
+if(!grid) return
+
+for(let f of files){
+
+const p=await fetch("data/portfolio/"+f).then(r=>r.json())
+
+let img=document.createElement("img")
+
+img.src=p.images[0]
+
+img.onclick=()=>openPortfolio(p)
+
+grid.appendChild(img)
+
+}
+
+}
+
+function openPortfolio(p){
+
+const m=document.getElementById("portfolio-modal")
+
+m.style.display="flex"
+
+document.getElementById("portfolio-main").src=p.images[0]
+
+document.getElementById("portfolio-title").innerText=p.title
+
+document.getElementById("portfolio-category").innerText=p.category
+
+document.getElementById("portfolio-desc").innerText=p.desc
+
+document.getElementById("portfolio-demo").href=p.demo
+
+document.getElementById("portfolio-contact").href=p.contact
+
+}
+
+
+/* PRODUCTS */
+
+async function loadProducts(){
+
+const files=await loadFolder("data/products")
+
+const grid=document.getElementById("product-grid")
+
+if(!grid) return
+
+for(let f of files){
+
+const p=await fetch("data/products/"+f).then(r=>r.json())
 
 let card=document.createElement("div")
 
@@ -77,31 +118,141 @@ card.innerHTML=`
 
 <p>${p.price}</p>
 
-<button class="btn">Add to Cart</button>
-
 `
 
-card.querySelector("button").onclick=()=>addToCart(p)
+card.onclick=()=>openProduct(p)
 
 grid.appendChild(card)
 
+}
+
+}
+
+function openProduct(p){
+
+const m=document.getElementById("product-modal")
+
+m.style.display="flex"
+
+document.getElementById("product-main").src=p.images[0]
+
+document.getElementById("product-title").innerText=p.title
+
+document.getElementById("product-price").innerText=p.price
+
+document.getElementById("product-desc").innerText=p.desc
+
+document.getElementById("add-to-cart").onclick=()=>addToCart(p)
+
+}
+
+
+/* ARTICLES */
+
+async function loadArticles(){
+
+const files=await loadFolder("data/articles")
+
+const list=document.getElementById("latest-articles")
+
+if(!list) return
+
+files.slice(0,5).forEach(async f=>{
+
+const a=await fetch("data/articles/"+f).then(r=>r.json())
+
+let el=document.createElement("div")
+
+el.className="article-card"
+
+el.innerText=a.title
+
+el.onclick=()=>openArticle(a)
+
+list.appendChild(el)
+
+})
+
+}
+
+function openArticle(a){
+
+const m=document.getElementById("article-modal")
+
+m.style.display="flex"
+
+document.getElementById("article-title").innerText=a.title
+
+document.getElementById("article-content").innerHTML=a.content
+
+}
+
+
+/* CART VIEW */
+
+document.getElementById("nav-cart").onclick=()=>{
+
+const m=document.getElementById("cart-modal")
+
+m.style.display="flex"
+
+renderCart()
+
+}
+
+function renderCart(){
+
+const el=document.getElementById("cart-items")
+
+el.innerHTML=""
+
+cart.forEach(p=>{
+
+let d=document.createElement("div")
+
+d.innerText=p.title+" - "+p.price
+
+el.appendChild(d)
+
+})
+
+}
+
+
+document.getElementById("checkout").onclick=()=>{
+
+let text="Order:%0A"
+
+cart.forEach(p=>{
+
+text+=p.title+" - "+p.price+"%0A"
+
+})
+
+window.open("https://wa.me/628000000?text="+text)
+
+}
+
+
+/* ACCORDION */
+
+document.querySelectorAll(".accordion-btn").forEach(btn=>{
+
+btn.onclick=()=>{
+
+let c=btn.nextElementSibling
+
+c.style.display=c.style.display==="block"?"none":"block"
+
+}
+
 })
 
 
-// LOAD PORTFOLIO
+/* INIT */
 
-fetch("data/portfolio/kitchen.json")
+loadPortfolio()
 
-.then(r=>r.json())
+loadProducts()
 
-.then(p=>{
-
-let grid=document.getElementById("portfolio-grid")
-
-let img=document.createElement("img")
-
-img.src=p.images[0]
-
-grid.appendChild(img)
-
-})
+loadArticles()
