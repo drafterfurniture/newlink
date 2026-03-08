@@ -8,15 +8,21 @@
 
 <title>Customin</title>
 
+<meta name="description" content="Custom furniture kayu dan aluminium">
+
 <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
+<div class="container">
+
+<!-- TOPBAR -->
+
 <header class="topbar">
 
-<h1>Customin</h1>
+<h2>Customin</h2>
 
 <div class="menu">
 
@@ -31,6 +37,8 @@ Cart (<span id="cart-count">0</span>)
 </header>
 
 
+<!-- HERO -->
+
 <section class="hero">
 
 <img src="avatar.jpg" class="avatar">
@@ -42,13 +50,25 @@ Cart (<span id="cart-count">0</span>)
 </section>
 
 
-<!-- LINK BUTTONS -->
+<!-- LINKS -->
 
-<section class="links">
+<section>
 
-<a class="link-btn" href="#">Website</a>
-<a class="link-btn" href="#">Instagram</a>
-<a class="link-btn" href="#">WhatsApp</a>
+<div class="links">
+
+<a class="link-btn" href="#">
+Website
+</a>
+
+<a class="link-btn" href="#">
+Instagram
+</a>
+
+<a class="link-btn" href="#">
+WhatsApp
+</a>
+
+</div>
 
 </section>
 
@@ -75,6 +95,79 @@ Cart (<span id="cart-count">0</span>)
 </section>
 
 
+</div>
+
+
+<!-- PORTFOLIO MODAL -->
+
+<div id="portfolio-modal" class="modal">
+
+<div class="modal-content">
+
+<span id="close-portfolio">✕</span>
+
+<img id="portfolio-main">
+
+<div id="portfolio-thumbs"></div>
+
+<h3 id="portfolio-title"></h3>
+
+<p id="portfolio-category"></p>
+
+<p id="portfolio-desc"></p>
+
+<div class="modal-buttons">
+
+<a id="portfolio-demo" class="btn">
+Demo
+</a>
+
+<a id="portfolio-contact" class="btn primary">
+Hubungi
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT MODAL -->
+
+<div id="product-modal" class="modal">
+
+<div class="modal-content">
+
+<span id="close-product">✕</span>
+
+<img id="product-main">
+
+<div id="product-thumbs"></div>
+
+<h3 id="product-title"></h3>
+
+<p id="product-price"></p>
+
+<p id="product-desc"></p>
+
+<div class="modal-buttons">
+
+<button id="add-to-cart" class="btn primary">
+Add to Cart
+</button>
+
+<a id="product-demo" class="btn">
+Demo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
 <!-- CART MODAL -->
 
 <div id="cart-modal" class="modal">
@@ -85,13 +178,17 @@ Cart (<span id="cart-count">0</span>)
 
 <div id="cart-items"></div>
 
-<button id="checkout">Checkout WhatsApp</button>
+<button id="checkout" class="btn primary">
+Checkout via WhatsApp
+</button>
 
 </div>
 
 </div>
+
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
