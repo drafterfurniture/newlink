@@ -1,16 +1,3 @@
-const popup = document.getElementById("popup")
-
-let cart = JSON.parse(localStorage.getItem("cart") || "[]")
-
-function openPopup(html){
-popup.innerHTML = `<div class="popup-box">${html}</div>`
-popup.style.display="flex"
-}
-
-popup.onclick = e=>{
-if(e.target===popup) popup.style.display="none"
-}
-
 /* LINKS */
 
 fetch("data/links.json")
@@ -19,15 +6,17 @@ fetch("data/links.json")
 
 let html=""
 
-data.forEach(link=>{
-html+=`<a class="link-btn" href="${link.url}" target="_blank">${link.title}</a>`
-})
+data.forEach(l=>{
 
-document.getElementById("links").innerHTML=html
+html+=`<a class="link" href="${l.url}" target="_blank">${l.title}</a>`
 
 })
 
-/* PROJECTS */
+links.innerHTML=html
+
+})
+
+/* PROJECT */
 
 fetch("data/projects.json")
 .then(r=>r.json())
@@ -38,10 +27,15 @@ let html=""
 data.forEach(p=>{
 
 html+=`
+
 <div class="card" onclick='projectPopup(${JSON.stringify(p)})'>
+
 <img src="${p.cover}">
+
 <p>${p.title}</p>
+
 </div>
+
 `
 
 })
@@ -52,21 +46,23 @@ projects.innerHTML=html
 
 function projectPopup(p){
 
-let images=p.images.map(i=>`<img src="${i}" style="width:100%;margin-bottom:6px">`).join("")
+let imgs=""
+
+p.images.forEach(i=>{
+imgs+=`<img src="${i}">`
+})
 
 openPopup(`
 
 <h3>${p.title}</h3>
 
-${images}
+${imgs}
 
 <p>${p.description}</p>
 
-<a href="${p.demo}" target="_blank">Demo</a>
+<a class="btn" href="${p.demo}">Demo</a>
 
-<br><br>
-
-<a href="https://wa.me/${p.whatsapp}">Hubungi</a>
+<a class="btn" href="https://wa.me/${p.whatsapp}">Hubungi</a>
 
 `)
 
@@ -102,13 +98,25 @@ products.innerHTML=html
 
 function productPopup(p){
 
-let images=p.images.map(i=>`<img src="${i}" style="width:100%;margin-bottom:6px">`).join("")
+let thumbs=""
+
+p.images.forEach(i=>{
+
+thumbs+=`<img src="${i}" onclick="document.getElementById('mainImg').src='${i}'">`
+
+})
 
 openPopup(`
 
 <h3>${p.title}</h3>
 
-${images}
+<img id="mainImg" src="${p.images[0]}">
+
+<div class="thumbs">
+
+${thumbs}
+
+</div>
 
 <p>${p.description}</p>
 
@@ -116,51 +124,7 @@ ${images}
 
 <br><br>
 
-<button onclick='addCart(${JSON.stringify(p)})'>Add to Cart</button>
-
-`)
-
-}
-
-function addCart(p){
-
-cart.push(p)
-
-localStorage.setItem("cart",JSON.stringify(cart))
-
-alert("ditambahkan ke cart")
-
-}
-
-/* CART */
-
-function openCart(){
-
-let html=""
-
-let total=0
-
-cart.forEach(item=>{
-total+=item.price
-
-html+=`<p>${item.title} - Rp ${item.price}</p>`
-})
-
-openPopup(`
-
-<h3>Cart</h3>
-
-${html}
-
-<br>
-
-<b>Total : Rp ${total}</b>
-
-<br><br>
-
-<a href="https://wa.me/62XXXXXXXX?text=Order%20${total}">
-Checkout WhatsApp
-</a>
+<button class="btn" onclick='addCart(${JSON.stringify(p)})'>Add to Cart</button>
 
 `)
 
@@ -178,9 +142,9 @@ data.slice(0,5).forEach(p=>{
 
 html+=`
 
-<div class="blog-card">
+<div class="blog">
 
-<p>${p.title}</p>
+${p.title}
 
 </div>
 
@@ -198,7 +162,7 @@ openPopup(`
 
 <h3>Curriculum Vitae</h3>
 
-<a href="cv/cv.pdf">Download CV</a>
+<a class="btn" href="cv/cv.pdf">Download CV</a>
 
 `)
 
