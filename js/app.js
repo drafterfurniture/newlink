@@ -1,32 +1,69 @@
-/* LINKS */
+const popup=document.getElementById("popup")
+
+let cart=JSON.parse(localStorage.getItem("cart")||"[]")
+
+function updateCart(){
+
+document.getElementById("cart-count").innerText=cart.length
+
+}
+
+updateCart()
+
+/* popup */
+
+function openPopup(html){
+
+popup.innerHTML=`<div class="popup-box">${html}</div>`
+
+popup.style.display="flex"
+
+}
+
+popup.onclick=e=>{
+
+if(e.target===popup) popup.style.display="none"
+
+}
+
+/* parallax */
+
+window.addEventListener("scroll",()=>{
+
+let bg=document.querySelector(".hero-bg")
+
+bg.style.transform=`translateY(${window.scrollY*0.3}px)`
+
+})
+
+/* links */
 
 fetch("data/links.json")
 .then(r=>r.json())
 .then(data=>{
 
 links.innerHTML=data.map(l=>
+
 `<a class="link" href="${l.url}" target="_blank">${l.title}</a>`
+
 ).join("")
 
 })
 
-/* PROJECT */
+/* projects */
 
 fetch("data/projects.json")
 .then(r=>r.json())
 .then(data=>{
 
-projects.innerHTML=data.map(p=>`
+projects.innerHTML=data.map(p=>
 
-<div class="card" onclick='projectPopup(${JSON.stringify(p)})'>
-
-<img loading="lazy" src="${p.cover}">
-
+`<div class="card" onclick='projectPopup(${JSON.stringify(p)})'>
+<img src="${p.cover}">
 <p>${p.title}</p>
+</div>`
 
-</div>
-
-`).join("")
+).join("")
 
 })
 
@@ -50,59 +87,102 @@ ${imgs}
 
 }
 
-/* PRODUCTS */
+/* products */
 
 fetch("data/products.json")
 .then(r=>r.json())
 .then(data=>{
 
-products.innerHTML=data.map(p=>`
+products.innerHTML=data.map(p=>
 
-<div class="card" onclick='productPopup(${JSON.stringify(p)})'>
-
-<img loading="lazy" src="${p.images[0]}">
-
+`<div class="card" onclick='productPopup(${JSON.stringify(p)})'>
+<img src="${p.images[0]}">
 <p>${p.title}</p>
+</div>`
 
-</div>
-
-`).join("")
+).join("")
 
 })
 
 function productPopup(p){
 
-let thumbs=p.images.map(i=>
+let i=0
 
-`<img src="${i}" onclick="document.getElementById('main').src='${i}'">`
+function render(){
 
-).join("")
-
-openPopup(`
+return `
 
 <h3>${p.title}</h3>
 
-<img id="main" src="${p.images[0]}">
+<div class="slider">
 
-<div class="thumbs">
-
-${thumbs}
+<img src="${p.images[i]}">
 
 </div>
 
 <p>${p.description}</p>
 
-<b>${formatRupiah(p.price)}</b>
+<b>Rp ${p.price}</b>
 
 <br>
 
 <button class="btn" onclick='addCart(${JSON.stringify(p)})'>Add to Cart</button>
 
+`
+
+}
+
+openPopup(render())
+
+}
+
+/* cart */
+
+function addCart(p){
+
+cart.push(p)
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+updateCart()
+
+}
+
+function openCart(){
+
+let html=""
+
+let total=0
+
+cart.forEach(i=>{
+
+total+=i.price
+
+html+=`<p>${i.title} - ${i.price}</p>`
+
+})
+
+openPopup(`
+
+<h3>Cart</h3>
+
+${html}
+
+<b>Total ${total}</b>
+
+<br>
+
+<a class="btn" href="https://wa.me/628XXXX?text=Order ${total}">
+
+Checkout WhatsApp
+
+</a>
+
 `)
 
 }
 
-/* POSTS */
+/* posts */
 
 fetch("data/posts.json")
 .then(r=>r.json())
@@ -120,7 +200,7 @@ function openCV(){
 
 openPopup(`
 
-<h3>Curriculum Vitae</h3>
+<h3>CV</h3>
 
 <a class="btn" href="cv/cv.pdf">Download CV</a>
 
