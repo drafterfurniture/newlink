@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -8,9 +9,7 @@
 
 <title>Anto — Drafter Furniture</title>
 
-<meta name="description" content="Portfolio drafter furniture Anto">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="style.css">
 
 <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -18,15 +17,13 @@
 
 <body>
 
-<div class="app">
+<div class="hero">
 
-<header class="header card">
+<div class="hero-bg"></div>
 
-<div class="profile">
+<div class="hero-content">
 
-<img src="img/profile.jpg">
-
-<div>
+<img class="avatar" src="img/profile.jpg">
 
 <h1>Anto</h1>
 <p>Drafter Furniture</p>
@@ -35,33 +32,18 @@
 
 </div>
 
-</header>
+<div class="app">
 
-<section id="links"></section>
-
-<section>
+<div id="links"></div>
 
 <h2 class="section-title">Project</h2>
-
 <div id="projects" class="grid"></div>
 
-</section>
-
-<section>
-
 <h2 class="section-title">Produk</h2>
-
 <div id="products" class="grid"></div>
 
-</section>
-
-<section>
-
 <h2 class="section-title">Artikel</h2>
-
 <div id="posts"></div>
-
-</section>
 
 </div>
 
@@ -81,16 +63,17 @@
 <i data-lucide="user"></i>
 </a>
 
-<a onclick="openCart()">
+<a class="cart-btn" onclick="openCart()">
+
 <i data-lucide="shopping-cart"></i>
+
+<span id="cart-count">0</span>
+
 </a>
 
 </nav>
 
-<script src="js/utils.js"></script>
-<script src="js/popup.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/app.js"></script>
+<script src="app.js"></script>
 
 <script>
 lucide.createIcons()
