@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Anto - Drafter Furniture</title>
+<title>Anto — Drafter Furniture</title>
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -13,45 +14,70 @@
 
 <body>
 
-<div class="container">
+<div class="app">
 
 <header class="header">
 
 <div class="cover"></div>
 
 <div class="profile">
+
 <img src="img/profile.jpg">
+
 <h1>Anto</h1>
+
 <p>Drafter Furniture</p>
+
 </div>
 
 </header>
 
 <section id="links"></section>
 
-<h2 class="section-title">Project</h2>
-<div id="projects" class="grid-2"></div>
+<section>
 
-<h2 class="section-title">Product</h2>
-<div id="products" class="grid-2"></div>
+<h2>Project</h2>
 
-<h2 class="section-title">Artikel</h2>
+<div id="projects" class="grid"></div>
+
+</section>
+
+<section>
+
+<h2>Product</h2>
+
+<div id="products" class="grid"></div>
+
+</section>
+
+<section>
+
+<h2>Artikel</h2>
+
 <div id="posts"></div>
+
+</section>
 
 </div>
 
-<div id="popup" class="popup"></div>
+<div id="popup"></div>
 
-<nav class="navbar">
+<nav class="nav">
 
 <a href="/">Home</a>
+
 <a href="blog.html">Blog</a>
-<a href="#" onclick="openCV()">CV</a>
-<a href="#" onclick="openCart()">Cart</a>
+
+<a onclick="openCV()">CV</a>
+
+<a onclick="openCart()">Cart</a>
 
 </nav>
 
 <script src="js/app.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/popup.js"></script>
 
 </body>
+
 </html>
