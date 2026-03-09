@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Customin</title>
+<title>Anto - Drafter Furniture</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -16,289 +15,43 @@
 
 <div class="container">
 
+<header class="header">
 
-<!-- HERO -->
+<div class="cover"></div>
 
-<section class="hero">
+<div class="profile">
+<img src="img/profile.jpg">
+<h1>Anto</h1>
+<p>Drafter Furniture</p>
+</div>
 
-<img src="avatar.jpg" class="avatar">
+</header>
 
-<h2>Custom Furniture</h2>
+<section id="links"></section>
 
-<p>Kayu • Aluminium • Interior</p>
+<h2 class="section-title">Project</h2>
+<div id="projects" class="grid-2"></div>
 
-</section>
+<h2 class="section-title">Product</h2>
+<div id="products" class="grid-2"></div>
 
-
-<!-- LINK BUTTONS -->
-
-<section class="links">
-
-<a class="alert-card" href="#">
-Website
-</a>
-
-<a class="alert-card" href="#">
-Instagram
-</a>
-
-<a class="alert-card" href="#">
-WhatsApp
-</a>
-
-</section>
-
-
-<!-- PORTFOLIO -->
-
-<section>
-
-<h3>Portfolio</h3>
-
-<div id="portfolio-grid" class="grid3"></div>
-
-</section>
-
-
-<!-- PRODUK -->
-
-<section>
-
-<h3>Produk</h3>
-
-<div id="product-grid" class="grid2"></div>
-
-</section>
-
-
-<!-- ARTIKEL TERBARU -->
-
-<section>
-
-<h3>Artikel Terbaru</h3>
-
-<div id="latest-articles"></div>
-
-<a href="blog.html" class="blog-btn">
-Lihat Semua Artikel
-</a>
-
-</section>
-
+<h2 class="section-title">Artikel</h2>
+<div id="posts"></div>
 
 </div>
 
+<div id="popup" class="popup"></div>
 
+<nav class="navbar">
 
-<!-- BOTTOM NAVIGATION -->
+<a href="/">Home</a>
+<a href="blog.html">Blog</a>
+<a href="#" onclick="openCV()">CV</a>
+<a href="#" onclick="openCart()">Cart</a>
 
-<div class="bottom-nav">
+</nav>
 
-<button id="nav-affiliate">
-
-Affiliate
-
-</button>
-
-<button id="nav-cv">
-
-CV
-
-</button>
-
-<button id="nav-legal">
-
-Legal
-
-</button>
-
-<button id="nav-cart">
-
-Cart (<span id="cart-count">0</span>)
-
-</button>
-
-</div>
-
-
-
-<!-- AFFILIATE POPUP -->
-
-<div id="affiliate-modal" class="modal">
-
-<div class="modal-content">
-
-<h3>Affiliate</h3>
-
-<div id="affiliate-list"></div>
-
-</div>
-
-</div>
-
-
-
-<!-- CV POPUP -->
-
-<div id="cv-modal" class="modal">
-
-<div class="modal-content">
-
-<h3>CV</h3>
-
-<div id="cv-content">
-
-<p>Isi CV kamu di sini.</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- LEGAL POPUP -->
-
-<div id="legal-modal" class="modal">
-
-<div class="modal-content">
-
-<h3>Legal</h3>
-
-<div class="accordion">
-
-<button class="accordion-btn">
-Kebijakan Privasi
-</button>
-
-<div class="accordion-content">
-
-<p>Isi kebijakan privasi...</p>
-
-</div>
-
-<button class="accordion-btn">
-Disclaimer
-</button>
-
-<div class="accordion-content">
-
-<p>Isi disclaimer...</p>
-
-</div>
-
-<button class="accordion-btn">
-Syarat & Ketentuan
-</button>
-
-<div class="accordion-content">
-
-<p>Isi syarat...</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- CART POPUP -->
-
-<div id="cart-modal" class="modal">
-
-<div class="modal-content">
-
-<h3>Cart</h3>
-
-<div id="cart-items"></div>
-
-<button id="checkout">
-Checkout via WhatsApp
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- PORTFOLIO POPUP -->
-
-<div id="portfolio-modal" class="modal">
-
-<div class="modal-content">
-
-<img id="portfolio-main">
-
-<h3 id="portfolio-title"></h3>
-
-<p id="portfolio-category"></p>
-
-<p id="portfolio-desc"></p>
-
-<a id="portfolio-demo" class="btn">
-Demo
-</a>
-
-<a id="portfolio-contact" class="btn primary">
-Hubungi
-</a>
-
-</div>
-
-</div>
-
-
-
-<!-- PRODUCT POPUP -->
-
-<div id="product-modal" class="modal">
-
-<div class="modal-content">
-
-<img id="product-main">
-
-<h3 id="product-title"></h3>
-
-<p id="product-price"></p>
-
-<p id="product-desc"></p>
-
-<button id="add-to-cart" class="btn primary">
-Add to Cart
-</button>
-
-<a id="product-demo" class="btn">
-Demo
-</a>
-
-</div>
-
-</div>
-
-
-
-<!-- ARTICLE POPUP -->
-
-<div id="article-modal" class="modal">
-
-<div class="modal-content">
-
-<h3 id="article-title"></h3>
-
-<div id="article-content"></div>
-
-</div>
-
-</div>
-
-
-<script src="script.js"></script>
+<script src="js/app.js"></script>
 
 </body>
-
 </html>
