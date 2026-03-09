@@ -4,13 +4,15 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Anto — Drafter Furniture</title>
 
-<meta name="description" content="Portfolio drafter furniture Anto. Project, produk, dan artikel tentang furniture.">
+<meta name="description" content="Portfolio drafter furniture Anto">
 
 <link rel="stylesheet" href="css/style.css">
+
+<script src="https://unpkg.com/lucide@latest"></script>
 
 </head>
 
@@ -18,17 +20,18 @@
 
 <div class="app">
 
-<header class="header">
-
-<div class="cover"></div>
+<header class="header card">
 
 <div class="profile">
 
-<img src="img/profile.jpg" loading="lazy">
+<img src="img/profile.jpg">
+
+<div>
 
 <h1>Anto</h1>
-
 <p>Drafter Furniture</p>
+
+</div>
 
 </div>
 
@@ -38,7 +41,7 @@
 
 <section>
 
-<h2>Project</h2>
+<h2 class="section-title">Project</h2>
 
 <div id="projects" class="grid"></div>
 
@@ -46,7 +49,7 @@
 
 <section>
 
-<h2>Produk</h2>
+<h2 class="section-title">Produk</h2>
 
 <div id="products" class="grid"></div>
 
@@ -54,7 +57,7 @@
 
 <section>
 
-<h2>Artikel Terbaru</h2>
+<h2 class="section-title">Artikel</h2>
 
 <div id="posts"></div>
 
@@ -66,10 +69,21 @@
 
 <nav class="nav">
 
-<a href="/">Home</a>
-<a href="blog.html">Blog</a>
-<a onclick="openCV()">CV</a>
-<a onclick="openCart()">Cart</a>
+<a class="active">
+<i data-lucide="home"></i>
+</a>
+
+<a href="blog.html">
+<i data-lucide="file-text"></i>
+</a>
+
+<a onclick="openCV()">
+<i data-lucide="user"></i>
+</a>
+
+<a onclick="openCart()">
+<i data-lucide="shopping-cart"></i>
+</a>
 
 </nav>
 
@@ -77,6 +91,10 @@
 <script src="js/popup.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/app.js"></script>
+
+<script>
+lucide.createIcons()
+</script>
 
 </body>
 </html>
