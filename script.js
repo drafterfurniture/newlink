@@ -68,7 +68,7 @@ function startCountdown(){
 }
 startCountdown();
 
-// LOTTIE INTERACTIVE
+// LOTTIE
 let anim;
 window.addEventListener("DOMContentLoaded",()=>{
  anim=lottie.loadAnimation({
@@ -79,16 +79,23 @@ window.addEventListener("DOMContentLoaded",()=>{
   path:'/assets/cover.json'
  });
 
- // scroll speed
  window.addEventListener("scroll",()=>{
-  const s=window.scrollY;
-  anim.setSpeed(1 + s/500);
+  anim.setSpeed(1 + window.scrollY/500);
  });
 
- // hover
- const cover=document.getElementById("lottie-cover");
- cover.addEventListener("mouseenter",()=>anim.setSpeed(2));
- cover.addEventListener("mouseleave",()=>anim.setSpeed(1));
+ document.getElementById("lottie-cover")
+ .addEventListener("mouseenter",()=>anim.setSpeed(2));
+
+ document.getElementById("lottie-cover")
+ .addEventListener("mouseleave",()=>anim.setSpeed(1));
 });
+
+// donate
+function openDonate(){
+ document.getElementById('donateModal').classList.remove('hidden');
+}
+function closeDonate(){
+ document.getElementById('donateModal').classList.add('hidden');
+}
 
 lucide.createIcons();
