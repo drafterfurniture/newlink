@@ -4,11 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Link Bio</title>
+<title>Customin Store</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+<style>
+body { font-family: system-ui, sans-serif; }
+</style>
 
 </head>
 
@@ -20,10 +24,18 @@
 <div class="bg-white p-3 rounded-3xl shadow-sm">
 
   <!-- SKY BACKGROUND -->
-  <div class="relative h-32 rounded-2xl overflow-hidden bg-gradient-to-br from-sky-300 via-blue-400 to-blue-500">
+  <div class="relative h-32 rounded-2xl overflow-hidden 
+              bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300">
 
-    <!-- LOTTIE CLOUD (optional overlay) -->
-    <div id="lottie-cover" class="absolute inset-0 opacity-60"></div>
+    <!-- LOTTIE -->
+    <div id="lottie-cover"
+         class="absolute inset-0 opacity-95 scale-110"></div>
+
+    <!-- SOFT LIGHT -->
+    <div class="absolute top-0 right-0 w-32 h-32 bg-white/40 blur-2xl"></div>
+
+    <!-- DREAMY BLUR -->
+    <div class="absolute inset-0 backdrop-blur-[2px]"></div>
 
   </div>
 
@@ -36,7 +48,7 @@
            class="w-16 h-16 rounded-full object-cover"/>
     </div>
 
-    <!-- DONATE -->
+    <!-- DONATE BUTTON -->
     <button onclick="openQR()"
       class="bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 active:scale-95">
 
@@ -109,7 +121,7 @@
 <script>
 lucide.createIcons();
 
-// LOTTIE (optional, bisa dihapus kalau mau clean)
+// LOTTIE LOAD
 lottie.loadAnimation({
   container: document.getElementById('lottie-cover'),
   renderer: 'svg',
@@ -118,6 +130,7 @@ lottie.loadAnimation({
   path: '/assets/cover.json'
 });
 
+// POPUP
 function openQR(){
   const el = document.getElementById('popupQR');
   el.classList.remove('hidden');
