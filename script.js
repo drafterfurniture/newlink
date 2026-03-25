@@ -1,12 +1,10 @@
-const API = "/data/links.json";
-let clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
+const API="/data/links.json";
+let clicks=JSON.parse(localStorage.getItem("clicks")||"{}");
 
 fetch(API).then(r=>r.json()).then(d=>{
  renderFeatured(d.featured);
  renderLinks(d.links);
  renderProducts(d.products);
- renderGallery(d.gallery);
- renderSocial(d.social);
 });
 
 function track(id){
@@ -16,25 +14,15 @@ function track(id){
 
 function renderFeatured(f){
  if(!f)return;
- featured.innerHTML=`
- <a href="${f.url}" onclick="track('${f.id}')" 
- class="block text-center p-4 rounded-2xl text-white font-bold gradient shadow-lg">
- ${f.title}
- </a>`;
+ featured.innerHTML=`<a href="${f.url}" onclick="track('${f.id}')" class="block text-center p-4 rounded-2xl text-white font-bold gradient shadow-lg">${f.title}</a>`;
 }
 
 function renderLinks(links){
  links.forEach(l=>{
- const hot=clicks[l.id]>3?"ring-2 ring-green-400":"";
- linksEl.innerHTML+=`
- <a href="${ab(l)}" onclick="track('${l.id}')"
- class="block glass p-3 rounded-2xl shadow ${hot} hover:scale-[1.02] transition">
- ${l.title}
- </a>`;
+ const hot=clicks[l.id]>3?"ring-2 ring-yellow-400":"";
+ document.getElementById("links").innerHTML+=`<a href="${ab(l)}" onclick="track('${l.id}')" class="block bg-white p-3 rounded-2xl shadow ${hot}">${l.title}</a>`;
  });
 }
-
-const linksEl=document.getElementById("links");
 
 function ab(l){
  if(!l.variants)return l.url;
@@ -43,33 +31,26 @@ function ab(l){
 
 function renderProducts(p){
  p.forEach(i=>{
- products.innerHTML+=`
- <div onclick='openModal(${JSON.stringify(i)})'
- class="glass p-3 rounded-2xl shadow mb-3 hover:scale-[1.02] transition">
+ products.innerHTML+=`<div class="bg-white p-3 rounded-2xl shadow mb-3">
  <img src="${i.img}" class="rounded-lg mb-2" loading="lazy">
- <h3 class="font-semibold">${i.title}</h3>
- <p class="text-sm text-gray-500">${i.price}</p>
+ <h3>${i.title}</h3>
+ <p>${i.price}</p>
  </div>`;
  });
 }
 
-function openModal(p){
- modal.classList.remove("hidden");
- modalImg.src=p.img;
- modalTitle.innerText=p.title;
- modalDesc.innerText=p.desc;
- modalBuy.href=p.url;
+// countdown
+function startCountdown(){
+ const end=new Date().getTime()+3600*1000;
+ setInterval(()=>{
+  const now=new Date().getTime();
+  const d=end-now;
+  if(d<0)return;
+  const m=Math.floor(d/60000);
+  const s=Math.floor((d%60000)/1000);
+  document.getElementById("countdown").innerText=`Promo berakhir ${m}m ${s}s`;
+ },1000);
 }
+startCountdown();
 
-function closeModal(){modal.classList.add("hidden")}
-
-function renderGallery(g){
- g.forEach(i=>gallery.innerHTML+=`<img src="${i}" loading="lazy" class="rounded-xl">`);
-}
-
-function renderSocial(s){
- s.forEach(i=>social.innerHTML+=`<a href="${i.url}"><i data-lucide="${i.icon}"></i></a>`);
- lucide.createIcons();
-}
-
-if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js");}
+lucide.createIcons();
