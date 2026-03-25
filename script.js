@@ -1,98 +1,137 @@
-let cart=[];
+const DATA_URL = "/data/links.json";
+let clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
 
-fetch("/data/links.json").then(r=>r.json()).then(d=>{
- renderFeatured(d.featured);
- renderLinks(d.links);
- renderProducts(d.products);
- renderBlog(d.blog);
-});
+fetch(DATA_URL)
+  .then(res => res.json())
+  .then(data => {
+    initProfile(data.profile);
+    renderFeatured(data.links);
+    renderLinks(data.links);
+    renderProducts(data.products);
+    renderGallery(data.gallery);
+  });
 
-/* FEATURE */
-function renderFeatured(f){
- featured.innerHTML=`<a href="${f.url}" class="btn wa">${f.title}</a>`;
+function initProfile(profile) {
+  document.getElementById("name").innerText = profile.name;
+  document.getElementById("bio").innerText = profile.bio;
+}
+
+/* FEATURED LINK */
+function renderFeatured(links) {
+  const f = links.find(l => l.featured);
+  if (!f) return;
+
+  const el = document.createElement("a");
+  el.href = f.url;
+  el.innerText = f.title;
+
+  el.className =
+    "block bg-black text-white text-center py-3 rounded-xl font-bold mb-3";
+
+  trackClick(f.id);
+  document.getElementById("featured").appendChild(el);
 }
 
 /* LINKS */
-function renderLinks(links){
- links.forEach(l=>{
-  linksEl.innerHTML+=`
-  <a href="${l.url}" class="btn">
-    ${l.title}
-    <i data-lucide="sparkles"></i>
-  </a>`;
- });
+function renderLinks(links) {
+  const container = document.getElementById("links");
+
+  links.forEach(link => {
+    const finalUrl = abTest(link);
+
+    const el = document.createElement("div");
+    el.className =
+      "p-3 bg-gray-100 rounded-xl flex justify-between items-center hover:bg-gray-200 transition";
+
+    el.innerHTML = `
+      <span>${link.title}</span>
+      <button onclick="handleClick('${link.id}', '${finalUrl}')">
+        <i data-lucide="arrow-right"></i>
+      </button>
+    `;
+
+    if (isPopular(link.id)) {
+      el.classList.add("ring-2", "ring-black");
+    }
+
+    container.appendChild(el);
+  });
+
+  lucide.createIcons();
+}
+
+function handleClick(id, url) {
+  trackClick(id);
+  window.open(addUTM(url), "_blank");
+}
+
+/* TRACKING */
+function trackClick(id) {
+  clicks[id] = (clicks[id] || 0) + 1;
+  localStorage.setItem("clicks", JSON.stringify(clicks));
+}
+
+function isPopular(id) {
+  return clicks[id] > 5;
+}
+
+/* A/B TEST */
+function abTest(link) {
+  if (!link.variants) return link.url;
+  return Math.random() > 0.5 ? link.variants[0] : link.variants[1];
+}
+
+/* UTM */
+function addUTM(url) {
+  return url + "?utm_source=linkbio";
 }
 
 /* PRODUCTS */
-function renderProducts(p){
- p.forEach(i=>{
-  products.innerHTML+=`
-  <div class="bg-white rounded-xl p-2">
-    <img src="${i.img}" class="rounded-lg">
-    <h3>${i.title}</h3>
-    <p>${i.price}</p>
+function renderProducts(products) {
+  const container = document.getElementById("products");
 
-    <div class="flex gap-2 mt-2">
-      <button onclick='openModal(${JSON.stringify(i)})' class="flex-1 border rounded-lg p-2">View</button>
-      <button onclick='addCart("${i.title}")' class="flex-1 bg-green-500 text-white rounded-lg p-2">Add</button>
-    </div>
-  </div>`;
- });
+  products.forEach(p => {
+    const el = document.createElement("div");
+    el.className = "p-3 bg-gray-100 rounded-xl mb-3";
+
+    el.innerHTML = `
+      <img src="${p.image}" loading="lazy" class="rounded mb-2"/>
+      <h3 class="font-bold">${p.title}</h3>
+      <p class="text-sm text-gray-500">${p.price}</p>
+      <button onclick='openModal(${JSON.stringify(p)})'
+        class="mt-2 bg-black text-white w-full py-2 rounded">
+        Buy
+      </button>
+    `;
+
+    container.appendChild(el);
+  });
 }
 
-/* BLOG */
-function renderBlog(list){
- list.forEach(b=>{
-  blog.innerHTML+=`
-  <a href="${b.url}" class="btn">
-    ${b.title}
-    <i data-lucide="book-open"></i>
-  </a>`;
- });
+/* MODAL */
+function openModal(p) {
+  document.getElementById("modal").classList.remove("hidden");
+  document.getElementById("modalImg").src = p.image;
+  document.getElementById("modalTitle").innerText = p.title;
+  document.getElementById("modalDesc").innerText = p.description;
+  document.getElementById("modalDemo").href = p.demo;
+  document.getElementById("modalBuy").href = p.buy;
 }
 
-/* DONATE */
-function openDonate(){donateModal.classList.remove("hidden")}
-function closeDonate(){donateModal.classList.add("hidden")}
-
-/* PRODUCT */
-let currentItem=null;
-function openModal(p){
- currentItem=p;
- modal.classList.remove("hidden");
- mTitle.innerText=p.title;
- mImg.src=p.img;
- mPrice.innerText=p.price;
-}
-function closeModal(){modal.classList.add("hidden")}
-
-function addCart(title){
- cart.push(title);
- updateCart();
-}
-function addCartModal(){
- cart.push(currentItem.title);
- updateCart();
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
 }
 
-/* CART */
-function updateCart(){
- cartCount.innerText=cart.length;
- cartCount.classList.remove("hidden");
-}
+/* GALLERY */
+function renderGallery(gallery) {
+  const container = document.getElementById("gallery");
 
-function openCart(){
- cartModal.classList.remove("hidden");
- cartList.innerHTML=cart.map(i=>`• ${i}`).join("<br>");
-}
+  gallery.forEach(img => {
+    const el = document.createElement("img");
+    el.src = img;
+    el.loading = "lazy";
+    el.className = "rounded-lg";
 
-function closeCart(){
- cartModal.classList.add("hidden");
+    container.appendChild(el);
+  });
 }
-
-function checkout(){
- let text=cart.map(i=>"- "+i).join("%0A");
- window.open(`https://wa.me/628xxxx?text=Order:%0A${text}`);
-}
-
-lucide.createIcons();
