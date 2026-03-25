@@ -11,20 +11,50 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
 <style>
-body{font-family:system-ui;background:#f5f5f5}
-
-/* DARK HEADER */
-#lottie-cover{
-  background: linear-gradient(135deg,#1a1a1a,#2a2a2a);
+body{
+ font-family:system-ui;
+ background: linear-gradient(180deg,#0f172a,#020617);
+ color:white;
 }
 
-/* HOVER */
-.link,.product{transition:.25s}
-.link:hover{transform:translateY(-2px)}
-.product:hover{transform:translateY(-3px) scale(1.02)}
+/* GLASS BASE */
+.glass{
+ background: rgba(255,255,255,0.08);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border:1px solid rgba(255,255,255,0.08);
+ box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* HEADER */
+#lottie-cover{
+ background: linear-gradient(135deg,#0f172a,#1e293b,#020617);
+}
+
+/* BUTTON */
+.btn{
+ transition: all .25s ease;
+}
+.btn:hover{
+ transform: translateY(-2px) scale(1.02);
+ filter: brightness(1.1);
+}
+
+/* WHATSAPP */
+.wa{
+ background: linear-gradient(135deg,#16a34a,#22c55e);
+ box-shadow:0 10px 30px rgba(34,197,94,0.3);
+}
+
+/* CARD */
+.card:hover{
+ transform: translateY(-4px) scale(1.02);
+}
 
 /* HEART */
-.lucide-heart{animation:pulse 1.5s infinite}
+.lucide-heart{
+ animation:pulse 1.5s infinite;
+}
 @keyframes pulse{
  0%{transform:scale(1)}
  50%{transform:scale(1.2)}
@@ -39,24 +69,23 @@ body{font-family:system-ui;background:#f5f5f5}
 
 <!-- HEADER -->
 <div class="relative">
-  <div class="rounded-[30px] overflow-hidden shadow-lg">
+  <div class="rounded-[30px] overflow-hidden">
     <div class="relative h-44 w-full">
       <div id="lottie-cover" class="w-full h-full"></div>
-      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="absolute inset-0 bg-black/40"></div>
     </div>
   </div>
 
   <div class="absolute left-5 -bottom-8 right-5 flex justify-between items-center">
-    
+
     <!-- Avatar -->
-    <div class="w-[78px] h-[78px] rounded-full border-4 border-white bg-white overflow-hidden shadow-md">
+    <div class="w-[78px] h-[78px] rounded-full border-4 border-white overflow-hidden shadow-xl">
       <img src="/assets/profile.jpg" class="w-full h-full object-cover">
     </div>
 
     <!-- Donate -->
-    <button onclick="openDonate()" class="flex items-center gap-1 bg-white px-3 py-1.5 rounded-full shadow text-xs">
-      <i data-lucide="heart"></i>
-      Donate
+    <button onclick="openDonate()" class="glass btn flex items-center gap-2 px-3 py-2 rounded-full text-sm">
+      <i data-lucide="heart"></i> Donate
     </button>
 
   </div>
@@ -67,7 +96,7 @@ body{font-family:system-ui;background:#f5f5f5}
 <!-- NAME -->
 <div class="text-center">
   <h1 class="font-bold text-lg">Anto</h1>
-  <p class="text-xs text-gray-500">Builder • SaaS • Furniture</p>
+  <p class="text-xs text-gray-400">Builder • SaaS • Furniture</p>
 </div>
 
 <!-- FEATURED -->
@@ -79,14 +108,14 @@ body{font-family:system-ui;background:#f5f5f5}
 <!-- PRODUCTS -->
 <div id="products" class="grid grid-cols-2 gap-3 mt-6"></div>
 
-<!-- BLOG LIST -->
+<!-- BLOG -->
 <div id="blog" class="space-y-3 mt-6"></div>
 
 </div>
 
 <!-- PRODUCT MODAL -->
-<div id="productModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl p-4 w-[90%] max-w-sm relative">
+<div id="productModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="glass rounded-2xl p-4 w-[90%] max-w-sm relative">
     <button onclick="closeProduct()" class="absolute top-3 right-3 w-6 h-6 bg-red-500 text-white rounded-full text-xs">✕</button>
     <img id="pImg" class="rounded-lg mb-2">
     <h2 id="pTitle" class="font-bold"></h2>
@@ -94,9 +123,9 @@ body{font-family:system-ui;background:#f5f5f5}
   </div>
 </div>
 
-<!-- DONATE MODAL -->
-<div id="donateModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl p-4 w-[90%] max-w-sm relative">
+<!-- DONATE -->
+<div id="donateModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="glass rounded-2xl p-4 w-[90%] max-w-sm relative">
     <button onclick="closeDonate()" class="absolute top-3 right-3 w-6 h-6 bg-red-500 text-white rounded-full text-xs">✕</button>
     <h2 class="text-center font-bold mb-3">Donate</h2>
     <img src="/assets/qris.webp" class="rounded-lg w-full" />
