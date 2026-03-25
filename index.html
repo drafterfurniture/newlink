@@ -1,87 +1,96 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Anto | Link in Bio</title>
-  <meta name="description" content="Link in bio modern untuk personal branding dan jualan" />
+<title>Anto | Link in Bio</title>
+<meta name="description" content="Link in bio modern, jualan & portfolio">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Anto | Link in Bio">
-  <meta property="og:description" content="Semua link penting dalam satu halaman">
-  <meta property="og:image" content="/assets/avatar.jpg">
+<!-- OG -->
+<meta property="og:title" content="Anto Link Bio">
+<meta property="og:image" content="/assets/avatar.jpg">
 
-  <!-- Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Anto",
-    "url": "https://yourdomain.com",
-    "sameAs": [
-      "https://instagram.com/",
-      "https://x.com/",
-      "https://linkedin.com/"
-    ]
-  }
-  </script>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide -->
+<script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Lucide -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+<!-- Umami (isi ID lo) -->
+<script defer src="https://umami.yourdomain.com/script.js" data-website-id="xxx"></script>
 
-  <link rel="manifest" href="/manifest.json">
+<style>
+body { font-family: system-ui, sans-serif; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(15px); }
+  to { opacity:1; transform: translateY(0); }
+}
+.animate-fadeUp { animation: fadeUp .6s ease; }
+</style>
 
 </head>
 
 <body class="bg-gray-100 flex justify-center">
 
-  <!-- CONTAINER MOBILE -->
-  <div class="w-full max-w-md min-h-screen bg-white p-4">
+<div class="w-full max-w-md min-h-screen bg-white p-4">
 
-    <!-- PROFILE -->
-    <div class="text-center mb-6 animate-fade">
-      <img src="/assets/avatar.jpg" loading="lazy"
-        class="w-24 h-24 rounded-full mx-auto mb-3 object-cover" />
+<!-- HEADER -->
+<div class="relative mb-6 animate-fadeUp">
 
-      <h1 id="name" class="text-xl font-bold"></h1>
-      <p id="bio" class="text-sm text-gray-500"></p>
-    </div>
+  <div class="h-36 rounded-3xl bg-gradient-to-br from-orange-400 via-red-500 to-yellow-400"></div>
 
-    <!-- FEATURED -->
-    <div id="featured"></div>
+  <div class="absolute inset-0 flex items-end justify-between p-4">
 
-    <!-- LINKS -->
-    <div id="links" class="space-y-3 mt-4"></div>
-
-    <!-- PRODUCTS -->
-    <div id="products" class="mt-6"></div>
-
-    <!-- GALLERY -->
-    <div id="gallery" class="grid grid-cols-3 gap-2 mt-6"></div>
-
-  </div>
-
-  <!-- MODAL -->
-  <div id="modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
-    <div class="bg-white rounded-xl p-4 w-11/12 max-w-sm relative">
-
-      <button onclick="closeModal()"
-        class="absolute top-2 right-2 text-xl">✕</button>
-
-      <img id="modalImg" class="rounded-lg mb-3" />
-      <h2 id="modalTitle" class="font-bold"></h2>
-      <p id="modalDesc" class="text-sm text-gray-500 mb-3"></p>
-
-      <div class="flex gap-2">
-        <a id="modalDemo" class="flex-1 bg-gray-200 text-center py-2 rounded">Demo</a>
-        <a id="modalBuy" class="flex-1 bg-black text-white text-center py-2 rounded">Buy</a>
+    <div class="flex items-center gap-3">
+      <img id="avatar" class="w-16 h-16 rounded-full border-4 border-white shadow-xl object-cover"/>
+      <div>
+        <h1 id="name" class="text-white font-bold"></h1>
+        <p id="bio" class="text-white/80 text-xs"></p>
       </div>
+    </div>
 
+    <div class="bg-white px-3 py-1 rounded-full flex gap-2 items-center shadow">
+      <i id="badgeIcon" data-lucide="zap"></i>
+      <span id="badgeText">...</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<div id="countdown" class="text-center text-sm mb-3 font-medium"></div>
+
+<!-- FEATURED -->
+<div id="featured"></div>
+
+<!-- LINKS -->
+<div id="links" class="space-y-3"></div>
+
+<!-- PRODUCTS -->
+<div id="products" class="mt-6"></div>
+
+<!-- GALLERY -->
+<div id="gallery" class="grid grid-cols-3 gap-2 mt-6"></div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+  <div class="bg-white p-4 rounded-xl w-11/12 max-w-sm relative">
+    <button onclick="closeModal()" class="absolute top-2 right-2">✕</button>
+
+    <img id="modalImg" class="rounded mb-3"/>
+    <h2 id="modalTitle" class="font-bold"></h2>
+    <p id="modalDesc" class="text-sm text-gray-500 mb-3"></p>
+
+    <div class="flex gap-2">
+      <a id="modalDemo" class="flex-1 bg-gray-200 py-2 text-center rounded">Demo</a>
+      <a id="modalBuy" class="flex-1 bg-black text-white py-2 text-center rounded">Buy</a>
     </div>
   </div>
+</div>
 
 <script src="/script.js"></script>
 </body>
