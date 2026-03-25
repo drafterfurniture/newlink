@@ -1,18 +1,22 @@
 {
  "featured":{
-  "id":"f1",
   "title":"🔥 Chat WhatsApp",
   "url":"https://wa.me/628xxxx"
  },
  "links":[
-  {"id":"l1","title":"Website","url":"https://example.com"},
-  {"id":"l2","title":"Shopee","variants":["https://a.com","https://b.com"]}
+  {"title":"Website","url":"https://example.com"},
+  {"title":"Shopee","url":"https://shopee.com"}
  ],
  "products":[
   {
    "title":"Kursi Minimalis",
    "price":"Rp500K",
    "img":"/assets/p1.jpg"
+  },
+  {
+   "title":"Meja Kayu",
+   "price":"Rp750K",
+   "img":"/assets/p2.jpg"
   }
  ]
 }
