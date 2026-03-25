@@ -13,37 +13,38 @@
 <style>
 body{
  font-family:system-ui;
- background: linear-gradient(180deg,#0f172a,#020617);
- color:white;
+ background: linear-gradient(180deg,#f8fafc,#eef2ff);
+ color:#111;
 }
 
-/* GLASS BASE */
+/* GLASS LIGHT */
 .glass{
- background: rgba(255,255,255,0.08);
- backdrop-filter: blur(16px);
- -webkit-backdrop-filter: blur(16px);
- border:1px solid rgba(255,255,255,0.08);
- box-shadow:0 10px 30px rgba(0,0,0,0.4);
+ background: rgba(255,255,255,0.7);
+ backdrop-filter: blur(14px);
+ -webkit-backdrop-filter: blur(14px);
+ border:1px solid rgba(0,0,0,0.05);
+ box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
 /* HEADER */
 #lottie-cover{
- background: linear-gradient(135deg,#0f172a,#1e293b,#020617);
+ background: linear-gradient(135deg,#e0f2fe,#dbeafe,#f1f5f9);
 }
 
 /* BUTTON */
 .btn{
- transition: all .25s ease;
+ transition:.25s;
 }
 .btn:hover{
  transform: translateY(-2px) scale(1.02);
- filter: brightness(1.1);
+ filter: brightness(1.03);
 }
 
-/* WHATSAPP */
+/* WA */
 .wa{
- background: linear-gradient(135deg,#16a34a,#22c55e);
- box-shadow:0 10px 30px rgba(34,197,94,0.3);
+ background: linear-gradient(135deg,#22c55e,#4ade80);
+ color:white;
+ box-shadow:0 10px 25px rgba(34,197,94,0.3);
 }
 
 /* CARD */
@@ -72,14 +73,14 @@ body{
   <div class="rounded-[30px] overflow-hidden">
     <div class="relative h-44 w-full">
       <div id="lottie-cover" class="w-full h-full"></div>
-      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 bg-white/20"></div>
     </div>
   </div>
 
   <div class="absolute left-5 -bottom-8 right-5 flex justify-between items-center">
 
     <!-- Avatar -->
-    <div class="w-[78px] h-[78px] rounded-full border-4 border-white overflow-hidden shadow-xl">
+    <div class="w-[78px] h-[78px] rounded-full border-4 border-white overflow-hidden shadow-lg">
       <img src="/assets/profile.jpg" class="w-full h-full object-cover">
     </div>
 
@@ -96,7 +97,7 @@ body{
 <!-- NAME -->
 <div class="text-center">
   <h1 class="font-bold text-lg">Anto</h1>
-  <p class="text-xs text-gray-400">Builder • SaaS • Furniture</p>
+  <p class="text-xs text-gray-500">Builder • SaaS • Furniture</p>
 </div>
 
 <!-- FEATURED -->
@@ -114,7 +115,7 @@ body{
 </div>
 
 <!-- PRODUCT MODAL -->
-<div id="productModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+<div id="productModal" class="hidden fixed inset-0 bg-black/20 flex items-center justify-center z-50">
   <div class="glass rounded-2xl p-4 w-[90%] max-w-sm relative">
     <button onclick="closeProduct()" class="absolute top-3 right-3 w-6 h-6 bg-red-500 text-white rounded-full text-xs">✕</button>
     <img id="pImg" class="rounded-lg mb-2">
@@ -124,7 +125,7 @@ body{
 </div>
 
 <!-- DONATE -->
-<div id="donateModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+<div id="donateModal" class="hidden fixed inset-0 bg-black/20 flex items-center justify-center z-50">
   <div class="glass rounded-2xl p-4 w-[90%] max-w-sm relative">
     <button onclick="closeDonate()" class="absolute top-3 right-3 w-6 h-6 bg-red-500 text-white rounded-full text-xs">✕</button>
     <h2 class="text-center font-bold mb-3">Donate</h2>
