@@ -9,11 +9,6 @@
     }
   },
 
-  "promo": {
-    "text": "Diskon hari ini",
-    "end": "2026-12-31T23:59:00"
-  },
-
   "links": [
     {
       "id": "1",
