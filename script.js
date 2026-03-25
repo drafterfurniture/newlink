@@ -1,86 +1,75 @@
 const API = "/data/links.json";
 let clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
 
-fetch(API)
-.then(res => res.json())
-.then(data => {
- renderFeatured(data.featured);
- renderLinks(data.links);
- renderProducts(data.products);
- renderGallery(data.gallery);
- renderSocial(data.social);
+fetch(API).then(r=>r.json()).then(d=>{
+ renderFeatured(d.featured);
+ renderLinks(d.links);
+ renderProducts(d.products);
+ renderGallery(d.gallery);
+ renderSocial(d.social);
 });
 
 function track(id){
- clicks[id] = (clicks[id] || 0) + 1;
- localStorage.setItem("clicks", JSON.stringify(clicks));
+ clicks[id]=(clicks[id]||0)+1;
+ localStorage.setItem("clicks",JSON.stringify(clicks));
 }
 
-function renderFeatured(item){
- if(!item) return;
- document.getElementById("featured").innerHTML = `
- <a href="${item.url}" onclick="track('${item.id}')" class="block p-4 bg-black text-white rounded-xl text-center font-bold">
- ${item.title}
+function renderFeatured(f){
+ if(!f)return;
+ featured.innerHTML=`
+ <a href="${f.url}" onclick="track('${f.id}')" 
+ class="block text-center p-4 rounded-2xl text-white font-bold gradient shadow-lg">
+ ${f.title}
  </a>`;
 }
 
 function renderLinks(links){
- const el = document.getElementById("links");
  links.forEach(l=>{
- const popular = clicks[l.id] > 3 ? "border-2 border-green-500" : "";
- el.innerHTML += `
- <a href="${abTest(l)}" onclick="track('${l.id}')" class="block p-3 bg-white rounded-xl shadow ${popular}">
+ const hot=clicks[l.id]>3?"ring-2 ring-green-400":"";
+ linksEl.innerHTML+=`
+ <a href="${ab(l)}" onclick="track('${l.id}')"
+ class="block glass p-3 rounded-2xl shadow ${hot} hover:scale-[1.02] transition">
  ${l.title}
  </a>`;
  });
 }
 
-function abTest(link){
- if(!link.variants) return link.url;
- const i = Math.floor(Math.random()*link.variants.length);
- return link.variants[i];
+const linksEl=document.getElementById("links");
+
+function ab(l){
+ if(!l.variants)return l.url;
+ return l.variants[Math.floor(Math.random()*l.variants.length)];
 }
 
-function renderProducts(products){
- const el = document.getElementById("products");
- products.forEach(p=>{
- el.innerHTML += `
- <div onclick="openModal(${JSON.stringify(p)})" class="bg-white p-3 rounded-xl shadow mb-3">
- <img src="${p.img}" loading="lazy" class="rounded-lg mb-2" />
- <h3>${p.title}</h3>
- <p>${p.price}</p>
+function renderProducts(p){
+ p.forEach(i=>{
+ products.innerHTML+=`
+ <div onclick='openModal(${JSON.stringify(i)})'
+ class="glass p-3 rounded-2xl shadow mb-3 hover:scale-[1.02] transition">
+ <img src="${i.img}" class="rounded-lg mb-2" loading="lazy">
+ <h3 class="font-semibold">${i.title}</h3>
+ <p class="text-sm text-gray-500">${i.price}</p>
  </div>`;
  });
 }
 
 function openModal(p){
- document.getElementById("modal").classList.remove("hidden");
- modalImg.src = p.img;
- modalTitle.innerText = p.title;
- modalDesc.innerText = p.desc;
- modalBuy.href = p.url;
+ modal.classList.remove("hidden");
+ modalImg.src=p.img;
+ modalTitle.innerText=p.title;
+ modalDesc.innerText=p.desc;
+ modalBuy.href=p.url;
 }
 
-function closeModal(){
- document.getElementById("modal").classList.add("hidden");
-}
+function closeModal(){modal.classList.add("hidden")}
 
 function renderGallery(g){
- const el = document.getElementById("gallery");
- g.forEach(i=>{
- el.innerHTML += `<img src="${i}" loading="lazy" class="rounded-lg"/>`;
- });
+ g.forEach(i=>gallery.innerHTML+=`<img src="${i}" loading="lazy" class="rounded-xl">`);
 }
 
 function renderSocial(s){
- const el = document.getElementById("social");
- s.forEach(i=>{
- el.innerHTML += `<a href="${i.url}"><i data-lucide="${i.icon}"></i></a>`;
- });
+ s.forEach(i=>social.innerHTML+=`<a href="${i.url}"><i data-lucide="${i.icon}"></i></a>`);
  lucide.createIcons();
 }
 
-// PWA
-if("serviceWorker" in navigator){
- navigator.serviceWorker.register("/sw.js");
-}
+if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js");}
