@@ -1,10 +1,9 @@
-const API="/data/links.json";
+let cart=0;
 
-fetch(API).then(r=>r.json()).then(d=>{
+fetch("/data/links.json").then(r=>r.json()).then(d=>{
  renderFeatured(d.featured);
  renderLinks(d.links);
  renderProducts(d.products);
- renderBlog(d.blog);
 });
 
 function renderFeatured(f){
@@ -17,50 +16,51 @@ function renderFeatured(f){
 function renderLinks(links){
  links.forEach(l=>{
   linksEl.innerHTML+=`
-  <a href="${l.url}" class="glass btn">
-   ${l.title}
+  <a href="${l.url}" class="btn bg-white">
+    ${l.title}
+    🐱
   </a>`;
  });
 }
 const linksEl=document.getElementById("links");
 
-// 🔥 PRODUCT CAROUSEL STYLE
 function renderProducts(p){
  p.forEach(i=>{
   products.innerHTML+=`
-  <div class="glass product-card p-3">
-    <img src="${i.img}" class="rounded-lg mb-2">
-    <h3 class="font-medium">${i.title}</h3>
-    <p class="text-sm text-gray-500">${i.price}</p>
+  <div class="product">
+    <img src="${i.img}" class="rounded-lg">
+    <h3>${i.title}</h3>
+    <p>${i.price}</p>
 
-    <div class="mt-3 flex gap-2">
-      <button class="btn glass flex-1 text-xs">View</button>
-      <button class="btn wa flex-1 text-xs">Buy</button>
+    <div class="flex gap-2 mt-2">
+      <button onclick='openModal(${JSON.stringify(i)})' class="flex-1 border rounded-lg p-2">View</button>
+      <button onclick="addCart()" class="flex-1 bg-green-500 text-white rounded-lg p-2">Add</button>
     </div>
   </div>`;
  });
 }
 
-function renderBlog(list){
- list.forEach(b=>{
-  blog.innerHTML+=`
-  <a href="${b.url}" class="glass btn">
-   ${b.title}
-  </a>`;
- });
+function openModal(p){
+ modal.classList.remove("hidden");
+ mTitle.innerText=p.title;
+ mImg.src=p.img;
+ mPrice.innerText=p.price;
+ mDesc.innerText="Produk premium berkualitas";
+
+ thumbs.innerHTML="";
+ if(p.gallery){
+  p.gallery.forEach(img=>{
+   thumbs.innerHTML+=`<img src="${img}" onclick="mImg.src='${img}'" class="w-16 rounded">`;
+  });
+ }
 }
 
-// DONATE
-function openDonate(){donateModal.classList.remove("hidden")}
-function closeDonate(){donateModal.classList.add("hidden")}
+function addCart(){
+ cart++;
+ cartCount.innerText=cart;
+ cart.classList.remove("hidden");
+}
 
-// LOTTIE
-lottie.loadAnimation({
- container: document.getElementById('lottie-cover'),
- renderer:'svg',
- loop:true,
- autoplay:true,
- path:'/assets/cover.json'
-});
-
-lucide.createIcons();
+document.getElementById("cart").onclick=()=>{
+ window.open("https://wa.me/628xxxx?text=Checkout "+cart+" item");
+};
