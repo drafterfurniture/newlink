@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Anto | Link in Bio</title>
+<title>Anto | Link</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,78 +19,77 @@ body{
 
 /* GLASS */
 .glass{
- background: rgba(255,255,255,0.7);
- backdrop-filter: blur(14px);
+ background: rgba(255,255,255,0.75);
+ backdrop-filter: blur(12px);
  border:1px solid rgba(0,0,0,0.05);
- box-shadow:0 10px 30px rgba(0,0,0,0.08);
+ box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* HEADER */
-#lottie-cover{
- background: linear-gradient(135deg,#e0f2fe,#dbeafe,#f1f5f9);
+/* BUTTON UNIVERSAL */
+.btn{
+ height:54px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:16px;
+ font-weight:500;
+ transition:.2s;
 }
-
-/* BUTTON */
-.btn{transition:.25s}
-.btn:hover{transform:translateY(-2px) scale(1.02)}
+.btn:hover{
+ transform:translateY(-2px);
+}
 
 /* WA */
 .wa{
  background: linear-gradient(135deg,#22c55e,#4ade80);
  color:white;
- box-shadow:0 10px 25px rgba(34,197,94,0.3);
-}
-
-/* CARD */
-.card:hover{
- transform: translateY(-4px) scale(1.02);
-}
-
-/* HEART */
-.lucide-heart{
- animation:pulse 1.5s infinite;
-}
-@keyframes pulse{
- 0%{transform:scale(1)}
- 50%{transform:scale(1.2)}
- 100%{transform:scale(1)}
 }
 
 /* NAV */
 .bottom-nav{
  position:fixed;
- bottom:12px;
+ bottom:10px;
  left:50%;
  transform:translateX(-50%);
- width:92%;
+ width:94%;
  max-width:420px;
- border-radius:999px;
- padding:10px;
  display:flex;
  justify-content:space-around;
- z-index:50;
+ padding:10px;
+ border-radius:20px;
 }
 
+/* NAV ITEM */
 .nav-item{
  display:flex;
  flex-direction:column;
  align-items:center;
- font-size:10px;
+ font-size:11px;
  opacity:.6;
- transition:.25s;
+}
+.nav-item i{width:20px;height:20px}
+.nav-item:hover{opacity:1}
+
+/* PRODUCT CARD */
+.product-card{
+ width:260px;
+ min-width:260px;
+ border-radius:20px;
+ overflow:hidden;
+ position:relative;
 }
 
-.nav-item:hover{
- transform:scale(1.1);
- opacity:1;
+/* SLIDER */
+.slider{
+ display:flex;
+ gap:12px;
+ overflow-x:auto;
+ scroll-snap-type:x mandatory;
 }
-
-/* Brand hover color */
-.nav-item:nth-child(1):hover{color:#E1306C;}
-.nav-item:nth-child(2):hover{color:#000;}
-.nav-item:nth-child(3):hover{color:#0A66C2;}
-.nav-item:nth-child(4):hover{color:#1769FF;}
-.nav-item:nth-child(5):hover{color:#E60023;}
+.slider::-webkit-scrollbar{display:none}
+.product-card{
+ scroll-snap-align:center;
+}
 </style>
 </head>
 
@@ -100,7 +99,7 @@ body{
 
 <!-- HEADER -->
 <div class="relative">
-  <div class="rounded-[30px] overflow-hidden">
+  <div class="rounded-[24px] overflow-hidden">
     <div class="relative h-44 w-full">
       <div id="lottie-cover" class="w-full h-full"></div>
       <div class="absolute inset-0 bg-white/20"></div>
@@ -109,12 +108,12 @@ body{
 
   <div class="absolute left-5 -bottom-8 right-5 flex justify-between items-center">
 
-    <div class="w-[78px] h-[78px] rounded-full border-4 border-white overflow-hidden shadow-lg">
+    <div class="w-[78px] h-[78px] rounded-full border-4 border-white overflow-hidden shadow">
       <img src="/assets/profile.jpg" class="w-full h-full object-cover">
     </div>
 
-    <button onclick="openDonate()" class="glass btn flex items-center gap-2 px-3 py-2 rounded-full text-sm">
-      <i data-lucide="heart"></i> Donate
+    <button onclick="openDonate()" class="glass btn px-4 text-sm">
+      <i data-lucide="heart"></i>
     </button>
 
   </div>
@@ -123,8 +122,8 @@ body{
 <div class="h-14"></div>
 
 <!-- NAME -->
-<div class="text-center mt-2">
-  <h1 class="font-bold text-lg">Anto</h1>
+<div class="text-center">
+  <h1 class="font-semibold text-lg">Anto</h1>
   <p class="text-xs text-gray-500">Builder • SaaS • Furniture</p>
 </div>
 
@@ -134,34 +133,23 @@ body{
 <!-- LINKS -->
 <div id="links" class="space-y-3 mt-4"></div>
 
-<!-- PRODUCTS -->
-<div id="products" class="grid grid-cols-2 gap-3 mt-6"></div>
+<!-- PRODUCT SLIDER -->
+<div id="products" class="slider mt-6"></div>
 
 <!-- BLOG -->
 <div id="blog" class="space-y-3 mt-6"></div>
 
 </div>
 
-<!-- PRODUCT MODAL -->
-<div id="productModal" class="hidden fixed inset-0 bg-black/20 flex items-center justify-center z-50">
-  <div class="glass rounded-2xl p-4 w-[90%] max-w-sm relative">
-    <button onclick="closeProduct()" class="absolute top-3 right-3 w-6 h-6 bg-red-500 text-white rounded-full text-xs">✕</button>
-    <img id="pImg" class="rounded-lg mb-2">
-    <h2 id="pTitle" class="font-bold"></h2>
-    <p id="pPrice"></p>
-  </div>
-</div>
-
-<!-- DONATE MODAL -->
+<!-- DONATE -->
 <div id="donateModal" class="hidden fixed inset-0 bg-black/20 flex items-center justify-center z-50">
-  <div class="glass rounded-2xl p-4 w-[90%] max-w-sm relative">
-    <button onclick="closeDonate()" class="absolute top-3 right-3 w-6 h-6 bg-red-500 text-white rounded-full text-xs">✕</button>
-    <h2 class="text-center font-bold mb-3">Donate</h2>
-    <img src="/assets/qris.webp" class="rounded-lg w-full" />
+  <div class="glass p-4 rounded-2xl w-[90%] max-w-sm relative">
+    <button onclick="closeDonate()" class="absolute top-3 right-3">✕</button>
+    <img src="/assets/qris.webp" class="rounded-lg w-full">
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- NAV -->
 <div class="glass bottom-nav">
 
   <a href="#" class="nav-item">
