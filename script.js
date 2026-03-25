@@ -11,7 +11,7 @@ fetch(API).then(r=>r.json()).then(d=>{
 function renderFeatured(f){
  if(!f)return;
  featured.innerHTML=`
- <a href="${f.url}" class="block text-center p-4 rounded-2xl text-white font-bold bg-black">
+ <a href="${f.url}" class="btn wa block text-center p-4 rounded-2xl font-bold">
  ${f.title}
  </a>`;
 }
@@ -20,7 +20,7 @@ function renderFeatured(f){
 function renderLinks(links){
  links.forEach(l=>{
   linksEl.innerHTML+=`
-  <a href="${l.url}" class="link block bg-white p-3 rounded-2xl shadow">
+  <a href="${l.url}" class="glass btn block p-3 rounded-2xl">
   ${l.title}
   </a>`;
  });
@@ -32,7 +32,7 @@ function renderProducts(p){
  p.forEach(i=>{
   products.innerHTML+=`
   <div onclick='openProduct(${JSON.stringify(i)})'
-  class="product bg-white p-2 rounded-2xl shadow text-sm">
+  class="glass card p-2 rounded-2xl text-sm cursor-pointer">
     <img src="${i.img}" class="rounded-lg mb-1">
     <h3>${i.title}</h3>
     <p>${i.price}</p>
@@ -40,18 +40,18 @@ function renderProducts(p){
  });
 }
 
-// BLOG LIST
+// BLOG
 function renderBlog(list){
  list.forEach(b=>{
   blog.innerHTML+=`
   <a href="${b.url}" target="_blank"
-  class="link block bg-white p-3 rounded-2xl shadow text-sm">
-    📘 ${b.title}
+  class="glass btn block p-3 rounded-2xl text-sm">
+  📘 ${b.title}
   </a>`;
  });
 }
 
-// PRODUCT MODAL
+// MODAL
 function openProduct(p){
  productModal.classList.remove("hidden");
  pImg.src=p.img;
