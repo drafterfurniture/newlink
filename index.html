@@ -1,182 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Anto | Link</title>
+<title>Anto</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
 <style>
 body{
  font-family:system-ui;
- background: linear-gradient(180deg,#f8fafc,#eef2ff);
- color:#111;
+ background:linear-gradient(#f8fafc,#eef2ff);
 }
 
-/* GLASS */
-.glass{
- background: rgba(255,255,255,0.75);
- backdrop-filter: blur(12px);
- border:1px solid rgba(0,0,0,0.05);
- box-shadow:0 10px 25px rgba(0,0,0,0.08);
+/* HEADER CLOUD */
+.header{
+ background:linear-gradient(#dbeafe,#f0f9ff);
 }
 
-/* BUTTON UNIVERSAL */
+/* BUTTON */
 .btn{
  height:54px;
+ border-radius:16px;
  display:flex;
  align-items:center;
- justify-content:center;
- border-radius:16px;
- font-weight:500;
- transition:.2s;
-}
-.btn:hover{
- transform:translateY(-2px);
+ justify-content:space-between;
+ padding:0 16px;
 }
 
 /* WA */
 .wa{
- background: linear-gradient(135deg,#22c55e,#4ade80);
+ background:linear-gradient(135deg,#22c55e,#4ade80);
  color:white;
 }
 
-/* NAV */
-.bottom-nav{
- position:fixed;
- bottom:10px;
- left:50%;
- transform:translateX(-50%);
- width:94%;
- max-width:420px;
- display:flex;
- justify-content:space-around;
+/* PRODUCT */
+.product{
+ border-radius:16px;
  padding:10px;
+ background:white;
+}
+
+/* FLOAT CART */
+.cart{
+ position:fixed;
+ bottom:90px;
+ right:20px;
+ background:black;
+ color:white;
+ padding:12px 16px;
  border-radius:20px;
-}
-
-/* NAV ITEM */
-.nav-item{
- display:flex;
- flex-direction:column;
- align-items:center;
- font-size:11px;
- opacity:.6;
-}
-.nav-item i{width:20px;height:20px}
-.nav-item:hover{opacity:1}
-
-/* PRODUCT CARD */
-.product-card{
- width:260px;
- min-width:260px;
- border-radius:20px;
- overflow:hidden;
- position:relative;
-}
-
-/* SLIDER */
-.slider{
- display:flex;
- gap:12px;
- overflow-x:auto;
- scroll-snap-type:x mandatory;
-}
-.slider::-webkit-scrollbar{display:none}
-.product-card{
- scroll-snap-align:center;
 }
 </style>
 </head>
 
 <body>
 
-<div class="max-w-md mx-auto p-4 pb-24">
+<div class="max-w-md mx-auto p-4 pb-32">
 
 <!-- HEADER -->
-<div class="relative">
-  <div class="rounded-[24px] overflow-hidden">
-    <div class="relative h-44 w-full">
-      <div id="lottie-cover" class="w-full h-full"></div>
-      <div class="absolute inset-0 bg-white/20"></div>
-    </div>
-  </div>
-
-  <div class="absolute left-5 -bottom-8 right-5 flex justify-between items-center">
-
-    <div class="w-[78px] h-[78px] rounded-full border-4 border-white overflow-hidden shadow">
-      <img src="/assets/profile.jpg" class="w-full h-full object-cover">
-    </div>
-
-    <button onclick="openDonate()" class="glass btn px-4 text-sm">
-      <i data-lucide="heart"></i>
-    </button>
-
-  </div>
+<div class="header h-44 rounded-2xl flex items-center justify-center relative">
+ ☁️
 </div>
 
-<div class="h-14"></div>
+<div class="-mt-10 flex justify-between items-center">
+ <img src="/assets/profile.jpg" class="w-20 h-20 rounded-full border-4 border-white">
 
-<!-- NAME -->
-<div class="text-center">
-  <h1 class="font-semibold text-lg">Anto</h1>
-  <p class="text-xs text-gray-500">Builder • SaaS • Furniture</p>
+ <button onclick="openDonate()" class="bg-white px-4 py-2 rounded-full">
+ ❤️
+ </button>
 </div>
 
-<!-- FEATURED -->
+<div class="text-center mt-2">
+ <h1 class="font-semibold text-lg">Anto</h1>
+ <p class="text-sm text-gray-500">Builder • SaaS • Furniture</p>
+</div>
+
+<!-- WA -->
 <div id="featured" class="mt-4"></div>
 
 <!-- LINKS -->
 <div id="links" class="space-y-3 mt-4"></div>
 
-<!-- PRODUCT SLIDER -->
-<div id="products" class="slider mt-6"></div>
-
-<!-- BLOG -->
-<div id="blog" class="space-y-3 mt-6"></div>
+<!-- PRODUCTS -->
+<div id="products" class="grid grid-cols-2 gap-3 mt-6"></div>
 
 </div>
 
-<!-- DONATE -->
-<div id="donateModal" class="hidden fixed inset-0 bg-black/20 flex items-center justify-center z-50">
-  <div class="glass p-4 rounded-2xl w-[90%] max-w-sm relative">
-    <button onclick="closeDonate()" class="absolute top-3 right-3">✕</button>
-    <img src="/assets/qris.webp" class="rounded-lg w-full">
-  </div>
+<!-- PRODUCT MODAL -->
+<div id="modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
+ <div class="bg-white p-4 rounded-xl w-[90%] max-w-sm">
+   <h2 id="mTitle"></h2>
+   <img id="mImg" class="rounded-lg my-2">
+   <p id="mPrice"></p>
+   <p id="mDesc" class="text-sm text-gray-500"></p>
+
+   <div id="thumbs" class="flex gap-2 mt-2 overflow-x-auto"></div>
+
+   <div class="flex gap-2 mt-4">
+     <button class="flex-1 border rounded-lg p-2">Demo</button>
+     <button onclick="addCart()" class="flex-1 bg-green-500 text-white rounded-lg p-2">Add to Cart</button>
+   </div>
+ </div>
 </div>
 
-<!-- NAV -->
-<div class="glass bottom-nav">
-
-  <a href="#" class="nav-item">
-    <i data-lucide="instagram"></i>
-    IG
-  </a>
-
-  <a href="#" class="nav-item">
-    <i data-lucide="at-sign"></i>
-    Threads
-  </a>
-
-  <a href="#" class="nav-item">
-    <i data-lucide="linkedin"></i>
-    LinkedIn
-  </a>
-
-  <a href="#" class="nav-item">
-    <i data-lucide="briefcase"></i>
-    Behance
-  </a>
-
-  <a href="#" class="nav-item">
-    <i data-lucide="pin"></i>
-    Pinterest
-  </a>
-
+<!-- FLOAT CART -->
+<div id="cart" class="cart hidden">
+ 🛒 <span id="cartCount">0</span>
 </div>
 
 <script src="/script.js"></script>
