@@ -16,12 +16,7 @@
 <style>
 body { font-family: system-ui, sans-serif; }
 
-/* glass effect */
-.backdrop-blur-3xl {
-  backdrop-filter: blur(40px);
-}
-
-/* animation */
+/* smooth animation */
 @keyframes fadeUp {
   from { opacity:0; transform: translateY(15px); }
   to { opacity:1; transform: translateY(0); }
@@ -35,51 +30,43 @@ body { font-family: system-ui, sans-serif; }
 
 <div class="w-full max-w-md min-h-screen bg-white p-4">
 
-<!-- HEADER GLASS (MATCH REF) -->
-<div class="relative mb-8 animate-fadeUp">
+<!-- HEADER TRUE MATCH -->
+<div class="relative mb-12 animate-fadeUp">
 
-  <div class="h-40 rounded-3xl overflow-hidden relative">
+  <!-- CARD -->
+  <div class="h-36 rounded-3xl overflow-hidden relative">
 
-    <!-- gradient -->
     <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-400"></div>
 
-    <!-- teal glow -->
-    <div class="absolute bottom-0 left-0 w-40 h-40 bg-teal-400 opacity-40 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-40 h-40 bg-teal-400/40 blur-3xl"></div>
 
-    <!-- glass -->
-    <div class="absolute inset-0 backdrop-blur-3xl bg-white/10"></div>
+    <div class="absolute inset-0 backdrop-blur-[40px] bg-white/10"></div>
 
-    <!-- light -->
     <div class="absolute top-0 right-0 w-40 h-40 bg-yellow-200/30 blur-3xl"></div>
 
   </div>
 
-  <div class="absolute inset-0 flex items-end justify-between px-4 pb-4">
+  <!-- AVATAR -->
+  <div class="absolute -bottom-6 left-6">
+    <div class="relative">
+      <div class="absolute inset-0 rounded-full bg-white blur-md opacity-40 scale-110"></div>
 
-    <!-- LEFT -->
-    <div class="flex items-center gap-3">
-
-      <!-- avatar floating -->
-      <div class="relative -mb-6">
-        <div class="absolute inset-0 rounded-full bg-white blur-md opacity-40 scale-110"></div>
-
-        <img id="avatar"
-          class="relative w-16 h-16 rounded-full border-4 border-white object-cover shadow-xl"/>
-      </div>
-
-      <!-- bio only -->
-      <div class="pb-2">
-        <p id="bio" class="text-white/90 text-sm font-medium"></p>
-      </div>
-
+      <img id="avatar"
+        class="relative w-16 h-16 rounded-full border-4 border-white object-cover shadow-xl"/>
     </div>
+  </div>
 
-    <!-- badge -->
-    <div class="bg-white/80 backdrop-blur-xl px-4 py-2 rounded-full flex items-center gap-2 shadow-md -mb-3">
+  <!-- BADGE -->
+  <div class="absolute bottom-3 right-4">
+    <div class="bg-white/90 backdrop-blur-xl px-4 py-2 rounded-full flex items-center gap-2 shadow-md">
       <i id="badgeIcon" data-lucide="zap" class="w-4 h-4"></i>
       <span id="badgeText" class="text-sm font-medium">Open Order</span>
     </div>
+  </div>
 
+  <!-- BIO -->
+  <div class="mt-8 ml-24">
+    <p id="bio" class="text-sm text-gray-700 font-medium"></p>
   </div>
 
 </div>
