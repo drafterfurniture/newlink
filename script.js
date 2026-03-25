@@ -13,13 +13,13 @@ fetch(DATA_URL)
 
 /* HEADER */
 function initHeader(p){
-  name.innerText=p.name;
-  bio.innerText=p.bio;
-  avatar.src=p.avatar;
+  document.getElementById("bio").innerText = p.bio;
+  document.getElementById("avatar").src = p.avatar;
 
   if(p.badge){
-    badgeText.innerText=p.badge.text;
-    badgeIcon.setAttribute("data-lucide",p.badge.icon || "zap");
+    document.getElementById("badgeText").innerText = p.badge.text;
+    document.getElementById("badgeIcon")
+      .setAttribute("data-lucide", p.badge.icon || "zap");
   }
 
   lucide.createIcons();
@@ -79,7 +79,7 @@ function track(id){
   localStorage.setItem("clicks",JSON.stringify(clicks));
 }
 
-/* AB TEST */
+/* AB */
 function ab(l){
   if(!l.variants) return l.url;
   return Math.random()>0.5 ? l.variants[0] : l.variants[1];
