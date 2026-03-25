@@ -1,209 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Anto</title>
+  <title>Anto | Link in Bio</title>
+  <meta name="description" content="Link in bio modern untuk personal branding dan jualan" />
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Anto | Link in Bio">
+  <meta property="og:description" content="Semua link penting dalam satu halaman">
+  <meta property="og:image" content="/assets/avatar.jpg">
 
-<style>
-body{
- font-family:system-ui;
- background:linear-gradient(#f8fafc,#eef2ff);
-}
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anto",
+    "url": "https://yourdomain.com",
+    "sameAs": [
+      "https://instagram.com/",
+      "https://x.com/",
+      "https://linkedin.com/"
+    ]
+  }
+  </script>
 
-/* HEADER */
-.header{
- background:url('/assets/header.jpg') center/cover;
-}
+  <script src="https://cdn.tailwindcss.com"></script>
 
-/* BUTTON */
-.btn{
- height:54px;
- border-radius:16px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 16px;
- background:white;
-}
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-/* WA */
-.wa{
- background:linear-gradient(135deg,#22c55e,#4ade80);
- color:white;
-}
+  <link rel="manifest" href="/manifest.json">
 
-/* NAV */
-.nav{
- position:fixed;
- bottom:10px;
- left:50%;
- transform:translateX(-50%);
- width:94%;
- max-width:420px;
- display:flex;
- justify-content:space-around;
- padding:10px;
- border-radius:20px;
- background:rgba(255,255,255,0.8);
- backdrop-filter:blur(10px);
-}
-
-/* MAC CLOSE */
-.mac{
- display:flex;
- gap:6px;
-}
-.dot{
- width:10px;
- height:10px;
- border-radius:999px;
-}
-.red{background:#ff5f57}
-.yellow{background:#ffbd2e}
-.green{background:#28c840}
-
-/* CART BADGE */
-.badge{
- position:absolute;
- top:-4px;
- right:-6px;
- background:red;
- color:white;
- font-size:10px;
- padding:2px 6px;
- border-radius:999px;
-}
-</style>
 </head>
 
-<body>
+<body class="bg-gray-100 flex justify-center">
 
-<div class="max-w-md mx-auto p-4 pb-28">
+  <!-- CONTAINER MOBILE -->
+  <div class="w-full max-w-md min-h-screen bg-white p-4">
 
-<!-- HEADER -->
-<div class="relative">
-  <div class="header h-44 rounded-2xl"></div>
+    <!-- PROFILE -->
+    <div class="text-center mb-6 animate-fade">
+      <img src="/assets/avatar.jpg" loading="lazy"
+        class="w-24 h-24 rounded-full mx-auto mb-3 object-cover" />
 
-  <div class="absolute left-5 -bottom-10 z-20 flex justify-between w-[calc(100%-40px)]">
+      <h1 id="name" class="text-xl font-bold"></h1>
+      <p id="bio" class="text-sm text-gray-500"></p>
+    </div>
 
-    <!-- AVATAR -->
-    <img src="/assets/profile.jpg"
-     class="w-20 h-20 rounded-full border-4 border-white shadow">
+    <!-- FEATURED -->
+    <div id="featured"></div>
 
-    <!-- DONATE -->
-    <button onclick="openDonate()" class="bg-white px-4 py-2 rounded-full shadow flex items-center gap-2">
-      <i data-lucide="heart"></i>
-      Donate
-    </button>
+    <!-- LINKS -->
+    <div id="links" class="space-y-3 mt-4"></div>
+
+    <!-- PRODUCTS -->
+    <div id="products" class="mt-6"></div>
+
+    <!-- GALLERY -->
+    <div id="gallery" class="grid grid-cols-3 gap-2 mt-6"></div>
 
   </div>
-</div>
 
-<div class="h-16"></div>
+  <!-- MODAL -->
+  <div id="modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+    <div class="bg-white rounded-xl p-4 w-11/12 max-w-sm relative">
 
-<!-- NAME -->
-<div class="text-center">
- <h1 class="font-semibold text-lg">Anto</h1>
- <p class="text-sm text-gray-500">Builder • SaaS • Furniture</p>
-</div>
+      <button onclick="closeModal()"
+        class="absolute top-2 right-2 text-xl">✕</button>
 
-<!-- FEATURED -->
-<div id="featured" class="mt-4"></div>
+      <img id="modalImg" class="rounded-lg mb-3" />
+      <h2 id="modalTitle" class="font-bold"></h2>
+      <p id="modalDesc" class="text-sm text-gray-500 mb-3"></p>
 
-<!-- LINKS -->
-<div id="links" class="space-y-3 mt-4"></div>
+      <div class="flex gap-2">
+        <a id="modalDemo" class="flex-1 bg-gray-200 text-center py-2 rounded">Demo</a>
+        <a id="modalBuy" class="flex-1 bg-black text-white text-center py-2 rounded">Buy</a>
+      </div>
 
-<!-- PRODUCTS -->
-<div id="products" class="grid grid-cols-2 gap-3 mt-6"></div>
-
-<!-- BLOG -->
-<div id="blog" class="space-y-3 mt-6"></div>
-
-</div>
-
-<!-- DONATE MODAL -->
-<div id="donateModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
- <div class="bg-white p-4 rounded-xl w-[90%] max-w-sm">
-
-   <div class="flex justify-between items-center mb-2">
-     <div class="mac">
-       <div class="dot red"></div>
-       <div class="dot yellow"></div>
-       <div class="dot green"></div>
-     </div>
-     <button onclick="closeDonate()">✕</button>
-   </div>
-
-   <img src="/assets/qris.webp" class="rounded-lg">
- </div>
-</div>
-
-<!-- PRODUCT MODAL -->
-<div id="modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
- <div class="bg-white p-4 rounded-xl w-[90%] max-w-sm">
-
-   <div class="flex justify-between items-center mb-2">
-     <div class="mac">
-       <div class="dot red"></div>
-       <div class="dot yellow"></div>
-       <div class="dot green"></div>
-     </div>
-     <button onclick="closeModal()">✕</button>
-   </div>
-
-   <h2 id="mTitle"></h2>
-   <img id="mImg" class="rounded-lg my-2">
-   <p id="mPrice"></p>
-
-   <div class="flex gap-2 mt-4">
-     <button class="flex-1 border rounded-lg p-2">Demo</button>
-     <button onclick="addCartModal()" class="flex-1 bg-green-500 text-white rounded-lg p-2">Add to Cart</button>
-   </div>
- </div>
-</div>
-
-<!-- CART MODAL -->
-<div id="cartModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
- <div class="bg-white p-4 rounded-xl w-[90%] max-w-sm">
-
-   <div class="flex justify-between mb-2">
-     <div class="mac">
-       <div class="dot red"></div>
-       <div class="dot yellow"></div>
-       <div class="dot green"></div>
-     </div>
-     <button onclick="closeCart()">✕</button>
-   </div>
-
-   <h2 class="font-semibold">Cart</h2>
-   <div id="cartList" class="text-sm mt-2"></div>
-
-   <button onclick="checkout()" class="w-full mt-4 bg-green-500 text-white p-2 rounded-lg">
-     Checkout WhatsApp
-   </button>
- </div>
-</div>
-
-<!-- NAV -->
-<div class="nav">
-
-  <a><i data-lucide="instagram"></i></a>
-  <a><i data-lucide="at-sign"></i></a>
-  <a><i data-lucide="linkedin"></i></a>
-  <a><i data-lucide="briefcase"></i></a>
-  <a><i data-lucide="pin"></i></a>
-
-  <a onclick="openCart()" class="relative">
-    <i data-lucide="shopping-cart"></i>
-    <span id="cartCount" class="badge hidden">0</span>
-  </a>
-
-</div>
+    </div>
+  </div>
 
 <script src="/script.js"></script>
 </body>
