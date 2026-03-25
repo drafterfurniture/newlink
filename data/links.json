@@ -1,21 +1,45 @@
 {
- "featured":{"title":"🔥 Chat WhatsApp","url":"https://wa.me/628xxxx"},
- "links":[
-  {"title":"Website","url":"#"},
-  {"title":"Shopee","url":"#"}
- ],
- "products":[
-  {
-   "title":"Kursi Minimalis",
-   "price":"Rp500K",
-   "img":"/assets/p1.jpg",
-   "gallery":["/assets/p1.jpg","/assets/p2.jpg"]
+  "profile": {
+    "name": "Anto",
+    "bio": "Builder • Digital Product • Auto Cuan"
   },
-  {
-   "title":"Meja Kayu",
-   "price":"Rp750K",
-   "img":"/assets/p2.jpg",
-   "gallery":["/assets/p2.jpg"]
-  }
- ]
+
+  "links": [
+    {
+      "id": "1",
+      "title": "🔥 Jasa Website",
+      "url": "https://wa.me/628xxxx",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "title": "Portfolio",
+      "url": "https://yourdomain.com/portfolio"
+    },
+    {
+      "id": "3",
+      "title": "Affiliate Tools",
+      "variants": [
+        "https://linkA.com",
+        "https://linkB.com"
+      ]
+    }
+  ],
+
+  "products": [
+    {
+      "title": "Template Link Bio",
+      "price": "Rp99.000",
+      "image": "/assets/avatar.jpg",
+      "description": "Template siap jual",
+      "demo": "#",
+      "buy": "https://wa.me/628xxxx"
+    }
+  ],
+
+  "gallery": [
+    "/assets/avatar.jpg",
+    "/assets/avatar.jpg",
+    "/assets/avatar.jpg"
+  ]
 }
