@@ -1,36 +1,21 @@
 {
- "featured":{
-  "title":"🔥 Chat WhatsApp",
-  "url":"https://wa.me/628xxxx"
- },
+ "featured":{"title":"🔥 Chat WhatsApp","url":"https://wa.me/628xxxx"},
  "links":[
-  {"title":"Website","url":"https://example.com"},
-  {"title":"Shopee","url":"https://shopee.com"}
+  {"title":"Website","url":"#"},
+  {"title":"Shopee","url":"#"}
  ],
  "products":[
   {
    "title":"Kursi Minimalis",
    "price":"Rp500K",
-   "img":"/assets/p1.jpg"
+   "img":"/assets/p1.jpg",
+   "gallery":["/assets/p1.jpg","/assets/p2.jpg"]
   },
   {
    "title":"Meja Kayu",
    "price":"Rp750K",
-   "img":"/assets/p2.jpg"
-  }
- ],
- "blog":[
-  {
-   "title":"Cara Memilih Kursi Minimalis",
-   "url":"https://bloglo.com/artikel-1"
-  },
-  {
-   "title":"Tips Furniture Biar Awet",
-   "url":"https://bloglo.com/artikel-2"
-  },
-  {
-   "title":"Tren Interior 2026",
-   "url":"https://bloglo.com/artikel-3"
+   "img":"/assets/p2.jpg",
+   "gallery":["/assets/p2.jpg"]
   }
  ]
 }
