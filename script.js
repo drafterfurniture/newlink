@@ -1,25 +1,17 @@
 const API="/data/links.json";
 let clicks=JSON.parse(localStorage.getItem("clicks")||"{}");
 
-// load data
 fetch(API).then(r=>r.json()).then(d=>{
  renderFeatured(d.featured);
  renderLinks(d.links);
  renderProducts(d.products);
 });
 
-// tracking
-function track(id){
- clicks[id]=(clicks[id]||0)+1;
- localStorage.setItem("clicks",JSON.stringify(clicks));
-}
-
 // featured
 function renderFeatured(f){
  if(!f)return;
  featured.innerHTML=`
- <a href="${f.url}" onclick="track('${f.id}')"
- class="block text-center p-4 rounded-2xl text-white font-bold bg-black">
+ <a href="${f.url}" class="block text-center p-4 rounded-2xl text-white font-bold bg-black">
  ${f.title}
  </a>`;
 }
@@ -27,75 +19,51 @@ function renderFeatured(f){
 // links
 function renderLinks(links){
  links.forEach(l=>{
-  const hot=clicks[l.id]>3?"ring-2 ring-yellow-400":"";
   document.getElementById("links").innerHTML+=`
-  <a href="${ab(l)}" onclick="track('${l.id}')"
-  class="link block bg-white p-3 rounded-2xl shadow ${hot}">
+  <a href="${l.url}" class="link block bg-white p-3 rounded-2xl shadow">
   ${l.title}
   </a>`;
  });
 }
 
-// ab testing
-function ab(l){
- if(!l.variants)return l.url;
- return l.variants[Math.floor(Math.random()*l.variants.length)];
-}
-
-// products
+// products (GRID + MODAL)
 function renderProducts(p){
  p.forEach(i=>{
   products.innerHTML+=`
-  <div class="product bg-white p-3 rounded-2xl shadow mb-3">
-  <img src="${i.img}" class="rounded-lg mb-2" loading="lazy">
-  <h3>${i.title}</h3>
-  <p>${i.price}</p>
+  <div onclick='openProduct(${JSON.stringify(i)})'
+  class="product bg-white p-2 rounded-2xl shadow text-sm">
+    <img src="${i.img}" class="rounded-lg mb-1">
+    <h3>${i.title}</h3>
+    <p>${i.price}</p>
   </div>`;
  });
 }
 
-// countdown
-function startCountdown(){
- const end=new Date().getTime()+3600*1000;
- setInterval(()=>{
-  const now=new Date().getTime();
-  const d=end-now;
-  if(d<0)return;
-  const m=Math.floor(d/60000);
-  const s=Math.floor((d%60000)/1000);
-  document.getElementById("countdown").innerText=`Promo ${m}m ${s}s`;
- },1000);
+function openProduct(p){
+ document.getElementById("productModal").classList.remove("hidden");
+ pImg.src=p.img;
+ pTitle.innerText=p.title;
+ pPrice.innerText=p.price;
 }
-startCountdown();
-
-// LOTTIE
-let anim;
-window.addEventListener("DOMContentLoaded",()=>{
- anim=lottie.loadAnimation({
-  container: document.getElementById('lottie-cover'),
-  renderer:'svg',
-  loop:true,
-  autoplay:true,
-  path:'/assets/cover.json'
- });
-
- window.addEventListener("scroll",()=>{
-  anim.setSpeed(1 + window.scrollY/500);
- });
-
- document.getElementById("lottie-cover")
- .addEventListener("mouseenter",()=>anim.setSpeed(2));
-
- document.getElementById("lottie-cover")
- .addEventListener("mouseleave",()=>anim.setSpeed(1));
-});
+function closeProduct(){
+ document.getElementById("productModal").classList.add("hidden");
+}
 
 // donate
 function openDonate(){
- document.getElementById('donateModal').classList.remove('hidden');
+ document.getElementById("donateModal").classList.remove("hidden");
 }
 function closeDonate(){
- document.getElementById('donateModal').classList.add('hidden');
+ document.getElementById("donateModal").classList.add("hidden");
 }
+
+// LOTTIE
+lottie.loadAnimation({
+ container: document.getElementById('lottie-cover'),
+ renderer:'svg',
+ loop:true,
+ autoplay:true,
+ path:'/assets/cover.json'
+});
 
 lucide.createIcons();
