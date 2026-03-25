@@ -18,5 +18,19 @@
    "price":"Rp750K",
    "img":"/assets/p2.jpg"
   }
+ ],
+ "blog":[
+  {
+   "title":"Cara Memilih Kursi Minimalis",
+   "url":"https://bloglo.com/artikel-1"
+  },
+  {
+   "title":"Tips Furniture Biar Awet",
+   "url":"https://bloglo.com/artikel-2"
+  },
+  {
+   "title":"Tren Interior 2026",
+   "url":"https://bloglo.com/artikel-3"
+  }
  ]
 }
