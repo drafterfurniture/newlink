@@ -17,6 +17,7 @@ function renderFeatured(f){
 }
 
 // LINKS
+const linksEl=document.getElementById("links");
 function renderLinks(links){
  links.forEach(l=>{
   linksEl.innerHTML+=`
@@ -25,7 +26,6 @@ function renderLinks(links){
   </a>`;
  });
 }
-const linksEl=document.getElementById("links");
 
 // PRODUCTS
 function renderProducts(p){
