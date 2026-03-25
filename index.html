@@ -11,11 +11,12 @@
 
 <style>
 body{font-family:system-ui;background:#f5f5f5}
-.glass{backdrop-filter: blur(12px); background: rgba(255,255,255,0.7)}
-.gradient{background: linear-gradient(120deg,#ff7a18,#ff3cac,#784ba0,#2b86c5);background-size:300% 300%;animation:grad 8s ease infinite}
+.gradient{background:linear-gradient(120deg,#ff7a18,#ff3cac,#784ba0,#2b86c5);background-size:300% 300%;animation:grad 8s ease infinite}
 @keyframes grad{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
-.fade{animation:fade .6s ease}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+.social{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.08);transition:.25s}
+.social:hover{transform:translateY(-3px) scale(1.08)}
+.social i{animation:pulse 2.5s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
 </style>
 </head>
 
@@ -23,41 +24,27 @@ body{font-family:system-ui;background:#f5f5f5}
 
 <div class="max-w-md mx-auto p-4">
 
-<!-- ULTRA HEADER (FIXED FINAL) -->
+<!-- HEADER -->
 <div class="relative rounded-3xl overflow-hidden shadow-lg bg-white">
-  <!-- Cover -->
-  <div class="h-32 w-full overflow-hidden">
-    <img src="/assets/cover.jpg" class="w-full h-full object-cover" loading="lazy">
-    <div class="absolute inset-0 bg-black/5"></div>
+  <div class="h-32">
+    <img src="/assets/cover.jpg" class="w-full h-full object-cover">
   </div>
 
-  <!-- Avatar + Social -->
   <div class="absolute left-1/2 -bottom-10 -translate-x-1/2 flex flex-col items-center gap-3">
-    <img src="/assets/profile.jpg" class="w-20 h-20 rounded-full border-4 border-white shadow-lg bg-white object-cover">
+    <img src="/assets/profile.jpg" class="w-20 h-20 rounded-full border-4 border-white shadow-lg object-cover">
 
-    <!-- Social Icons -->
     <div class="flex gap-3">
-      <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow hover:scale-110 transition">
-        <i data-lucide="github"></i>
-      </a>
-      <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow hover:scale-110 transition">
-        <i data-lucide="linkedin"></i>
-      </a>
-      <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow hover:scale-110 transition">
-        <i data-lucide="instagram"></i>
-      </a>
-      <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow hover:scale-110 transition">
-        <i data-lucide="message-circle"></i>
-      </a>
+      <a href="#" class="social"><i data-lucide="github"></i></a>
+      <a href="#" class="social linkedin"><i data-lucide="linkedin"></i></a>
+      <a href="#" class="social instagram"><i data-lucide="instagram"></i></a>
+      <a href="#" class="social threads"><i data-lucide="message-circle"></i></a>
     </div>
   </div>
 </div>
 
-<!-- spacing fix -->
 <div class="h-16"></div>
 
-<!-- NAME -->
-<div class="text-center mt-2">
+<div class="text-center">
   <h1 class="font-bold text-lg">Anto</h1>
   <p class="text-xs text-gray-500">Builder • SaaS • Furniture</p>
 </div>
@@ -65,29 +52,15 @@ body{font-family:system-ui;background:#f5f5f5}
 <!-- FEATURED -->
 <div id="featured" class="mt-4"></div>
 
+<!-- COUNTDOWN -->
+<div id="countdown" class="text-center text-sm text-red-500 mt-2"></div>
+
 <!-- LINKS -->
 <div id="links" class="space-y-3 mt-4"></div>
 
 <!-- PRODUCTS -->
 <div id="products" class="mt-6"></div>
 
-<!-- GALLERY -->
-<div id="gallery" class="grid grid-cols-2 gap-2 mt-6"></div>
-
-<!-- SOCIAL -->
-<div id="social" class="flex justify-center gap-4 mt-6"></div>
-
-</div>
-
-<!-- MODAL -->
-<div id="modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center">
-<div class="glass p-4 rounded-xl max-w-sm w-full">
-<img id="modalImg" class="rounded-lg mb-2" />
-<h2 id="modalTitle" class="font-bold"></h2>
-<p id="modalDesc" class="text-sm"></p>
-<a id="modalBuy" class="block mt-3 bg-black text-white p-2 rounded text-center">Buy</a>
-<button onclick="closeModal()" class="mt-2 text-sm">Close</button>
-</div>
 </div>
 
 <script src="/script.js"></script>
