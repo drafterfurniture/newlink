@@ -5,20 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Anto | Link in Bio</title>
-<meta name="description" content="Link in bio modern, jualan & portfolio">
+<meta name="description" content="Link in bio modern, clean, jualan & portfolio">
 
-<!-- OG -->
 <meta property="og:title" content="Anto Link Bio">
 <meta property="og:image" content="/assets/avatar.jpg">
 
-<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Lucide -->
 <script src="https://unpkg.com/lucide@latest"></script>
-
-<!-- Umami (isi ID lo) -->
-<script defer src="https://umami.yourdomain.com/script.js" data-website-id="xxx"></script>
 
 <style>
 body { font-family: system-ui, sans-serif; }
@@ -36,31 +29,46 @@ body { font-family: system-ui, sans-serif; }
 
 <div class="w-full max-w-md min-h-screen bg-white p-4">
 
-<!-- HEADER -->
+<!-- HEADER PREMIUM -->
 <div class="relative mb-6 animate-fadeUp">
 
-  <div class="h-36 rounded-3xl bg-gradient-to-br from-orange-400 via-red-500 to-yellow-400"></div>
+  <div class="h-40 rounded-3xl overflow-hidden relative">
 
-  <div class="absolute inset-0 flex items-end justify-between p-4">
+    <div class="absolute inset-0 bg-gradient-to-br from-orange-400 via-red-500 to-yellow-400"></div>
+
+    <div class="absolute inset-0 backdrop-blur-2xl opacity-70"></div>
+
+    <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-40 h-40 bg-yellow-300/30 rounded-full blur-3xl"></div>
+
+  </div>
+
+  <div class="absolute inset-0 flex items-end justify-between px-4 pb-4">
 
     <div class="flex items-center gap-3">
-      <img id="avatar" class="w-16 h-16 rounded-full border-4 border-white shadow-xl object-cover"/>
-      <div>
-        <h1 id="name" class="text-white font-bold"></h1>
-        <p id="bio" class="text-white/80 text-xs"></p>
+
+      <div class="relative">
+        <div class="absolute inset-0 rounded-full bg-white blur-md opacity-50 scale-110"></div>
+
+        <img id="avatar"
+          class="relative w-16 h-16 rounded-full border-[3px] border-white object-cover shadow-xl"/>
       </div>
+
+      <div>
+        <h1 id="name" class="text-white font-semibold text-sm"></h1>
+        <p id="bio" class="text-white/90 text-xs"></p>
+      </div>
+
     </div>
 
-    <div class="bg-white px-3 py-1 rounded-full flex gap-2 items-center shadow">
-      <i id="badgeIcon" data-lucide="zap"></i>
-      <span id="badgeText">...</span>
+    <div class="bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
+      <i id="badgeIcon" data-lucide="zap" class="w-4 h-4"></i>
+      <span id="badgeText" class="text-sm font-medium">Open Order</span>
     </div>
 
   </div>
-</div>
 
-<!-- COUNTDOWN -->
-<div id="countdown" class="text-center text-sm mb-3 font-medium"></div>
+</div>
 
 <!-- FEATURED -->
 <div id="featured"></div>
