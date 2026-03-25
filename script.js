@@ -1,13 +1,13 @@
 const API="/data/links.json";
-let clicks=JSON.parse(localStorage.getItem("clicks")||"{}");
 
 fetch(API).then(r=>r.json()).then(d=>{
  renderFeatured(d.featured);
  renderLinks(d.links);
  renderProducts(d.products);
+ renderBlog(d.blog);
 });
 
-// featured
+// FEATURED
 function renderFeatured(f){
  if(!f)return;
  featured.innerHTML=`
@@ -16,17 +16,18 @@ function renderFeatured(f){
  </a>`;
 }
 
-// links
+// LINKS
 function renderLinks(links){
  links.forEach(l=>{
-  document.getElementById("links").innerHTML+=`
+  linksEl.innerHTML+=`
   <a href="${l.url}" class="link block bg-white p-3 rounded-2xl shadow">
   ${l.title}
   </a>`;
  });
 }
+const linksEl=document.getElementById("links");
 
-// products (GRID + MODAL)
+// PRODUCTS
 function renderProducts(p){
  p.forEach(i=>{
   products.innerHTML+=`
@@ -39,22 +40,34 @@ function renderProducts(p){
  });
 }
 
+// BLOG LIST
+function renderBlog(list){
+ list.forEach(b=>{
+  blog.innerHTML+=`
+  <a href="${b.url}" target="_blank"
+  class="link block bg-white p-3 rounded-2xl shadow text-sm">
+    📘 ${b.title}
+  </a>`;
+ });
+}
+
+// PRODUCT MODAL
 function openProduct(p){
- document.getElementById("productModal").classList.remove("hidden");
+ productModal.classList.remove("hidden");
  pImg.src=p.img;
  pTitle.innerText=p.title;
  pPrice.innerText=p.price;
 }
 function closeProduct(){
- document.getElementById("productModal").classList.add("hidden");
+ productModal.classList.add("hidden");
 }
 
-// donate
+// DONATE
 function openDonate(){
- document.getElementById("donateModal").classList.remove("hidden");
+ donateModal.classList.remove("hidden");
 }
 function closeDonate(){
- document.getElementById("donateModal").classList.add("hidden");
+ donateModal.classList.add("hidden");
 }
 
 // LOTTIE
