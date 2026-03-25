@@ -7,68 +7,52 @@ fetch(API).then(r=>r.json()).then(d=>{
  renderBlog(d.blog);
 });
 
-// FEATURED
 function renderFeatured(f){
- if(!f)return;
  featured.innerHTML=`
- <a href="${f.url}" class="btn wa block text-center p-4 rounded-2xl font-bold">
+ <a href="${f.url}" class="btn wa">
  ${f.title}
  </a>`;
 }
 
-// LINKS
-const linksEl=document.getElementById("links");
 function renderLinks(links){
  links.forEach(l=>{
   linksEl.innerHTML+=`
-  <a href="${l.url}" class="glass btn block p-3 rounded-2xl">
-  ${l.title}
+  <a href="${l.url}" class="glass btn">
+   ${l.title}
   </a>`;
  });
 }
+const linksEl=document.getElementById("links");
 
-// PRODUCTS
+// 🔥 PRODUCT CAROUSEL STYLE
 function renderProducts(p){
  p.forEach(i=>{
   products.innerHTML+=`
-  <div onclick='openProduct(${JSON.stringify(i)})'
-  class="glass card p-2 rounded-2xl text-sm cursor-pointer">
-    <img src="${i.img}" class="rounded-lg mb-1">
-    <h3>${i.title}</h3>
-    <p>${i.price}</p>
+  <div class="glass product-card p-3">
+    <img src="${i.img}" class="rounded-lg mb-2">
+    <h3 class="font-medium">${i.title}</h3>
+    <p class="text-sm text-gray-500">${i.price}</p>
+
+    <div class="mt-3 flex gap-2">
+      <button class="btn glass flex-1 text-xs">View</button>
+      <button class="btn wa flex-1 text-xs">Buy</button>
+    </div>
   </div>`;
  });
 }
 
-// BLOG
 function renderBlog(list){
  list.forEach(b=>{
   blog.innerHTML+=`
-  <a href="${b.url}" target="_blank"
-  class="glass btn block p-3 rounded-2xl text-sm">
-  📘 ${b.title}
+  <a href="${b.url}" class="glass btn">
+   ${b.title}
   </a>`;
  });
 }
 
-// MODAL
-function openProduct(p){
- productModal.classList.remove("hidden");
- pImg.src=p.img;
- pTitle.innerText=p.title;
- pPrice.innerText=p.price;
-}
-function closeProduct(){
- productModal.classList.add("hidden");
-}
-
 // DONATE
-function openDonate(){
- donateModal.classList.remove("hidden");
-}
-function closeDonate(){
- donateModal.classList.add("hidden");
-}
+function openDonate(){donateModal.classList.remove("hidden")}
+function closeDonate(){donateModal.classList.add("hidden")}
 
 // LOTTIE
 lottie.loadAnimation({
