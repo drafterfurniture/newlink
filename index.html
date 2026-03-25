@@ -19,9 +19,12 @@
 <!-- ================= HEADER ================= -->
 <div class="bg-white p-3 rounded-3xl shadow-sm">
 
-  <!-- COVER LOTTIE -->
-  <div class="relative h-32 rounded-2xl overflow-hidden">
-    <div id="lottie-cover" class="absolute inset-0"></div>
+  <!-- SKY BACKGROUND -->
+  <div class="relative h-32 rounded-2xl overflow-hidden bg-gradient-to-br from-sky-300 via-blue-400 to-blue-500">
+
+    <!-- LOTTIE CLOUD (optional overlay) -->
+    <div id="lottie-cover" class="absolute inset-0 opacity-60"></div>
+
   </div>
 
   <!-- OVERLAY -->
@@ -33,7 +36,7 @@
            class="w-16 h-16 rounded-full object-cover"/>
     </div>
 
-    <!-- DONATE BUTTON -->
+    <!-- DONATE -->
     <button onclick="openQR()"
       class="bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 active:scale-95">
 
@@ -85,10 +88,9 @@
 
   <div class="bg-white rounded-2xl p-4 w-80 relative shadow-xl">
 
-    <!-- CLOSE BUTTON (macOS style) -->
+    <!-- CLOSE (mac style) -->
     <button onclick="closeQR()"
       class="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200">
-
       ✕
     </button>
 
@@ -107,24 +109,25 @@
 <script>
 lucide.createIcons();
 
-// LOTTIE LOAD
+// LOTTIE (optional, bisa dihapus kalau mau clean)
 lottie.loadAnimation({
   container: document.getElementById('lottie-cover'),
   renderer: 'svg',
   loop: true,
   autoplay: true,
-  path: '/assets/cover.json' // FILE LO
+  path: '/assets/cover.json'
 });
 
-// POPUP
 function openQR(){
-  document.getElementById('popupQR').classList.remove('hidden');
-  document.getElementById('popupQR').classList.add('flex');
+  const el = document.getElementById('popupQR');
+  el.classList.remove('hidden');
+  el.classList.add('flex');
 }
 
 function closeQR(){
-  document.getElementById('popupQR').classList.add('hidden');
-  document.getElementById('popupQR').classList.remove('flex');
+  const el = document.getElementById('popupQR');
+  el.classList.add('hidden');
+  el.classList.remove('flex');
 }
 </script>
 
