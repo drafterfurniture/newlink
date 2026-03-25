@@ -1,27 +1,37 @@
 {
   "profile": {
     "name": "Anto",
-    "bio": "Builder • Digital Product • Auto Cuan"
+    "bio": "Builder • Auto Cuan",
+    "avatar": "/assets/avatar.jpg",
+    "badge": {
+      "text": "Open Order",
+      "icon": "zap"
+    }
+  },
+
+  "promo": {
+    "text": "Diskon hari ini",
+    "end": "2026-12-31T23:59:00"
   },
 
   "links": [
     {
       "id": "1",
-      "title": "🔥 Jasa Website",
+      "title": "🔥 Order via WhatsApp",
       "url": "https://wa.me/628xxxx",
       "featured": true
     },
     {
       "id": "2",
       "title": "Portfolio",
-      "url": "https://yourdomain.com/portfolio"
+      "url": "#"
     },
     {
       "id": "3",
       "title": "Affiliate Tools",
       "variants": [
-        "https://linkA.com",
-        "https://linkB.com"
+        "https://a.com",
+        "https://b.com"
       ]
     }
   ],
