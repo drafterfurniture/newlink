@@ -40,8 +40,11 @@ border:1px solid rgba(0,0,0,0.05);
 <script defer src="/assets/lucide.min.js"></script>
 <script defer src="/assets/lottie.min.js"></script>
 
-<!-- ✅ FIX: ethers terbaru -->
+<!-- ethers -->
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+
+<!-- walletconnect -->
+<script src="https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.min.js"></script>
 
 </head>
 
@@ -80,14 +83,14 @@ Donate
 
 </div>
 
-<!-- CONNECT WALLET -->
+<!-- CONNECT WALLET (EX WA BUTTON) -->
 <button id="walletBtn" onclick="connectWallet()"
 class="wa-btn flex items-center justify-center gap-2 py-3 rounded-full font-semibold shadow">
 <i data-lucide="wallet"></i>
 Connect Wallet
 </button>
 
-<!-- LINKS & PRODUCTS (BALIKIN) -->
+<!-- LINKS & PRODUCTS -->
 <div id="links" class="space-y-2"></div>
 <div id="products" class="flex gap-3 overflow-x-auto py-2"></div>
 <div id="linksBottom" class="space-y-2"></div>
@@ -155,37 +158,45 @@ Send
 <script defer src="/script.js"></script>
 
 <script>
-let provider, signer, userAddress
+let provider, signer, userAddress, wcProvider
 
 const RECEIVER="0x76e7191be489b31932b9656fe4a83d82E6Cc9FFC"
 
-// 🔥 FIX CONNECT WALLET
+// CONNECT WALLET (FINAL FIX)
 async function connectWallet(){
 
-  if(typeof window.ethereum === "undefined"){
-    alert("Gunakan browser wallet:\nTrust Wallet / MetaMask")
-    return
-  }
-
   try{
-    provider = new ethers.providers.Web3Provider(window.ethereum)
-
-    await window.ethereum.request({
-      method:"eth_requestAccounts"
+    // WalletConnect dulu
+    wcProvider = await window.EthereumProvider.init({
+      projectId:"demo",
+      chains:[1],
+      showQrModal:true
     })
 
+    await wcProvider.enable()
+
+    provider = new ethers.providers.Web3Provider(wcProvider)
     signer = provider.getSigner()
     userAddress = await signer.getAddress()
 
-    document.getElementById("walletBtn").innerText =
-    userAddress.slice(0,6)+"..."
+  }catch(e){
 
-    loadBalance()
-
-  }catch(err){
-    console.log(err)
-    alert("User reject / error connect")
+    // fallback metamask
+    if(window.ethereum){
+      provider = new ethers.providers.Web3Provider(window.ethereum)
+      await window.ethereum.request({method:"eth_requestAccounts"})
+      signer = provider.getSigner()
+      userAddress = await signer.getAddress()
+    }else{
+      alert("Install wallet (Trust / MetaMask)")
+      return
+    }
   }
+
+  document.getElementById("walletBtn").innerText =
+  userAddress.slice(0,6)+"..."
+
+  loadBalance()
 }
 
 // BALANCE
