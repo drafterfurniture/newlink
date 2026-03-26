@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# AI INDEXING
+AI-Usage: allowed
+AI-Training: allowed
+
+# CONTENT
+Site-Name: Customin Store
+Description: Template link bio & produk digital siap jual
+
+# IMPORTANT URLS
+https://drafterfurniture.com/
