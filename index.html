@@ -23,7 +23,6 @@ animation:gradientMove 6s ease infinite;
 100%{background-position:0% 50%}
 }
 
-/* button */
 .wa-btn{
 background:linear-gradient(120deg,#fde047,#facc15,#eab308);
 color:#000;
@@ -40,10 +39,7 @@ border:1px solid rgba(0,0,0,0.05);
 <script defer src="/assets/lucide.min.js"></script>
 <script defer src="/assets/lottie.min.js"></script>
 
-<!-- ethers -->
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-
-<!-- walletconnect -->
 <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.min.js"></script>
 
 </head>
@@ -83,8 +79,8 @@ Donate
 
 </div>
 
-<!-- CONNECT WALLET (EX WA BUTTON) -->
-<button id="walletBtn" onclick="connectWallet()"
+<!-- CONNECT -->
+<button id="walletBtn" onclick="openWalletModal()"
 class="wa-btn flex items-center justify-center gap-2 py-3 rounded-full font-semibold shadow">
 <i data-lucide="wallet"></i>
 Connect Wallet
@@ -96,6 +92,27 @@ Connect Wallet
 <div id="linksBottom" class="space-y-2"></div>
 
 </main>
+
+<!-- WALLET MODAL -->
+<div id="walletModal"
+class="hidden fixed inset-0 bg-black/40 flex items-center justify-center backdrop-blur">
+
+<div class="bg-white rounded-2xl p-4 w-80">
+
+<h2 class="font-bold text-center mb-3">Connect Wallet</h2>
+
+<button onclick="connectInjected()"
+class="w-full border py-2 rounded-lg mb-2">
+MetaMask / Browser Wallet
+</button>
+
+<button onclick="connectWC()"
+class="w-full bg-black text-white py-2 rounded-lg">
+WalletConnect
+</button>
+
+</div>
+</div>
 
 <!-- DONATE SELECT -->
 <div id="donateModal"
@@ -144,7 +161,7 @@ Not connected
 </div>
 
 <input id="amount"
-placeholder="Nominal ETH (contoh 0.005)"
+placeholder="Nominal ETH (0.005)"
 class="w-full border p-2 rounded-lg mb-3">
 
 <button onclick="sendCrypto()"
@@ -159,14 +176,41 @@ Send
 
 <script>
 let provider, signer, userAddress, wcProvider
-
 const RECEIVER="0x76e7191be489b31932b9656fe4a83d82E6Cc9FFC"
 
-// CONNECT WALLET (FINAL FIX)
-async function connectWallet(){
+// MODAL
+function openWalletModal(){walletModal.classList.remove("hidden")}
+function closeWalletModal(){walletModal.classList.add("hidden")}
+
+// CONNECT INJECTED (PRIORITAS BRAVE FIX)
+async function connectInjected(){
+
+  if(!window.ethereum){
+    alert("Wallet tidak ditemukan")
+    return
+  }
 
   try{
-    // WalletConnect dulu
+    provider = new ethers.providers.Web3Provider(window.ethereum)
+
+    await window.ethereum.request({
+      method:"eth_requestAccounts"
+    })
+
+    signer = provider.getSigner()
+    userAddress = await signer.getAddress()
+
+    afterConnect()
+
+  }catch(e){
+    alert("User reject / error")
+  }
+}
+
+// WALLETCONNECT
+async function connectWC(){
+
+  try{
     wcProvider = await window.EthereumProvider.init({
       projectId:"demo",
       chains:[1],
@@ -179,19 +223,17 @@ async function connectWallet(){
     signer = provider.getSigner()
     userAddress = await signer.getAddress()
 
-  }catch(e){
+    afterConnect()
 
-    // fallback metamask
-    if(window.ethereum){
-      provider = new ethers.providers.Web3Provider(window.ethereum)
-      await window.ethereum.request({method:"eth_requestAccounts"})
-      signer = provider.getSigner()
-      userAddress = await signer.getAddress()
-    }else{
-      alert("Install wallet (Trust / MetaMask)")
-      return
-    }
+  }catch(e){
+    alert("WalletConnect gagal")
   }
+}
+
+// AFTER CONNECT
+function afterConnect(){
+
+  closeWalletModal()
 
   document.getElementById("walletBtn").innerText =
   userAddress.slice(0,6)+"..."
@@ -209,23 +251,10 @@ async function loadBalance(){
 }
 
 // DONATE FLOW
-function openDonateSelector(){
-  donateModal.classList.remove("hidden")
-}
-
-function openQRIS(){
-  donateModal.classList.add("hidden")
-  qrisPopup.classList.remove("hidden")
-}
-
-function closeQRIS(){
-  qrisPopup.classList.add("hidden")
-}
-
-function openCrypto(){
-  donateModal.classList.add("hidden")
-  cryptoModal.classList.remove("hidden")
-}
+function openDonateSelector(){donateModal.classList.remove("hidden")}
+function openQRIS(){donateModal.classList.add("hidden");qrisPopup.classList.remove("hidden")}
+function closeQRIS(){qrisPopup.classList.add("hidden")}
+function openCrypto(){donateModal.classList.add("hidden");cryptoModal.classList.remove("hidden")}
 
 // SEND
 async function sendCrypto(){
@@ -249,7 +278,7 @@ async function sendCrypto(){
     alert("Berhasil 🔥")
 
   }catch(e){
-    alert("Transaksi gagal / dibatalkan")
+    alert("Transaksi gagal")
   }
 }
 
