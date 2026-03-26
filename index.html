@@ -7,8 +7,14 @@
 <title>Customin Store</title>
 <meta name="description" content="Template link bio premium siap jual">
 
-<link rel="icon" href="/assets/favicon.png">
 <link rel="canonical" href="https://drafterfurniture.com">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="manifest" href="/manifest.json">
+
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Customin">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,23 +27,39 @@ body{
 }
 
 .card{
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:24px;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:26px;
 }
 
 .btn{transition:.25s}
-.btn:active{transform:scale(.96)}
+.btn:active{transform:scale(.95)}
 
-.mac{
-  display:flex;gap:6px
+.modal{
+  transform:translateY(40px) scale(.95);
+  opacity:0;
+  transition:.3s ease;
 }
+.modal.show{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+
+.mac{display:flex;gap:6px}
 .mac span{
   width:10px;height:10px;border-radius:50%
 }
-.mac .r{background:#ff5f57}
-.mac .y{background:#febc2e}
-.mac .g{background:#28c840}
+.r{background:#ff5f57}
+.y{background:#febc2e}
+.g{background:#28c840}
+
+#products{
+  scroll-behavior:smooth;
+}
+#products::-webkit-scrollbar{
+  display:none;
+}
 </style>
 </head>
 
@@ -50,8 +72,7 @@ body{
 
 <div id="coverBox"
 class="h-36 rounded-2xl overflow-hidden flex items-center justify-center
-bg-gradient-to-r from-blue-200 to-blue-400">
-</div>
+bg-gradient-to-r from-blue-200 to-blue-400"></div>
 
 <div class="flex justify-between items-center -mt-10 px-2">
 
@@ -81,10 +102,9 @@ Chat via WhatsApp
 <div id="links" class="space-y-2"></div>
 
 <!-- PRODUCTS -->
-<div id="products"
-class="flex gap-3 overflow-x-auto py-2"></div>
+<div id="products" class="flex gap-3 overflow-x-auto py-2"></div>
 
-<!-- LINKS BAWAH (BEDA) -->
+<!-- LINKS BAWAH -->
 <div id="linksBottom" class="space-y-2"></div>
 
 <!-- FOOTER -->
@@ -124,7 +144,8 @@ class="absolute top-3 right-3">
 <div id="productPopup"
 class="hidden fixed inset-0 bg-black/40 flex items-center justify-center backdrop-blur">
 
-<div class="card p-4 w-80 relative">
+<div id="modalBox"
+class="card p-4 w-80 relative modal">
 
 <div class="mac absolute top-3 left-3">
 <span class="r"></span>
