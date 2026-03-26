@@ -19,7 +19,6 @@
 <meta name="robots" content="index, follow">
 <meta name="author" content="Customin">
 
-<!-- CRITICAL -->
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont;background:#fff;margin:0}
 
@@ -64,8 +63,6 @@ border:1px solid rgba(0,0,0,0.05);
 </style>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- LOCAL -->
 <script defer src="/assets/lucide.min.js"></script>
 <script defer src="/assets/lottie.min.js"></script>
 
@@ -80,11 +77,10 @@ border:1px solid rgba(0,0,0,0.05);
 
 <div class="relative h-40 rounded-2xl overflow-visible">
 
-  <!-- LOTTIE COVER -->
+  <!-- LOTTIE + ORANGE BG -->
   <div id="coverBox"
-  class="absolute inset-0 rounded-2xl overflow-hidden"></div>
+  class="absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-orange-200 via-orange-300 to-orange-500"></div>
 
-  <!-- overlay -->
   <div class="absolute inset-0 bg-black/10 rounded-2xl"></div>
 
   <!-- AVATAR -->
@@ -102,7 +98,6 @@ border:1px solid rgba(0,0,0,0.05);
 
 </div>
 
-<!-- spacer biar gak kepotong -->
 <div style="height:70px"></div>
 
 <h1 class="text-xl font-bold text-center">Customin Store</h1>
@@ -110,9 +105,9 @@ border:1px solid rgba(0,0,0,0.05);
 
 </div>
 
-<!-- CTA -->
+<!-- CTA WHATSAPP -->
 <a id="waBtn"
-class="btn flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-full font-semibold shadow">
+class="btn flex items-center justify-center gap-2 bg-orange-400 text-black py-3 rounded-full font-semibold shadow">
 <i data-lucide="message-circle"></i>
 Chat via WhatsApp
 </a>
@@ -201,12 +196,10 @@ class="flex-1 bg-black text-white py-2 rounded-xl text-center">Beli</a>
 <script>
 window.addEventListener("load",()=>{
 
-  // ICON (ringan)
   if(window.lucide){
     requestIdleCallback(()=>lucide.createIcons())
   }
 
-  // LOTTIE (DELAY biar gak ganggu LCP)
   if(window.lottie){
     setTimeout(()=>{
       lottie.loadAnimation({
