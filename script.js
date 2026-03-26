@@ -45,7 +45,7 @@ function openProduct(p){
   pBuy.href = p.buy;
   pInfo.href = p.info || "#";
 
-  // thumbnails (lebih cepat dari innerHTML +=)
+  // thumbs
   thumbs.innerHTML = "";
   const frag = document.createDocumentFragment();
 
@@ -80,26 +80,34 @@ async function init(){
     const res = await fetch("/data/links.json");
     const d = await res.json();
 
-    // LINKS ATAS
+    // ================= LINKS ATAS =================
     const fragLinks = document.createDocumentFragment();
 
     d.links.forEach(l=>{
       const a = document.createElement("a");
       a.href = l.url;
-      a.className = "card p-3 flex justify-between items-center btn";
-      a.innerHTML = `${l.title} <i data-lucide="arrow-right"></i>`;
+
+      // 🔥 UPDATED CLASS
+      a.className = "link-card p-3 flex justify-between items-center btn";
+
+      a.innerHTML = `
+        <span>${l.title}</span>
+        <i data-lucide="arrow-right"></i>
+      `;
+
       fragLinks.appendChild(a);
     });
 
     links.appendChild(fragLinks);
 
-    // PRODUCTS
+    // ================= PRODUCTS =================
     const fragProducts = document.createDocumentFragment();
 
     d.products.forEach(p=>{
       const div = document.createElement("div");
 
-      div.className = "min-w-[45%] card p-2 btn";
+      // 🔥 UPDATED CLASS
+      div.className = "product-card min-w-[45%] p-2 btn";
       div.onclick = () => openProduct(p);
 
       div.innerHTML = `
@@ -117,33 +125,45 @@ async function init(){
 
     products.appendChild(fragProducts);
 
-    // LINKS BAWAH
+    // ================= LINKS BAWAH =================
     const fragBottom = document.createDocumentFragment();
 
     d.linksBottom.forEach(l=>{
       const a = document.createElement("a");
       a.href = l.url;
-      a.className = "card p-3 flex justify-between items-center btn";
-      a.innerHTML = `${l.title} <i data-lucide="arrow-right"></i>`;
+
+      // 🔥 UPDATED CLASS
+      a.className = "link-card p-3 flex justify-between items-center btn";
+
+      a.innerHTML = `
+        <span>${l.title}</span>
+        <i data-lucide="arrow-right"></i>
+      `;
+
       fragBottom.appendChild(a);
     });
 
     linksBottom.appendChild(fragBottom);
 
-    // ICON RENDER (delay biar gak blocking)
-    setTimeout(()=>{
+    // ================= ICON RENDER =================
+    requestIdleCallback(()=>{
       if(window.lucide){
         lucide.createIcons();
       }
-    }, 50);
+    });
 
-    // AUTO SLIDE (pause kalau user interaksi)
+    // ================= AUTO SLIDE =================
     let autoSlide = setInterval(()=>{
-      products.scrollBy({left:150,behavior:"smooth"});
+      products.scrollBy({
+        left:150,
+        behavior:"smooth"
+      });
     },3000);
 
-    products.addEventListener("touchstart",()=>clearInterval(autoSlide));
-    products.addEventListener("mouseenter",()=>clearInterval(autoSlide));
+    // stop kalau user interaksi
+    ["touchstart","mouseenter","wheel"].forEach(evt=>{
+      products.addEventListener(evt,()=>clearInterval(autoSlide),{once:true});
+    });
 
   }catch(err){
     console.error("Load error:", err);
