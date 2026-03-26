@@ -65,7 +65,7 @@ products.innerHTML+=`
 <div onclick='openProduct(${JSON.stringify(p)})'
 class="min-w-[45%] card p-2 btn">
 
-<img src="${p.images[0]}"
+<img src="${p.images[0]}" alt="Produk ${p.title}"
 class="w-full aspect-square object-cover rounded-xl">
 
 <h3 class="text-sm font-semibold mt-1">${p.title}</h3>
