@@ -34,7 +34,6 @@ img{display:block}
 
 <!-- ⚡ LOCAL SCRIPT -->
 <script defer src="/assets/lucide.min.js"></script>
-<script defer src="/assets/lottie.min.js"></script>
 
 <!-- ⚡ ANALYTICS -->
 <script defer src="https://ana.customin.co/script.js" data-website-id="b1e3a99c-3079-4856-af0a-a5826f57d447"></script>
@@ -84,10 +83,21 @@ display:none;
 <!-- HEADER -->
 <div class="card p-3">
 
-<div id="coverBox"
-class="h-36 rounded-2xl overflow-hidden flex items-center justify-center
-bg-gradient-to-r from-blue-200 to-blue-400"></div>
+<div class="h-36 rounded-2xl overflow-hidden relative">
 
+<video
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="none"
+  poster="/assets/cover.jpg"
+  class="w-full h-full object-cover"
+>
+  <source src="/assets/cover.mp4" type="video/mp4">
+</video>
+
+</div>
 <div class="flex justify-between items-center -mt-10 px-2">
 
 <img src="/assets/avatar.jpg"
@@ -205,18 +215,6 @@ window.addEventListener("load",()=>{
 
   if(window.lucide){
     requestIdleCallback(()=>lucide.createIcons())
-  }
-
-  if(window.lottie){
-    requestIdleCallback(()=>{
-      lottie.loadAnimation({
-        container:document.getElementById("coverBox"),
-        renderer:"svg",
-        loop:true,
-        autoplay:true,
-        path:"/assets/cover.json"
-      })
-    })
   }
 
 })
