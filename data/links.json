@@ -1,20 +1,22 @@
 {
   "links":[
-    {"title":"🔥 Chat via WhatsApp","url":"https://wa.me/628xxxx"},
-    {"title":"Portfolio","url":"#"},
-    {"title":"Affiliate Tools","url":"#"}
+    {"title":"Chat via WhatsApp","url":"https://wa.me/628xxxx","icon":"message-circle"},
+    {"title":"Portfolio","url":"#","icon":"briefcase"},
+    {"title":"Affiliate Tools","url":"#","icon":"cpu"}
   ],
 
   "products":[
     {
       "title":"Template Link Bio",
       "price":"99000",
-      "desc":"Template siap jual",
+      "desc":"Template siap jual & responsive",
       "images":[
         "/assets/p1.jpg",
-        "/assets/p2.jpg"
+        "/assets/p2.jpg",
+        "/assets/p3.jpg"
       ],
-      "buy":"https://wa.me/628xxxx?text=Order Template"
+      "buy":"https://wa.me/628xxxx?text=Order Template",
+      "info":"#"
     }
   ]
 }
