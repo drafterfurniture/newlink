@@ -4,183 +4,230 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Customin Store</title>
-<meta name="description" content="Template link bio premium siap jual">
+<title>Customin Store - Builder Auto Cuan</title>
+<meta name="description" content="Jual template link bio siap pakai, auto cuan, responsive dan modern.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Customin">
 
 <link rel="canonical" href="https://drafterfurniture.com">
-<link rel="icon" href="/assets/favicon.png">
-<link rel="manifest" href="/manifest.json">
 
-<meta name="theme-color" content="#ffffff">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Customin">
-<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="icon" href="/assets/favicon.png">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
 
 <style>
-body{
-  font-family:-apple-system,BlinkMacSystemFont;
-  background:#fff;
+body {
+  background:#ffffff;
 }
 
-.card{
-  background:rgba(255,255,255,0.9);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(0,0,0,0.06);
-  border-radius:26px;
+/* iOS glass */
+.glass {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(0,0,0,0.05);
 }
 
-.btn{transition:.25s}
-.btn:active{transform:scale(.95)}
-
-.modal{
-  transform:translateY(40px) scale(.95);
-  opacity:0;
-  transition:.3s ease;
-}
-.modal.show{
-  transform:translateY(0) scale(1);
-  opacity:1;
-}
-
-.mac{display:flex;gap:6px}
-.mac span{
-  width:10px;height:10px;border-radius:50%
-}
-.r{background:#ff5f57}
-.y{background:#febc2e}
-.g{background:#28c840}
-
-#products{
-  scroll-behavior:smooth;
-}
-#products::-webkit-scrollbar{
+/* popup */
+.popup {
   display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  justify-content:center;
+  align-items:center;
+  z-index:50;
+}
+
+.popup.active {
+  display:flex;
+}
+
+/* macOS button */
+.mac-btn {
+  width:10px;
+  height:10px;
+  border-radius:50%;
 }
 </style>
 </head>
 
-<body>
+<body class="text-gray-900">
 
-<div class="max-w-md mx-auto p-4 space-y-4">
+<main class="max-w-md mx-auto p-4 space-y-4">
 
 <!-- HEADER -->
-<div class="card p-3">
+<div class="rounded-3xl overflow-hidden border">
 
-<div id="coverBox"
-class="h-36 rounded-2xl overflow-hidden flex items-center justify-center
-bg-gradient-to-r from-blue-200 to-blue-400"></div>
+  <div class="relative h-36 bg-gradient-to-r from-blue-200 to-blue-400 flex items-center justify-center">
 
-<div class="flex justify-between items-center -mt-10 px-2">
+    <img src="/assets/cover.json" alt="Cover animasi"
+    class="h-20 opacity-90">
 
-<img src="/assets/avatar.jpg"
-class="w-20 h-20 rounded-full border-4 border-white object-cover">
+    <button onclick="openQR()" 
+    class="absolute right-3 bottom-3 glass px-4 py-2 rounded-full flex items-center gap-2">
+      <i data-lucide="heart"></i> Donate
+    </button>
 
-<button onclick="openQRIS()"
-class="btn bg-white px-4 py-2 rounded-full flex items-center gap-2 border">
-<i data-lucide="heart"></i> Donate
-</button>
+  </div>
 
-</div>
+  <div class="p-4 text-center">
+    <img src="/assets/avatar.jpg"
+    alt="Foto profil Customin Store"
+    class="w-20 h-20 rounded-full border-4 border-white -mt-12 mx-auto">
 
-<h1 class="text-xl font-bold text-center mt-2">Customin Store</h1>
-<p class="text-gray-500 text-center text-sm">Builder • Auto Cuan</p>
+    <h1 class="text-xl font-bold mt-2">Customin Store</h1>
+    <p class="text-sm text-gray-500">Builder • Auto Cuan</p>
+  </div>
 
 </div>
 
 <!-- CTA -->
-<a id="waBtn"
-class="btn flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-full font-semibold">
-<i data-lucide="message-circle"></i>
-Chat via WhatsApp
+<a href="#" class="block bg-green-500 text-white text-center py-3 rounded-full font-semibold">
+💬 Chat via WhatsApp
 </a>
 
-<!-- LINKS ATAS -->
-<div id="links" class="space-y-2"></div>
+<!-- LINKS -->
+<div class="space-y-3">
+
+  <a href="#" class="block border rounded-full px-4 py-3 flex justify-between">
+    Chat via WhatsApp →
+  </a>
+
+  <a href="#" class="block border rounded-full px-4 py-3 flex justify-between">
+    Portfolio →
+  </a>
+
+  <a href="#" class="block border rounded-full px-4 py-3 flex justify-between">
+    Affiliate Tools →
+  </a>
+
+</div>
 
 <!-- PRODUCTS -->
-<div id="products" class="flex gap-3 overflow-x-auto py-2"></div>
-
-<!-- LINKS BAWAH -->
-<div id="linksBottom" class="space-y-2"></div>
-
-<!-- FOOTER -->
-<div class="flex justify-center gap-6 text-gray-500 pt-2">
-<i data-lucide="instagram"></i>
-<i data-lucide="linkedin"></i>
-<i data-lucide="github"></i>
-<i data-lucide="pen-tool"></i>
-<i data-lucide="share-2"></i>
-</div>
+<div id="products" class="flex gap-3 overflow-x-auto pb-2">
 
 </div>
 
-<!-- QRIS -->
-<div id="qrisPopup"
-class="hidden fixed inset-0 bg-black/40 flex items-center justify-center backdrop-blur">
+<!-- LINK BAWAH -->
+<a href="#" class="block border rounded-full px-4 py-3 text-center">
+Share Artikel →
+</a>
 
-<div class="card p-4 relative w-72">
+</main>
 
-<div class="mac absolute top-3 left-3">
-<span class="r"></span>
-<span class="y"></span>
-<span class="g"></span>
+<!-- POPUP QR -->
+<div id="qrPopup" class="popup">
+  <div class="bg-white rounded-2xl p-4 w-80">
+
+    <div class="flex gap-2 mb-2">
+      <div class="mac-btn bg-red-500"></div>
+      <div class="mac-btn bg-yellow-400"></div>
+      <div class="mac-btn bg-green-500"></div>
+      <button onclick="closeQR()" class="ml-auto">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <img src="/assets/qris.webp"
+    alt="QRIS pembayaran"
+    class="w-full">
+
+  </div>
 </div>
 
-<button onclick="closeQRIS()"
-class="absolute top-3 right-3">
-<i data-lucide="x"></i>
-</button>
+<!-- POPUP PRODUK -->
+<div id="productPopup" class="popup">
+  <div class="bg-white rounded-2xl p-4 w-80">
 
-<img src="/assets/qris.webp" class="w-full mt-4">
+    <button onclick="closeProduct()" class="absolute right-4 top-4">
+      <i data-lucide="x"></i>
+    </button>
 
-</div>
-</div>
+    <img id="pMain"
+    alt="Detail produk"
+    class="w-full h-48 object-cover rounded-xl">
 
-<!-- PRODUCT POPUP -->
-<div id="productPopup"
-class="hidden fixed inset-0 bg-black/40 flex items-center justify-center backdrop-blur">
+    <div id="thumbs" class="flex gap-2 mt-2"></div>
 
-<div id="modalBox"
-class="card p-4 w-80 relative modal">
+    <h2 id="pTitle" class="font-bold mt-3"></h2>
+    <p id="pPrice" class="text-gray-500"></p>
+    <p id="pDesc" class="text-sm mt-1"></p>
 
-<div class="mac absolute top-3 left-3">
-<span class="r"></span>
-<span class="y"></span>
-<span class="g"></span>
-</div>
+    <div class="flex gap-2 mt-4">
+      <button class="flex-1 border py-2 rounded-xl">Info</button>
+      <button class="flex-1 bg-black text-white py-2 rounded-xl">Beli</button>
+    </div>
 
-<button onclick="closeProduct()"
-class="absolute top-3 right-3">
-<i data-lucide="x"></i>
-</button>
-
-<img id="pMain"
-class="w-full h-48 object-cover rounded-xl mt-3">
-
-<div id="thumbs"
-class="flex gap-2 mt-2 overflow-x-auto"></div>
-
-<h3 id="pTitle" class="font-bold mt-2"></h3>
-<p id="pPrice" class="text-gray-600"></p>
-<p id="pDesc" class="text-sm mt-1"></p>
-
-<div class="flex gap-2 mt-3">
-<a id="pInfo"
-class="flex-1 border py-2 rounded-xl text-center">Info</a>
-
-<a id="pBuy"
-class="flex-1 bg-black text-white py-2 rounded-xl text-center">Beli</a>
+  </div>
 </div>
 
-</div>
-</div>
+<script>
+lucide.createIcons()
 
-<script src="/script.js"></script>
-<script>lucide.createIcons()</script>
+const products = [
+  {
+    title:"Template Link Bio",
+    price:"Rp99000",
+    desc:"Template siap jual & responsive",
+    images:["/assets/p1.jpg","/assets/p2.jpg","/assets/p3.jpg"]
+  }
+]
+
+const container = document.getElementById('products')
+
+products.forEach((p,i)=>{
+  container.innerHTML += `
+  <div onclick="openProduct(${i})"
+  class="min-w-[45%] border rounded-2xl overflow-hidden">
+
+    <img src="${p.images[0]}"
+    alt="Produk ${p.title}"
+    class="w-full aspect-square object-cover">
+
+    <div class="p-2">
+      <h2 class="text-sm font-semibold">${p.title}</h2>
+      <p class="text-xs text-gray-500">${p.price}</p>
+    </div>
+
+  </div>`
+})
+
+function openProduct(i){
+  const p = products[i]
+
+  document.getElementById('productPopup').classList.add('active')
+
+  document.getElementById('pMain').src = p.images[0]
+  document.getElementById('pTitle').innerText = p.title
+  document.getElementById('pPrice').innerText = p.price
+  document.getElementById('pDesc').innerText = p.desc
+
+  const thumbs = document.getElementById('thumbs')
+  thumbs.innerHTML = ""
+
+  p.images.forEach(img=>{
+    thumbs.innerHTML += `
+    <img src="${img}"
+    alt="Thumbnail ${p.title}"
+    onclick="document.getElementById('pMain').src='${img}'"
+    class="w-14 h-14 object-cover rounded-lg border cursor-pointer">`
+  })
+}
+
+function closeProduct(){
+  document.getElementById('productPopup').classList.remove('active')
+}
+
+function openQR(){
+  document.getElementById('qrPopup').classList.add('active')
+}
+
+function closeQR(){
+  document.getElementById('qrPopup').classList.remove('active')
+}
+</script>
 
 </body>
 </html>
