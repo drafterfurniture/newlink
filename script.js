@@ -68,7 +68,7 @@ class="min-w-[45%] card p-2 btn">
 <img src="${p.images[0]}" alt="Produk ${p.title}"
 class="w-full aspect-square object-cover rounded-xl">
 
-<h3 class="text-sm font-semibold mt-1">${p.title}</h3>
+<h2 class="text-sm font-semibold mt-1">${p.title}</h2>
 <p class="text-xs text-gray-500">Rp${p.price}</p>
 
 </div>`
