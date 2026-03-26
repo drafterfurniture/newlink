@@ -1,83 +1,96 @@
-// WA BUTTON
-document.getElementById("waBtn").href =
-"https://wa.me/628xxxx?text=Halo saya mau order";
+// WA
+waBtn.href="https://wa.me/628xxxx?text=Halo saya mau order";
+
+// COVER JSON (FIXED PATH)
+fetch("/assets/cover.json")
+.then(r=>r.json())
+.then(c=>{
+  if(c.type==="image"){
+    coverBox.innerHTML = `
+      <img src="${c.src}"
+      class="w-full h-full object-cover"
+      alt="cover">
+    `
+  }
+})
+.catch(()=>{
+  coverBox.innerHTML = `
+  <div class="w-full h-full bg-gradient-to-r from-sky-200 to-blue-300"></div>
+  `
+})
 
 // QRIS
-function openQRIS(){ qrisPopup.classList.remove("hidden") }
-function closeQRIS(){ qrisPopup.classList.add("hidden") }
+function openQRIS(){qrisPopup.classList.remove("hidden")}
+function closeQRIS(){qrisPopup.classList.add("hidden")}
 
 // PRODUCT POPUP
 function openProduct(p){
-  pImage.src = p.images[0];
-  pTitle.innerText = p.title;
-  pPrice.innerText = "Rp" + p.price;
-  pDesc.innerText = p.desc;
-  pBuy.href = p.buy;
-  productPopup.classList.remove("hidden");
+  pMain.src=p.images[0]
+  pTitle.innerText=p.title
+  pPrice.innerText="Rp"+p.price
+  pDesc.innerText=p.desc
+  pBuy.href=p.buy
+  pInfo.href=p.info||"#"
+
+  thumbs.innerHTML=""
+
+  p.images.forEach(img=>{
+    thumbs.innerHTML+=`
+    <img src="${img}"
+    onclick="pMain.src='${img}'"
+    class="w-14 h-14 object-cover rounded-lg cursor-pointer">
+    `
+  })
+
+  productPopup.classList.remove("hidden")
 }
 
 function closeProduct(){
-  productPopup.classList.add("hidden");
+  productPopup.classList.add("hidden")
 }
 
 // LOAD DATA
 fetch("/data/links.json")
-.then(res => res.json())
-.then(data => {
+.then(r=>r.json())
+.then(d=>{
 
-  // LINKS
-  const links = document.getElementById("links");
-  data.links.forEach(l => {
-    links.innerHTML += `
-      <a href="${l.url}" class="block bg-white p-3 rounded-xl shadow">
-        ${l.title}
-      </a>
-    `;
-  });
+// LINKS ATAS
+d.links.forEach(l=>{
+links.innerHTML+=`
+<a href="${l.url}"
+class="glass p-3 rounded-xl flex justify-between items-center">
+<span class="flex gap-2 items-center">
+<i data-lucide="${l.icon||'link'}"></i> ${l.title}
+</span>
+<i data-lucide="arrow-right"></i>
+</a>`
+})
 
-  // PRODUCTS
-  const el = document.getElementById("products");
+// PRODUCTS
+d.products.forEach(p=>{
+products.innerHTML+=`
+<div onclick='openProduct(${JSON.stringify(p)})'
+class="min-w-[45%] glass rounded-2xl p-2 cursor-pointer">
 
-  data.products.forEach(p => {
-    el.innerHTML += `
-      <div onclick='openProduct(${JSON.stringify(p)})'
-      class="min-w-[45%] bg-white rounded-2xl shadow p-2 cursor-pointer">
+<img src="${p.images[0]}"
+class="w-full aspect-square object-cover rounded-xl"
+alt="${p.title}">
 
-        <img src="${p.images[0]}" class="w-full aspect-square object-cover rounded-xl" alt="${p.title}">
+<h3 class="text-sm font-semibold mt-1">${p.title}</h3>
+<p class="text-xs text-gray-500">Rp${p.price}</p>
 
-        <div class="p-1">
-          <h3 class="text-sm font-semibold">${p.title}</h3>
-          <p class="text-xs text-gray-500">Rp${p.price}</p>
-        </div>
+</div>`
+})
 
-      </div>
-    `;
-  });
+// LINKS BAWAH
+d.links.forEach(l=>{
+linksBottom.innerHTML+=`
+<a href="${l.url}"
+class="glass p-3 rounded-xl flex justify-between">
+${l.title}
+</a>`
+})
 
-  injectSchema(data.products);
-});
+lucide.createIcons()
 
-// PRODUCT SCHEMA
-function injectSchema(products){
-  const schema = {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "itemListElement": products.map((p,i)=>({
-      "@type":"Product",
-      "position":i+1,
-      "name":p.title,
-      "image":p.images[0],
-      "description":p.desc,
-      "offers":{
-        "@type":"Offer",
-        "price":p.price,
-        "priceCurrency":"IDR"
-      }
-    }))
-  };
-
-  const s=document.createElement("script");
-  s.type="application/ld+json";
-  s.textContent=JSON.stringify(schema);
-  document.head.appendChild(s);
-}
+})
