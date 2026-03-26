@@ -12,8 +12,6 @@
 
 <style>
 body { font-family: system-ui, sans-serif; }
-
-/* slider snap */
 .snap-x { scroll-snap-type: x mandatory; }
 .snap-center { scroll-snap-align: center; }
 </style>
@@ -32,8 +30,6 @@ body { font-family: system-ui, sans-serif; }
     <div id="lottie-cover"
          class="absolute inset-0 flex items-center justify-center"></div>
 
-    <div class="absolute top-0 right-0 w-32 h-32 bg-white/30 blur-2xl"></div>
-
   </div>
 
   <div class="relative -mt-10 flex items-center justify-between px-2">
@@ -45,10 +41,8 @@ body { font-family: system-ui, sans-serif; }
 
     <button onclick="openQR()"
       class="bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2">
-
       <i data-lucide="heart" class="w-4 h-4"></i>
-      <span class="text-sm font-medium">Donate</span>
-
+      Donate
     </button>
 
   </div>
@@ -63,60 +57,87 @@ body { font-family: system-ui, sans-serif; }
 <!-- ================= LINKS ================= -->
 <div class="mt-6 space-y-3">
 
+  <!-- PRIMARY -->
   <a href="https://wa.me/628xxxx"
-     class="bg-black text-white text-center py-3 rounded-xl font-bold block">
+     class="bg-black text-white text-center py-3 rounded-xl font-semibold block">
     🔥 Chat via WhatsApp
   </a>
 
+  <!-- SECONDARY (PUTIH STYLE WA) -->
   <a href="#"
-     class="bg-gray-100 p-3 rounded-xl flex justify-between items-center">
+     class="bg-white py-3 px-4 rounded-xl flex justify-between items-center shadow-sm">
     <span>🔥 Chat via WhatsApp</span>
     <i data-lucide="arrow-right"></i>
   </a>
 
   <a href="#"
-     class="bg-gray-100 p-3 rounded-xl flex justify-between items-center">
+     class="bg-white py-3 px-4 rounded-xl flex justify-between items-center shadow-sm">
     <span>Portfolio</span>
     <i data-lucide="arrow-right"></i>
   </a>
 
   <a href="#"
-     class="bg-gray-100 p-3 rounded-xl flex justify-between items-center">
+     class="bg-white py-3 px-4 rounded-xl flex justify-between items-center shadow-sm">
     <span>Affiliate Tools</span>
     <i data-lucide="arrow-right"></i>
   </a>
 
 </div>
 
-<!-- ================= PRODUCT SLIDER ================= -->
+<!-- ================= PRODUCT ================= -->
 <div class="mt-6">
 
   <div class="flex overflow-x-auto gap-4 snap-x pb-2">
 
-    <!-- ITEM -->
+    <!-- CARD -->
     <div onclick="openProduct(0)"
-         class="min-w-[80%] bg-white rounded-2xl p-3 shadow snap-center cursor-pointer">
+         class="min-w-[85%] aspect-square rounded-3xl overflow-hidden snap-center relative shadow-lg cursor-pointer">
 
+      <!-- IMAGE -->
       <img src="/assets/avatar.jpg"
-           class="rounded-xl mb-2">
+           class="absolute inset-0 w-full h-full object-cover">
 
-      <h3 class="font-semibold">Template Link Bio</h3>
-      <p class="text-sm text-gray-500">Rp99.000</p>
+      <!-- BLUR OVERLAY -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
-    </div>
+      <!-- CONTENT -->
+      <div class="absolute bottom-4 left-4 right-4 text-white">
 
-    <div onclick="openProduct(1)"
-         class="min-w-[80%] bg-white rounded-2xl p-3 shadow snap-center cursor-pointer">
+        <h3 class="font-semibold text-lg">Template Link Bio ✓</h3>
+        <p class="text-sm opacity-80 mb-2">Siap jual & responsive</p>
 
-      <img src="/assets/avatar.jpg"
-           class="rounded-xl mb-2">
+        <div class="flex items-center gap-2">
 
-      <h3 class="font-semibold">UI Kit Premium</h3>
-      <p class="text-sm text-gray-500">Rp149.000</p>
+          <div class="bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs">
+            👤 312
+          </div>
+
+          <div class="bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs">
+            ✔ 48
+          </div>
+
+          <button class="ml-auto bg-white text-black px-3 py-1 rounded-full text-sm">
+            Buy
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
+
+</div>
+
+<!-- ================= LINK BAWAH ================= -->
+<div class="mt-4">
+
+  <a href="#"
+     class="bg-white py-3 px-4 rounded-xl flex justify-between items-center shadow-sm">
+    <span>Lihat Semua Produk</span>
+    <i data-lucide="arrow-right"></i>
+  </a>
 
 </div>
 
@@ -128,46 +149,37 @@ body { font-family: system-ui, sans-serif; }
 
   <div class="bg-white rounded-2xl p-4 w-[90%] max-w-sm relative">
 
-    <!-- CLOSE -->
-    <button onclick="closeProduct()"
-      class="absolute top-3 right-3 w-7 h-7 rounded-full bg-gray-100">
-      ✕
-    </button>
+    <!-- CLOSE MAC STYLE -->
+    <div class="absolute top-3 right-3 flex gap-1">
+      <div onclick="closeProduct()" class="w-3 h-3 bg-red-500 rounded-full"></div>
+      <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+      <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+    </div>
 
-    <!-- MAIN IMAGE -->
-    <img id="mainImg"
-         class="rounded-xl mb-3">
+    <img id="mainImg" class="rounded-xl mb-3">
 
-    <!-- THUMBNAIL -->
     <div id="thumbs" class="flex gap-2 mb-3"></div>
 
-    <!-- TEXT -->
     <h2 id="pTitle" class="font-bold"></h2>
     <p id="pPrice" class="text-sm text-gray-500 mb-2"></p>
     <p id="pDesc" class="text-sm mb-3"></p>
 
-    <!-- BUTTON -->
     <div class="flex gap-2">
-      <a id="pInfo"
-         class="flex-1 bg-gray-200 py-2 text-center rounded">Info</a>
-      <a id="pBuy"
-         class="flex-1 bg-black text-white py-2 text-center rounded">Beli</a>
+      <a id="pInfo" class="flex-1 bg-gray-200 py-2 text-center rounded">Info</a>
+      <a id="pBuy" class="flex-1 bg-black text-white py-2 text-center rounded">Beli</a>
     </div>
 
   </div>
 
 </div>
 
-<!-- ================= QR POPUP ================= -->
+<!-- ================= QR ================= -->
 <div id="popupQR"
-  class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50">
+  class="fixed inset-0 bg-black/40 hidden items-center justify-center">
 
-  <div class="bg-white rounded-2xl p-4 w-80 relative">
+  <div class="bg-white p-4 rounded-2xl w-80 relative">
 
-    <button onclick="closeQR()"
-      class="absolute top-3 right-3 w-7 h-7 rounded-full bg-gray-100">✕</button>
-
-    <h2 class="text-center font-semibold mb-3">Scan QRIS</h2>
+    <button onclick="closeQR()" class="absolute top-3 right-3">✕</button>
 
     <img src="/assets/qris.webp" class="rounded-xl">
 
@@ -190,27 +202,17 @@ lottie.loadAnimation({
   }
 });
 
-/* DATA PRODUCT */
-const products = [
-  {
-    title:"Template Link Bio",
-    price:"Rp99.000",
-    desc:"Template siap jual + responsive",
-    images:["/assets/avatar.jpg","/assets/avatar.jpg"],
-    info:"#",
-    buy:"https://wa.me/628xxxx"
-  },
-  {
-    title:"UI Kit Premium",
-    price:"Rp149.000",
-    desc:"UI modern siap pakai",
-    images:["/assets/avatar.jpg","/assets/avatar.jpg"],
-    info:"#",
-    buy:"#"
-  }
-];
+/* DATA */
+const products = [{
+  title:"Template Link Bio",
+  price:"Rp99.000",
+  desc:"Template premium siap jual",
+  images:["/assets/avatar.jpg","/assets/avatar.jpg"],
+  info:"#",
+  buy:"https://wa.me/628xxxx"
+}];
 
-/* OPEN PRODUCT */
+/* MODAL */
 function openProduct(i){
   const p = products[i];
 
@@ -228,7 +230,7 @@ function openProduct(i){
   p.images.forEach(img=>{
     const el = document.createElement("img");
     el.src = img;
-    el.className="w-14 h-14 rounded cursor-pointer border";
+    el.className="w-14 h-14 rounded cursor-pointer";
     el.onclick = ()=> mainImg.src = img;
     thumbs.appendChild(el);
   });
@@ -236,7 +238,6 @@ function openProduct(i){
 
 function closeProduct(){
   productModal.classList.add("hidden");
-  productModal.classList.remove("flex");
 }
 
 /* QR */
@@ -244,10 +245,8 @@ function openQR(){
   popupQR.classList.remove("hidden");
   popupQR.classList.add("flex");
 }
-
 function closeQR(){
   popupQR.classList.add("hidden");
-  popupQR.classList.remove("flex");
 }
 </script>
 
