@@ -19,23 +19,24 @@
 <meta name="robots" content="index, follow">
 <meta name="author" content="Customin">
 
-<!-- ⚡ PRELOAD CSS -->
+<!-- 🚀 CSS BUILD -->
 <link rel="preload" href="/output.css" as="style">
-
-<!-- ✅ TAILWIND BUILD (HASIL GITHUB ACTIONS) -->
 <link rel="stylesheet" href="/output.css">
 
-<!-- ⚡ CRITICAL CSS -->
+<!-- 🚀 PRELOAD COVER -->
+<link rel="preload" as="image" href="/assets/cover.webp">
+
+<!-- ⚡ CRITICAL -->
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont;background:#fff}
 #coverBox{min-height:144px}
 img{display:block}
 </style>
 
-<!-- ⚡ LOCAL SCRIPT -->
+<!-- LOCAL SCRIPT -->
 <script defer src="/assets/lucide.min.js"></script>
 
-<!-- ⚡ ANALYTICS -->
+<!-- ANALYTICS -->
 <script defer src="https://ana.customin.co/script.js" data-website-id="b1e3a99c-3079-4856-af0a-a5826f57d447"></script>
 
 <style>
@@ -83,21 +84,22 @@ display:none;
 <!-- HEADER -->
 <div class="card p-3">
 
+<!-- COVER -->
 <div class="h-36 rounded-2xl overflow-hidden relative">
 
-<video
-  autoplay
-  muted
-  loop
-  playsinline
-  preload="none"
-  poster="/assets/cover.jpg"
-  class="w-full h-full object-cover"
->
-  <source src="/assets/cover.mp4" type="video/mp4">
-</video>
+<img 
+src="/assets/cover.webp"
+alt="Cover Customin Store"
+loading="eager"
+fetchpriority="high"
+class="w-full h-full object-cover"
+/>
+
+<!-- overlay biar premium -->
+<div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
 
 </div>
+
 <div class="flex justify-between items-center -mt-10 px-2">
 
 <img src="/assets/avatar.jpg"
@@ -213,6 +215,7 @@ class="flex-1 bg-black text-white py-2 rounded-xl text-center">Beli</a>
 <script>
 window.addEventListener("load",()=>{
 
+  // lucide (non blocking)
   if(window.lucide){
     requestIdleCallback(()=>lucide.createIcons())
   }
