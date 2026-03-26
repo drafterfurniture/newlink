@@ -1,12 +1,12 @@
-waBtn.href="https://wa.me/628xxxx?text=Halo saya mau order";
+waBtn.href="https://wa.me/628xxxx";
 
-// COVER
+// LOTTIE
 lottie.loadAnimation({
   container: document.getElementById("coverBox"),
-  renderer: "svg",
-  loop: true,
-  autoplay: true,
-  path: "/assets/cover.json"
+  renderer:"svg",
+  loop:true,
+  autoplay:true,
+  path:"/assets/cover.json"
 });
 
 // QRIS
@@ -38,18 +38,19 @@ function openProduct(p){
   })
 
   productPopup.classList.remove("hidden")
+  setTimeout(()=>modalBox.classList.add("show"),10)
 }
 
 function closeProduct(){
-  productPopup.classList.add("hidden")
+  modalBox.classList.remove("show")
+  setTimeout(()=>productPopup.classList.add("hidden"),200)
 }
 
-// LOAD DATA
+// LOAD
 fetch("/data/links.json")
 .then(r=>r.json())
 .then(d=>{
 
-// LINKS ATAS
 d.links.forEach(l=>{
 links.innerHTML+=`
 <a href="${l.url}"
@@ -59,7 +60,6 @@ ${l.title}
 </a>`
 })
 
-// PRODUCTS
 d.products.forEach(p=>{
 products.innerHTML+=`
 <div onclick='openProduct(${JSON.stringify(p)})'
@@ -74,7 +74,6 @@ class="w-full aspect-square object-cover rounded-xl">
 </div>`
 })
 
-// LINKS BAWAH (beda)
 d.linksBottom.forEach(l=>{
 linksBottom.innerHTML+=`
 <a href="${l.url}"
@@ -92,3 +91,8 @@ products.scrollBy({left:150,behavior:"smooth"})
 },3000)
 
 })
+
+// SERVICE WORKER
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("/sw.js")
+}
