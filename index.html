@@ -13,10 +13,9 @@
 <style>
 body { font-family: system-ui, sans-serif; }
 
-/* smooth transform */
-#lottie-cover {
-  transition: transform 0.2s ease-out;
-}
+/* slider snap */
+.snap-x { scroll-snap-type: x mandatory; }
+.snap-center { scroll-snap-align: center; }
 </style>
 
 </head>
@@ -28,32 +27,24 @@ body { font-family: system-ui, sans-serif; }
 <!-- ================= HEADER ================= -->
 <div class="bg-white p-3 rounded-3xl shadow-sm">
 
-  <!-- SKY -->
-  <div id="cover-wrap"
-       class="relative h-32 rounded-2xl overflow-hidden 
-              bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300">
+  <div class="relative h-32 rounded-2xl overflow-hidden bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300">
 
-    <!-- LOTTIE -->
     <div id="lottie-cover"
          class="absolute inset-0 flex items-center justify-center"></div>
 
-    <!-- LIGHT -->
     <div class="absolute top-0 right-0 w-32 h-32 bg-white/30 blur-2xl"></div>
 
   </div>
 
-  <!-- OVERLAY -->
   <div class="relative -mt-10 flex items-center justify-between px-2">
 
-    <!-- AVATAR -->
     <div class="bg-white p-[4px] rounded-full shadow-lg">
       <img src="/assets/avatar.jpg"
            class="w-16 h-16 rounded-full object-cover"/>
     </div>
 
-    <!-- DONATE -->
     <button onclick="openQR()"
-      class="bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 active:scale-95">
+      class="bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2">
 
       <i data-lucide="heart" class="w-4 h-4"></i>
       <span class="text-sm font-medium">Donate</span>
@@ -62,7 +53,6 @@ body { font-family: system-ui, sans-serif; }
 
   </div>
 
-  <!-- TEXT -->
   <div class="mt-3 text-center">
     <h1 class="text-lg font-bold">Customin Store</h1>
     <p class="text-sm text-gray-500">Builder • Auto Cuan</p>
@@ -70,61 +60,127 @@ body { font-family: system-ui, sans-serif; }
 
 </div>
 
-<!-- ================= CONTENT ================= -->
+<!-- ================= LINKS ================= -->
 <div class="mt-6 space-y-3">
 
-  <div class="bg-black text-white text-center py-3 rounded-xl font-bold">
-    🔥 Order via WhatsApp
-  </div>
+  <a href="https://wa.me/628xxxx"
+     class="bg-black text-white text-center py-3 rounded-xl font-bold block">
+    🔥 Chat via WhatsApp
+  </a>
 
-  <div class="bg-gray-100 p-3 rounded-xl flex justify-between">
-    <span>🔥 Order via WhatsApp</span>
-    <span>→</span>
-  </div>
+  <a href="#"
+     class="bg-gray-100 p-3 rounded-xl flex justify-between items-center">
+    <span>🔥 Chat via WhatsApp</span>
+    <i data-lucide="arrow-right"></i>
+  </a>
 
-  <div class="bg-gray-100 p-3 rounded-xl flex justify-between">
+  <a href="#"
+     class="bg-gray-100 p-3 rounded-xl flex justify-between items-center">
     <span>Portfolio</span>
-    <span>→</span>
-  </div>
+    <i data-lucide="arrow-right"></i>
+  </a>
 
-  <div class="bg-gray-100 p-3 rounded-xl flex justify-between">
+  <a href="#"
+     class="bg-gray-100 p-3 rounded-xl flex justify-between items-center">
     <span>Affiliate Tools</span>
-    <span>→</span>
+    <i data-lucide="arrow-right"></i>
+  </a>
+
+</div>
+
+<!-- ================= PRODUCT SLIDER ================= -->
+<div class="mt-6">
+
+  <div class="flex overflow-x-auto gap-4 snap-x pb-2">
+
+    <!-- ITEM -->
+    <div onclick="openProduct(0)"
+         class="min-w-[80%] bg-white rounded-2xl p-3 shadow snap-center cursor-pointer">
+
+      <img src="/assets/avatar.jpg"
+           class="rounded-xl mb-2">
+
+      <h3 class="font-semibold">Template Link Bio</h3>
+      <p class="text-sm text-gray-500">Rp99.000</p>
+
+    </div>
+
+    <div onclick="openProduct(1)"
+         class="min-w-[80%] bg-white rounded-2xl p-3 shadow snap-center cursor-pointer">
+
+      <img src="/assets/avatar.jpg"
+           class="rounded-xl mb-2">
+
+      <h3 class="font-semibold">UI Kit Premium</h3>
+      <p class="text-sm text-gray-500">Rp149.000</p>
+
+    </div>
+
   </div>
 
 </div>
 
+</div>
 
-<!-- ================= POPUP ================= -->
-<div id="popupQR"
+<!-- ================= PRODUCT MODAL ================= -->
+<div id="productModal"
   class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50">
 
-  <div class="bg-white rounded-2xl p-4 w-80 relative shadow-xl">
+  <div class="bg-white rounded-2xl p-4 w-[90%] max-w-sm relative">
 
-    <button onclick="closeQR()"
-      class="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200">
+    <!-- CLOSE -->
+    <button onclick="closeProduct()"
+      class="absolute top-3 right-3 w-7 h-7 rounded-full bg-gray-100">
       ✕
     </button>
 
-    <h2 class="text-center font-semibold mb-3">Scan QRIS</h2>
+    <!-- MAIN IMAGE -->
+    <img id="mainImg"
+         class="rounded-xl mb-3">
 
-    <img src="/assets/qris.webp"
-         class="w-full rounded-xl"/>
+    <!-- THUMBNAIL -->
+    <div id="thumbs" class="flex gap-2 mb-3"></div>
+
+    <!-- TEXT -->
+    <h2 id="pTitle" class="font-bold"></h2>
+    <p id="pPrice" class="text-sm text-gray-500 mb-2"></p>
+    <p id="pDesc" class="text-sm mb-3"></p>
+
+    <!-- BUTTON -->
+    <div class="flex gap-2">
+      <a id="pInfo"
+         class="flex-1 bg-gray-200 py-2 text-center rounded">Info</a>
+      <a id="pBuy"
+         class="flex-1 bg-black text-white py-2 text-center rounded">Beli</a>
+    </div>
 
   </div>
 
 </div>
+
+<!-- ================= QR POPUP ================= -->
+<div id="popupQR"
+  class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50">
+
+  <div class="bg-white rounded-2xl p-4 w-80 relative">
+
+    <button onclick="closeQR()"
+      class="absolute top-3 right-3 w-7 h-7 rounded-full bg-gray-100">✕</button>
+
+    <h2 class="text-center font-semibold mb-3">Scan QRIS</h2>
+
+    <img src="/assets/qris.webp" class="rounded-xl">
+
+  </div>
 
 </div>
 
 <script>
 lucide.createIcons();
 
-// ================= LOTTIE =================
-const lottieEl = document.getElementById('lottie-cover');
-
+/* LOTTIE */
 lottie.loadAnimation({
-  container: lottieEl,
+  container: document.getElementById('lottie-cover'),
   renderer: 'svg',
   loop: true,
   autoplay: true,
@@ -134,34 +190,64 @@ lottie.loadAnimation({
   }
 });
 
-// ================= PARALLAX + ZOOM =================
-window.addEventListener('scroll', () => {
-  const scroll = window.scrollY;
+/* DATA PRODUCT */
+const products = [
+  {
+    title:"Template Link Bio",
+    price:"Rp99.000",
+    desc:"Template siap jual + responsive",
+    images:["/assets/avatar.jpg","/assets/avatar.jpg"],
+    info:"#",
+    buy:"https://wa.me/628xxxx"
+  },
+  {
+    title:"UI Kit Premium",
+    price:"Rp149.000",
+    desc:"UI modern siap pakai",
+    images:["/assets/avatar.jpg","/assets/avatar.jpg"],
+    info:"#",
+    buy:"#"
+  }
+];
 
-  // PARALLAX (gerak pelan)
-  const y = scroll * 0.2;
+/* OPEN PRODUCT */
+function openProduct(i){
+  const p = products[i];
 
-  // ZOOM (smooth)
-  const scale = 1 + (scroll * 0.0008);
+  productModal.classList.remove("hidden");
+  productModal.classList.add("flex");
 
-  lottieEl.style.transform = `
-    translateY(${y}px)
-    scale(${scale})
-  `;
-});
+  mainImg.src = p.images[0];
+  pTitle.innerText = p.title;
+  pPrice.innerText = p.price;
+  pDesc.innerText = p.desc;
+  pInfo.href = p.info;
+  pBuy.href = p.buy;
 
+  thumbs.innerHTML = "";
+  p.images.forEach(img=>{
+    const el = document.createElement("img");
+    el.src = img;
+    el.className="w-14 h-14 rounded cursor-pointer border";
+    el.onclick = ()=> mainImg.src = img;
+    thumbs.appendChild(el);
+  });
+}
 
-// ================= POPUP =================
+function closeProduct(){
+  productModal.classList.add("hidden");
+  productModal.classList.remove("flex");
+}
+
+/* QR */
 function openQR(){
-  const el = document.getElementById('popupQR');
-  el.classList.remove('hidden');
-  el.classList.add('flex');
+  popupQR.classList.remove("hidden");
+  popupQR.classList.add("flex");
 }
 
 function closeQR(){
-  const el = document.getElementById('popupQR');
-  el.classList.add('hidden');
-  el.classList.remove('flex');
+  popupQR.classList.add("hidden");
+  popupQR.classList.remove("flex");
 }
 </script>
 
