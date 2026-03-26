@@ -26,6 +26,11 @@
 <!-- PRELOAD COVER -->
 <link rel="preload" as="image" href="/assets/cover.webp">
 
+<!-- SCRIPT -->
+<script defer src="/assets/lucide.min.js"></script>
+<script defer src="/assets/lottie.min.js"></script>
+<script defer src="https://ana.customin.co/script.js" data-website-id="b1e3a99c-3079-4856-af0a-a5826f57d447"></script>
+
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont;background:#fff}
 img{display:block}
@@ -41,6 +46,7 @@ border-radius:26px;
 /* BUTTON */
 .btn{transition:.25s}
 .btn:active{transform:scale(.95)}
+.btn:hover{transform:scale(1.05)}
 
 /* MODAL */
 .modal{
@@ -75,36 +81,35 @@ opacity:1;
 <div class="card p-3">
 
 <!-- COVER -->
-<div class="h-36 rounded-2xl overflow-hidden relative">
+<div class="relative h-40 rounded-2xl overflow-hidden">
 
 <img 
 src="/assets/cover.webp"
 alt="Cover Customin Store"
-loading="eager"
-fetchpriority="high"
 class="w-full h-full object-cover"
 />
 
-<div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
+<div class="absolute inset-0 bg-black/10"></div>
 
-</div>
-
-<!-- AVATAR + DONATE -->
-<div class="flex justify-between items-center px-2" style="margin-top:-30px;">
-
+<!-- AVATAR -->
 <img src="/assets/avatar.jpg"
 alt="Foto Profil Drafter Furniture"
 loading="lazy"
-class="w-20 h-20 rounded-full border-4 border-white object-cover shadow-lg">
+class="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white object-cover shadow-lg">
 
+<!-- DONATE -->
 <button onclick="openQRIS()"
-class="btn bg-white px-4 py-2 rounded-full flex items-center gap-2 border shadow-md">
-<i data-lucide="heart-handshake"></i> Donate
+class="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur shadow-md border btn">
+<i data-lucide="heart-handshake"></i>
+Donate
 </button>
 
 </div>
 
-<h1 class="text-xl font-bold text-center mt-2">Customin Store</h1>
+<!-- SPACER -->
+<div style="height:42px;"></div>
+
+<h1 class="text-xl font-bold text-center">Customin Store</h1>
 <p class="text-gray-500 text-center text-sm">Builder • Auto Cuan</p>
 
 </div>
@@ -154,7 +159,6 @@ class="hidden fixed inset-0 bg-black/40 flex items-center justify-center backdro
 
 <img src="/assets/qris.webp"
 alt="QRIS Pembayaran"
-loading="lazy"
 class="w-full mt-4">
 
 </div>
