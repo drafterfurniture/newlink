@@ -11,7 +11,7 @@
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont;margin:0;background:#fff}
 
-/* gradient */
+/* gradient kuning clean */
 .gradient-anim{
 background:linear-gradient(120deg,#fef08a,#fde047,#facc15,#eab308);
 background-size:200% 200%;
@@ -23,6 +23,7 @@ animation:gradientMove 6s ease infinite;
 100%{background-position:0% 50%}
 }
 
+/* tombol */
 .wa-btn{
 background:linear-gradient(120deg,#fde047,#facc15,#eab308);
 color:#000;
@@ -38,9 +39,7 @@ border:1px solid rgba(0,0,0,0.05);
 
 <script defer src="/assets/lucide.min.js"></script>
 <script defer src="/assets/lottie.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-<script src="https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.min.js"></script>
 
 </head>
 
@@ -79,40 +78,23 @@ Donate
 
 </div>
 
-<!-- CONNECT -->
-<button id="walletBtn" onclick="openWalletModal()"
+<!-- CONNECT WALLET -->
+<button id="walletBtn" onclick="connectWallet()"
 class="wa-btn flex items-center justify-center gap-2 py-3 rounded-full font-semibold shadow">
 <i data-lucide="wallet"></i>
 Connect Wallet
 </button>
 
-<!-- LINKS & PRODUCTS -->
+<!-- LINKS -->
 <div id="links" class="space-y-2"></div>
+
+<!-- PRODUCTS -->
 <div id="products" class="flex gap-3 overflow-x-auto py-2"></div>
+
+<!-- LINKS BAWAH -->
 <div id="linksBottom" class="space-y-2"></div>
 
 </main>
-
-<!-- WALLET MODAL -->
-<div id="walletModal"
-class="hidden fixed inset-0 bg-black/40 flex items-center justify-center backdrop-blur">
-
-<div class="bg-white rounded-2xl p-4 w-80">
-
-<h2 class="font-bold text-center mb-3">Connect Wallet</h2>
-
-<button onclick="connectInjected()"
-class="w-full border py-2 rounded-lg mb-2">
-MetaMask / Browser Wallet
-</button>
-
-<button onclick="connectWC()"
-class="w-full bg-black text-white py-2 rounded-lg">
-WalletConnect
-</button>
-
-</div>
-</div>
 
 <!-- DONATE SELECT -->
 <div id="donateModal"
@@ -175,18 +157,15 @@ Send
 <script defer src="/script.js"></script>
 
 <script>
-let provider, signer, userAddress, wcProvider
+let provider, signer, userAddress
+
 const RECEIVER="0x76e7191be489b31932b9656fe4a83d82E6Cc9FFC"
 
-// MODAL
-function openWalletModal(){walletModal.classList.remove("hidden")}
-function closeWalletModal(){walletModal.classList.add("hidden")}
+// CONNECT WALLET (SUPER STABLE)
+async function connectWallet(){
 
-// CONNECT INJECTED (PRIORITAS BRAVE FIX)
-async function connectInjected(){
-
-  if(!window.ethereum){
-    alert("Wallet tidak ditemukan")
+  if(typeof window.ethereum === "undefined"){
+    alert("Buka di Trust Wallet / MetaMask browser")
     return
   }
 
@@ -200,45 +179,20 @@ async function connectInjected(){
     signer = provider.getSigner()
     userAddress = await signer.getAddress()
 
-    afterConnect()
+    document.getElementById("walletBtn").innerText =
+    userAddress.slice(0,6)+"..."
 
-  }catch(e){
-    alert("User reject / error")
+    loadBalance()
+
+  }catch(err){
+
+    if(err.code === 4001){
+      alert("User cancel")
+    }else{
+      alert("Gagal connect wallet")
+    }
+
   }
-}
-
-// WALLETCONNECT
-async function connectWC(){
-
-  try{
-    wcProvider = await window.EthereumProvider.init({
-      projectId:"demo",
-      chains:[1],
-      showQrModal:true
-    })
-
-    await wcProvider.enable()
-
-    provider = new ethers.providers.Web3Provider(wcProvider)
-    signer = provider.getSigner()
-    userAddress = await signer.getAddress()
-
-    afterConnect()
-
-  }catch(e){
-    alert("WalletConnect gagal")
-  }
-}
-
-// AFTER CONNECT
-function afterConnect(){
-
-  closeWalletModal()
-
-  document.getElementById("walletBtn").innerText =
-  userAddress.slice(0,6)+"..."
-
-  loadBalance()
 }
 
 // BALANCE
