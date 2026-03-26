@@ -12,6 +12,11 @@
 
 <style>
 body { font-family: system-ui, sans-serif; }
+
+/* smooth transform */
+#lottie-cover {
+  transition: transform 0.2s ease-out;
+}
 </style>
 
 </head>
@@ -23,11 +28,12 @@ body { font-family: system-ui, sans-serif; }
 <!-- ================= HEADER ================= -->
 <div class="bg-white p-3 rounded-3xl shadow-sm">
 
-  <!-- SKY BACKGROUND -->
-  <div class="relative h-32 rounded-2xl overflow-hidden 
+  <!-- SKY -->
+  <div id="cover-wrap"
+       class="relative h-32 rounded-2xl overflow-hidden 
               bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300">
 
-    <!-- LOTTIE FIX -->
+    <!-- LOTTIE -->
     <div id="lottie-cover"
          class="absolute inset-0 flex items-center justify-center"></div>
 
@@ -63,8 +69,6 @@ body { font-family: system-ui, sans-serif; }
   </div>
 
 </div>
-<!-- ================= END HEADER ================= -->
-
 
 <!-- ================= CONTENT ================= -->
 <div class="mt-6 space-y-3">
@@ -91,13 +95,12 @@ body { font-family: system-ui, sans-serif; }
 </div>
 
 
-<!-- ================= POPUP QR ================= -->
+<!-- ================= POPUP ================= -->
 <div id="popupQR"
   class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50">
 
   <div class="bg-white rounded-2xl p-4 w-80 relative shadow-xl">
 
-    <!-- CLOSE -->
     <button onclick="closeQR()"
       class="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200">
       ✕
@@ -112,15 +115,16 @@ body { font-family: system-ui, sans-serif; }
 
 </div>
 
-
 </div>
 
 <script>
 lucide.createIcons();
 
-// 🔥 LOTTIE FIX (NO CROP, PERFECT FIT)
+// ================= LOTTIE =================
+const lottieEl = document.getElementById('lottie-cover');
+
 lottie.loadAnimation({
-  container: document.getElementById('lottie-cover'),
+  container: lottieEl,
   renderer: 'svg',
   loop: true,
   autoplay: true,
@@ -130,7 +134,24 @@ lottie.loadAnimation({
   }
 });
 
-// POPUP
+// ================= PARALLAX + ZOOM =================
+window.addEventListener('scroll', () => {
+  const scroll = window.scrollY;
+
+  // PARALLAX (gerak pelan)
+  const y = scroll * 0.2;
+
+  // ZOOM (smooth)
+  const scale = 1 + (scroll * 0.0008);
+
+  lottieEl.style.transform = `
+    translateY(${y}px)
+    scale(${scale})
+  `;
+});
+
+
+// ================= POPUP =================
 function openQR(){
   const el = document.getElementById('popupQR');
   el.classList.remove('hidden');
