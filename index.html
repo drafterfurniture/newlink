@@ -27,11 +27,11 @@ body { font-family: system-ui, sans-serif; }
   <div class="relative h-32 rounded-2xl overflow-hidden 
               bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300">
 
-    <!-- LOTTIE (FIX JELAS) -->
+    <!-- LOTTIE FIX -->
     <div id="lottie-cover"
-         class="absolute inset-0 opacity-100"></div>
+         class="absolute inset-0 flex items-center justify-center"></div>
 
-    <!-- LIGHT EFFECT -->
+    <!-- LIGHT -->
     <div class="absolute top-0 right-0 w-32 h-32 bg-white/30 blur-2xl"></div>
 
   </div>
@@ -118,7 +118,7 @@ body { font-family: system-ui, sans-serif; }
 <script>
 lucide.createIcons();
 
-// LOTTIE FIX (FULL COVER)
+// 🔥 LOTTIE FIX (NO CROP, PERFECT FIT)
 lottie.loadAnimation({
   container: document.getElementById('lottie-cover'),
   renderer: 'svg',
@@ -126,7 +126,7 @@ lottie.loadAnimation({
   autoplay: true,
   path: '/assets/cover.json',
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice'
+    preserveAspectRatio: 'xMidYMid meet'
   }
 });
 
