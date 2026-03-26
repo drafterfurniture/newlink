@@ -29,7 +29,6 @@ background:linear-gradient(120deg,#fde047,#facc15,#eab308);
 color:#000;
 }
 
-/* donate */
 .donate-pill{
 background:#fff;
 border-radius:999px;
@@ -40,7 +39,9 @@ border:1px solid rgba(0,0,0,0.05);
 
 <script defer src="/assets/lucide.min.js"></script>
 <script defer src="/assets/lottie.min.js"></script>
-<script src="https://unpkg.com/ethers/dist/ethers.min.js"></script>
+
+<!-- ✅ FIX: ethers terbaru -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 
 </head>
 
@@ -79,16 +80,21 @@ Donate
 
 </div>
 
-<!-- CONNECT WALLET (EX WA BUTTON) -->
-<button onclick="connectWallet()"
+<!-- CONNECT WALLET -->
+<button id="walletBtn" onclick="connectWallet()"
 class="wa-btn flex items-center justify-center gap-2 py-3 rounded-full font-semibold shadow">
 <i data-lucide="wallet"></i>
 Connect Wallet
 </button>
 
+<!-- LINKS & PRODUCTS (BALIKIN) -->
+<div id="links" class="space-y-2"></div>
+<div id="products" class="flex gap-3 overflow-x-auto py-2"></div>
+<div id="linksBottom" class="space-y-2"></div>
+
 </main>
 
-<!-- DONATE SELECTOR -->
+<!-- DONATE SELECT -->
 <div id="donateModal"
 class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
 
@@ -122,7 +128,7 @@ class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
 </div>
 </div>
 
-<!-- CRYPTO MODAL -->
+<!-- CRYPTO -->
 <div id="cryptoModal"
 class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
 
@@ -130,7 +136,9 @@ class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
 
 <h2 class="font-bold mb-2 text-center">Donate Crypto</h2>
 
-<div id="walletInfo" class="text-center text-sm mb-3">Not connected</div>
+<div id="walletInfo" class="text-center text-sm mb-3">
+Not connected
+</div>
 
 <input id="amount"
 placeholder="Nominal ETH (contoh 0.005)"
@@ -144,38 +152,44 @@ Send
 </div>
 </div>
 
+<script defer src="/script.js"></script>
+
 <script>
 let provider, signer, userAddress
 
 const RECEIVER="0x76e7191be489b31932b9656fe4a83d82E6Cc9FFC"
 
-// ================= WALLET FIX =================
+// 🔥 FIX CONNECT WALLET
 async function connectWallet(){
 
-  if(!window.ethereum){
-    alert("Buka di Trust Wallet / MetaMask Browser")
+  if(typeof window.ethereum === "undefined"){
+    alert("Gunakan browser wallet:\nTrust Wallet / MetaMask")
     return
   }
 
   try{
     provider = new ethers.providers.Web3Provider(window.ethereum)
-    await provider.send("eth_requestAccounts",[])
+
+    await window.ethereum.request({
+      method:"eth_requestAccounts"
+    })
+
     signer = provider.getSigner()
     userAddress = await signer.getAddress()
 
-    document.querySelector("button").innerText =
+    document.getElementById("walletBtn").innerText =
     userAddress.slice(0,6)+"..."
 
     loadBalance()
 
-  }catch(e){
-    alert("Gagal connect")
+  }catch(err){
+    console.log(err)
+    alert("User reject / error connect")
   }
 }
 
-// ================= BALANCE =================
+// BALANCE
 async function loadBalance(){
-
   const bal = await provider.getBalance(userAddress)
   const eth = ethers.utils.formatEther(bal)
 
@@ -183,7 +197,7 @@ async function loadBalance(){
   `${parseFloat(eth).toFixed(4)} ETH`
 }
 
-// ================= DONATE FLOW =================
+// DONATE FLOW
 function openDonateSelector(){
   donateModal.classList.remove("hidden")
 }
@@ -202,7 +216,7 @@ function openCrypto(){
   cryptoModal.classList.remove("hidden")
 }
 
-// ================= SEND =================
+// SEND
 async function sendCrypto(){
 
   if(!signer){
@@ -224,11 +238,11 @@ async function sendCrypto(){
     alert("Berhasil 🔥")
 
   }catch(e){
-    alert("Gagal / dibatalkan")
+    alert("Transaksi gagal / dibatalkan")
   }
 }
 
-// ================= INIT =================
+// INIT
 window.onload=()=>{
 
   if(window.lucide) lucide.createIcons()
