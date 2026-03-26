@@ -1,6 +1,6 @@
 waBtn.href="https://wa.me/628xxxx?text=Halo saya mau order";
 
-// LOTTIE COVER
+// COVER
 lottie.loadAnimation({
   container: document.getElementById("coverBox"),
   renderer: "svg",
@@ -44,11 +44,12 @@ function closeProduct(){
   productPopup.classList.add("hidden")
 }
 
-// LOAD
+// LOAD DATA
 fetch("/data/links.json")
 .then(r=>r.json())
 .then(d=>{
 
+// LINKS ATAS
 d.links.forEach(l=>{
 links.innerHTML+=`
 <a href="${l.url}"
@@ -58,6 +59,7 @@ ${l.title}
 </a>`
 })
 
+// PRODUCTS
 d.products.forEach(p=>{
 products.innerHTML+=`
 <div onclick='openProduct(${JSON.stringify(p)})'
@@ -70,6 +72,16 @@ class="w-full aspect-square object-cover rounded-xl">
 <p class="text-xs text-gray-500">Rp${p.price}</p>
 
 </div>`
+})
+
+// LINKS BAWAH (beda)
+d.linksBottom.forEach(l=>{
+linksBottom.innerHTML+=`
+<a href="${l.url}"
+class="card p-3 flex justify-between items-center btn">
+${l.title}
+<i data-lucide="arrow-right"></i>
+</a>`
 })
 
 lucide.createIcons()
