@@ -2,14 +2,17 @@ name: Build Tailwind CSS
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node
@@ -17,16 +20,16 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm install
 
-      - name: Build Tailwind
+      - name: Build CSS
         run: npx tailwindcss -i input.css -o output.css --minify
 
-      - name: Commit CSS
+      - name: Commit file
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add output.css
-          git commit -m "auto build tailwind" || echo "no changes"
+          git commit -m "auto build css" || echo "no changes"
           git push
