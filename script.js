@@ -1,6 +1,6 @@
 waBtn.href="https://wa.me/628xxxx?text=Halo saya mau order";
 
-// ✅ LOTTIE COVER FIX
+// LOTTIE COVER
 lottie.loadAnimation({
   container: document.getElementById("coverBox"),
   renderer: "svg",
@@ -33,7 +33,7 @@ function openProduct(p){
     thumbs.innerHTML+=`
     <img src="${img}"
     onclick="pMain.src='${img}'"
-    class="w-14 h-14 object-cover rounded-lg border cursor-pointer">
+    class="w-14 h-14 object-cover rounded-lg border">
     `
   })
 
@@ -44,12 +44,11 @@ function closeProduct(){
   productPopup.classList.add("hidden")
 }
 
-// LOAD DATA
+// LOAD
 fetch("/data/links.json")
 .then(r=>r.json())
 .then(d=>{
 
-// LINKS (IOS STYLE)
 d.links.forEach(l=>{
 links.innerHTML+=`
 <a href="${l.url}"
@@ -59,7 +58,6 @@ ${l.title}
 </a>`
 })
 
-// PRODUCTS
 d.products.forEach(p=>{
 products.innerHTML+=`
 <div onclick='openProduct(${JSON.stringify(p)})'
@@ -78,7 +76,7 @@ lucide.createIcons()
 
 // AUTO SLIDE
 setInterval(()=>{
-  products.scrollBy({left:150, behavior:"smooth"})
+products.scrollBy({left:150,behavior:"smooth"})
 },3000)
 
 })
