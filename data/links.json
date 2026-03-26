@@ -1,8 +1,14 @@
 {
   "links":[
-    {"title":"Chat via WhatsApp","url":"https://wa.me/628xxxx","icon":"message-circle"},
-    {"title":"Portfolio","url":"#","icon":"briefcase"},
-    {"title":"Affiliate Tools","url":"#","icon":"cpu"}
+    {"title":"Chat via WhatsApp","url":"#"},
+    {"title":"Portfolio","url":"#"},
+    {"title":"Affiliate Tools","url":"#"}
+  ],
+
+  "linksBottom":[
+    {"title":"Artikel Furniture","url":"#"},
+    {"title":"Tips Interior","url":"#"},
+    {"title":"Download Katalog","url":"#"}
   ],
 
   "products":[
@@ -15,7 +21,7 @@
         "/assets/p2.jpg",
         "/assets/p3.jpg"
       ],
-      "buy":"https://wa.me/628xxxx?text=Order Template",
+      "buy":"#",
       "info":"#"
     }
   ]
